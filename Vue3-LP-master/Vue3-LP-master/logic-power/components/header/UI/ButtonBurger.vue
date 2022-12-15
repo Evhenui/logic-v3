@@ -49,9 +49,15 @@ const active = ref(false);
     height: 40px;
 
     @include flex-container(column, center, center);
+    flex: 0 0 auto;
 
     border: 1px solid #8A8A8A;
     border-radius: 6px;
+    
+
+    @include bigMobile {
+      border: none;
+    }
 
     &.active {
       .button-burger__open-image {

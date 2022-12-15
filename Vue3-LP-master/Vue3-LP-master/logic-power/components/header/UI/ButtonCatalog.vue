@@ -55,6 +55,8 @@ import { storeToRefs } from "pinia";
     background-color: #F36C21;
     border-radius: 6px;
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     padding: 8px;
     gap: 8px;
 
@@ -65,6 +67,7 @@ import { storeToRefs } from "pinia";
     &__title {
         @include font(16, 19, 700);
         color: white;
+        white-space: nowrap;
     }
 }
 

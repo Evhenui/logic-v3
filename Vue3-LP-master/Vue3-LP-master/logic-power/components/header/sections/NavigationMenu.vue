@@ -1,6 +1,6 @@
 <template>
   <ul class="menu">
-    <li class="menu__item">
+    <li class="menu__item user">
       <div class="menu__image">
         <svg
           width="18"
@@ -146,6 +146,15 @@ import { storeToRefs } from "pinia";
     @include flex-container(column, center, center);
 
     cursor: pointer;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    &.user,
+    &.comparison {
+      @include bigMobile {
+        display: none;
+      }
+    }
   }
 
   &__image {

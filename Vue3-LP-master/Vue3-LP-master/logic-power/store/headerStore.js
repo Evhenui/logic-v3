@@ -4,8 +4,7 @@ export const useHeaderlStore = defineStore({
       return {
         menuItems: ['Блог', 'О нас', 'Сотрудничество', 'Контакты',],
         inputSerach: {
-          value: '',
-          focusState: false
+          value: ''
         },
         result: {
           categoryMenu: ['Аккумуляторы', 'Стабилизаторы', 'Кабельная продукция', 'Электрооборудование'],
@@ -22,22 +21,15 @@ export const useHeaderlStore = defineStore({
             {itemName: 'Источник бесперебойного питания (ИБП) LP-U600VA-3PS (360Вт)', code: 'Код: 1324', price: '20 954 ₴'},
           ]
         },
-        language:{
-          uk: false,
-          ru: true
-        }
       };
     },
     actions: {
-      some() {
-        console.log(this)
-      }
+
     },
     getters: {
       getMenuItems: (state) => state.menuItems,
       getResult: (state) => state.result,
-      getValueSearch: (state) => state.valueSearch,
-      getLanguage: (state) => state.language,
+      getInputSerach: (state) => state.inputSerach,
     },
   });
   

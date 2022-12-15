@@ -2,14 +2,15 @@
   <div class="language">
     <div 
         class="language__wrapper-uk"
-        :class="{active: uk}"
-        @click="uk = !uk"
+        :class="{active: state === true}"
+        @click="state = true"
     >
       <a href="#" class="language__uk">Укр</a>
     </div>
     <div 
       class="language__wrapper-ru"
-      @click="() => test()"
+      :class="{active: state === false}"
+      @click="state = false"
     >
       <a href="#" class="language__ru">Рус</a>
     </div>
@@ -17,17 +18,8 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
-import { useHeaderlStore } from "~~/store/headerStore";
 
-const header = useHeaderlStore();
-const language = header.getLanguage;
-
-const uk = ref(false);
-
-const test = () => {
-  header.some()
-};
+const state = ref(false);
 
 </script>
 
