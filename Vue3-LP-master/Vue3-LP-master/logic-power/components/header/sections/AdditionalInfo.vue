@@ -69,11 +69,11 @@
 </template>
 
 <script setup>
-import { useAdditionalStore } from "~~/store/additionalStore";
+import { useHeaderlStore } from "~~/store/headerStore";
 import { storeToRefs } from "pinia";
 
-const additional = useAdditionalStore();
-const menuItems = additional.getMenuItems;
+const header = useHeaderlStore();
+const menuItems = header.getMenuItems;
 </script>
 
 <style lang="scss" scoped>

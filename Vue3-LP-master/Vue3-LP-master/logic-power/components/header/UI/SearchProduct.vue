@@ -7,11 +7,76 @@
                     <path d="M18.75 18.9375L14.6719 14.8594" stroke="#5C5C5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <input type="text" class="search__input" placeholder="Поиск товаров">
+            {{valueSearch.value}}
+            <input 
+                type="text" 
+                class="search__input" 
+                placeholder="Поиск товаров"
+                @focus="valueSearch.focusState = true"
+                @blur="valueSearch.focusState = false"
+            >
+            
             <ButtonSearch class="search__button" />
         </form>
-        <div class="search__result">
-
+        <div 
+            class="search__result"
+            v-if="valueSearch.focusState"
+        >
+            <div class="search__category">
+                <h1 class="search__title">Категории</h1>
+                <ul class="search__menu-list">
+                    <li 
+                        class="search__menu-item"
+                        v-for="(item, index) in category"
+                        :key="index"
+                    >
+                        <div class="search__folder">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 11V4.6C2 4.26863 2.26863 4 2.6 4H8.77805C8.92127 4 9.05977 4.05124 9.16852 4.14445L12.3315 6.85555C12.4402 6.94876 12.5787 7 12.722 7H21.4C21.7314 7 22 7.26863 22 7.6V11M2 11V19.4C2 19.7314 2.26863 20 2.6 20H21.4C21.7314 20 22 19.7314 22 19.4V11M2 11H22" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                      <a href="#" class="search__subtitle">{{item}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search__popular-goods">
+                <h1 class="search__title">Полулярные товары</h1>
+                <ul class="search__selected-list">
+                    <li 
+                        class="search__selected-item"
+                        v-for="(item, index) in popularItems"
+                        :key="index"
+                    >
+                        <div class="search__image-item">
+                            <img src="@/assets/img/item-result-search.png" alt="item name">
+                        </div>
+                        <div class="search__selected-info">
+                            <h2 class="search__subtitle">{{item.itemName}}</h2>
+                            <p class="search__code">{{item.code}}</p>
+                            <h3 class="search__price">{{item.price}}</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="search__result-goods">
+                <h1 class="search__title">По Вашему запросу</h1>
+                <ul class="search__selected-list">
+                    <li 
+                        class="search__selected-item"
+                        v-for="(item, index) in resultItems"
+                        :key="index"
+                    >
+                        <div class="search__image-item">
+                            <img src="@/assets/img/item-result-search.png" alt="item name">
+                        </div>
+                        <div class="search__selected-info">
+                            <h2 class="search__subtitle">{{item.itemName}}</h2>
+                            <p class="search__code">{{item.code}}</p>
+                            <h3 class="search__price">{{item.price}}</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -19,12 +84,23 @@
 <script setup>
 import ButtonSearch from "./ButtonSearch.vue";
 import { storeToRefs } from "pinia";
+import { useHeaderlStore } from "~~/store/headerStore";
+
+const header = useHeaderlStore();
+const resultSearch = header.getResult;
+const category = resultSearch.categoryMenu;
+const resultItems = resultSearch.resultItems;
+const popularItems = resultSearch.popularItems;
+const valueSearch = header.inputSerach;
+
 </script>
 
 <style lang="scss" scoped>
 .search {
     max-width: 700px;
     width: 100%;
+
+    position: relative;
 
     &__form {
         position: relative;
@@ -69,15 +145,114 @@ import { storeToRefs } from "pinia";
         }
     }
 
-    &__result {
-    }
-
     &__button {
         height: 100%;
 
         position: absolute;
         right: 0;
     }
+
+    &__result {
+        width: 100%;
+
+        position: absolute;
+
+        top: 51px;
+
+        @include flex-container(row, flex-start);
+
+        background-color: white;
+
+        border-radius: 0px 0px 8px 8px;
+    }
+
+    &__category {
+        max-width: 300px;
+        width: 100%;
+
+        border-right: 1px solid #D1D1D1;
+
+        padding: 16px;
+    }
+
+    &__title {
+        @include font(16, 22, 600);
+        letter-spacing: 0.02em;
+        color: #2B2B2B;
+
+        margin-bottom: 24px;
+    }
+
+    &__menu-list {
+        @include flex-container(column, flex-start);
+
+        gap: 16px;
+    }
+
+    &__menu-item {
+        @include flex-container(row, flex-start, center);
+
+        gap: 8px;
+    }
+
+    &__folder {
+        font-size: 0;
+    }
+
+    &__subtitle {
+        @include font(16, 22, 400);
+        letter-spacing: 0.02em;
+        color: #2B2B2B;
+    }
+
+    &__popular-goods,
+    &__result-goods {
+        padding: 16px 8px 0 8px;
+    }
+
+    &__selected-list {
+    }
+
+    &__selected-item {
+        @include flex-container(row, flex-start);
+
+        border-bottom: 1px solid #D1D1D1;
+
+        gap: 8px;
+        padding-bottom: 8px;
+
+        &:last-child {
+            border: none;
+        }
+    }
+
+    &__image-item {
+        max-width: 60px;
+        width: 100%;
+    }
+
+    &__selected-info {
+        @include flex-container(column, flex-start);
+
+        gap: 4px;
+    }
+
+    &__code {
+        @include font(12, 16, 400);
+        letter-spacing: 0.02em;
+        color: #2B2B2B;
+    }
+
+    &__price {
+        @include font(16, 22, 600);
+        letter-spacing: 0.02em;
+        color: #F36C21;
+    }
+
+    &__result-goods {
+        display: none;
+    }
+
 }
 
 </style>

@@ -5,6 +5,8 @@
       <ButtonCatalog />
       <Logo class="main-info__logo"/>
       <SearchProduct />
+      <ChangeLanguage />
+      <NavigationMenu />
     </div>
   </div>
 </template>
@@ -14,6 +16,8 @@ import ButtonBurger from "../UI/ButtonBurger.vue";
 import ButtonCatalog from "../UI/ButtonCatalog.vue";
 import Logo from "../UI/Logo.vue"
 import SearchProduct from "../UI/SearchProduct.vue";
+import ChangeLanguage from "../UI/ChangeLanguage.vue";
+import NavigationMenu from "./NavigationMenu.vue";
 import { storeToRefs } from "pinia";
 </script>
 
@@ -32,7 +36,7 @@ import { storeToRefs } from "pinia";
     }
 
     &__logo {
-      margin-right: 8px;
+      margin-right: 4px;
     }
 }
 </style>
