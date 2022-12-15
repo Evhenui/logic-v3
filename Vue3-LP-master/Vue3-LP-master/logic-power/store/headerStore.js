@@ -29,6 +29,9 @@ export const useHeaderlStore = defineStore({
       };
     },
     actions: {
+      some() {
+        console.log(this)
+      }
     },
     getters: {
       getMenuItems: (state) => state.menuItems,

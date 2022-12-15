@@ -2,12 +2,15 @@
   <div class="language">
     <div 
         class="language__wrapper-uk"
-        :class="{active: language.uk}"
-        @click="language.uk = !language.uk"
+        :class="{active: uk}"
+        @click="uk = !uk"
     >
       <a href="#" class="language__uk">Укр</a>
     </div>
-    <div class="language__wrapper-ru">
+    <div 
+      class="language__wrapper-ru"
+      @click="() => test()"
+    >
       <a href="#" class="language__ru">Рус</a>
     </div>
   </div>
@@ -19,6 +22,12 @@ import { useHeaderlStore } from "~~/store/headerStore";
 
 const header = useHeaderlStore();
 const language = header.getLanguage;
+
+const uk = ref(false);
+
+const test = () => {
+  header.some()
+};
 
 </script>
 

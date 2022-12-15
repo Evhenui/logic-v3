@@ -74,6 +74,7 @@ import { storeToRefs } from "pinia";
 
 const header = useHeaderlStore();
 const menuItems = header.getMenuItems;
+
 </script>
 
 <style lang="scss" scoped>

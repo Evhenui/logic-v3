@@ -18,7 +18,7 @@ import Logo from "../UI/Logo.vue"
 import SearchProduct from "../UI/SearchProduct.vue";
 import ChangeLanguage from "../UI/ChangeLanguage.vue";
 import NavigationMenu from "./NavigationMenu.vue";
-import { storeToRefs } from "pinia";
+
 </script>
 
 <style lang="scss" scoped>
@@ -30,7 +30,7 @@ import { storeToRefs } from "pinia";
 
       @include flex-container(row, flex-start, center);
 
-      padding: 8px 16px;
+      padding: 4px 16px;
       margin: 0 auto;
       gap: 32px;
     }

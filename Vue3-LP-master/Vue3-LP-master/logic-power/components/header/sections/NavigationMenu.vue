@@ -34,7 +34,7 @@
       </div>
       <span class="menu__title">Кабинет</span>
     </li>
-    <li class="menu__item">
+    <li class="menu__item comparison">
       <div class="menu__image">
         <svg
           width="20"
@@ -72,10 +72,14 @@
             stroke-linejoin="round"
           />
         </svg>
+        <div class="menu__count">
+          <span class="menu__number">32</span>
+        </div>
       </div>
       <span class="menu__title">Сравнение</span>
+  
     </li>
-    <li class="menu__item">
+    <li class="menu__item basket">
       <div class="menu__image">
         <svg
           width="20"
@@ -113,8 +117,12 @@
             </clipPath>
           </defs>
         </svg>
+        <div class="menu__count">
+          <span class="menu__number">32</span>
+        </div>
       </div>
       <span class="menu__title">Корзина</span>
+
     </li>
   </ul>
 </template>
@@ -141,7 +149,29 @@ import { storeToRefs } from "pinia";
   }
 
   &__image {
+    position: relative;
     font-size: 0;
+  }
+
+  &__count {
+    width: 21px;
+    height: 21px;
+
+    position: absolute;
+    right: -70%;
+    top: -30%;
+
+    @include flex-container(column, center, center);
+
+    background-color: #F36C21;
+
+    border-radius: 50%;
+  }
+
+  &__number {
+    @include font(10, 13, 400);
+    letter-spacing: 0.02em;
+    color: white;
   }
 }
 </style>
