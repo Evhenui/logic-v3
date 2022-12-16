@@ -96,6 +96,10 @@
 import AdditionalInfo from "~~/components/header/sections/AdditionalInfo.vue";
 import MainInfo from "~~/components/header/sections/MainInfo.vue";
 import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
+import { useHeaderlStore } from "~~/store/headerStore";
+
+const header = useHeaderlStore();
+const menuItems = header.getModalMenu;
 
 </script>
   
@@ -111,7 +115,6 @@ import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
   background-color: white;
 
   &__wrapper {
-    
   }
 
   &__additional {

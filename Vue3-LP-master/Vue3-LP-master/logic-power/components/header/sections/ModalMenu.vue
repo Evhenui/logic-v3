@@ -2,7 +2,7 @@
     <div 
       class="modal-menu" 
       :class="{active: menuItems.active}"
-      @click.stop="menuItems.active = false"
+      @click.stop="closeModal"
     >
       <div @click.stop class="modal-menu__wrapper">
         <section class="modal-menu__content">
@@ -23,7 +23,7 @@
             </div>
             <button 
               class="modal-menu__close"
-              @click="menuItems.active = false"
+              @click="closeModal"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -340,6 +340,11 @@ const dropdownServices = ref(false);
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
 
+function closeModal() {
+  menuItems.active = false;
+  document.body.style.overflow = "auto";
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -412,7 +417,7 @@ const menuItems = header.getModalMenu;
   &__main {
     background-color: white;
 
-    padding-right: 8px;
+    padding: 16px 8px 16px 16px;
   }
 
   &__main-wrapper {
@@ -421,7 +426,7 @@ const menuItems = header.getModalMenu;
 
     background-color: white;
 
-    padding: 16px;
+    padding-right: 16px;
 
     overflow-y: auto;
 

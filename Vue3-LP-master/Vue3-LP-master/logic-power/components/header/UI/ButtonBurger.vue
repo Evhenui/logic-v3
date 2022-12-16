@@ -1,6 +1,6 @@
 <template>
   <button   
-    @click="menuItems.active = !menuItems.active" 
+    @click="activeModal" 
     class="button-burger"
     :class="{active: menuItems.active}"
   >
@@ -46,6 +46,11 @@ const active = ref(false);
 
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
+
+function activeModal() {
+  menuItems.active = !menuItems.active;
+  document.body.style.overflow = "hidden";
+}
 
 </script>
 
