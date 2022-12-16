@@ -1,8 +1,8 @@
 <template>
   <button   
-    @click="active = !active" 
+    @click="menuItems.active = !menuItems.active" 
     class="button-burger"
-    :class="{active: active}"
+    :class="{active: menuItems.active}"
   >
     <svg
       class="button-burger__close-image"
@@ -40,7 +40,13 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useHeaderlStore } from "~~/store/headerStore";
+
 const active = ref(false);
+
+const header = useHeaderlStore();
+const menuItems = header.getModalMenu;
+
 </script>
 
 <style lang="scss" scoped>

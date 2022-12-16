@@ -96,6 +96,7 @@
 import AdditionalInfo from "~~/components/header/sections/AdditionalInfo.vue";
 import MainInfo from "~~/components/header/sections/MainInfo.vue";
 import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
+
 </script>
   
 <style lang="scss" scoped>
@@ -118,6 +119,16 @@ import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
       display: none;
     }
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 </style>

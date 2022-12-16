@@ -1,7 +1,7 @@
 <template>
   <div class="main-info">
     <div class="main-info__wrapper">
-      <ButtonBurger  @click=""/>
+      <ButtonBurger />
       <ButtonCatalog class="main-info__button-catalog" />
       <Logo class="main-info__logo"/>
       <SearchProduct  />

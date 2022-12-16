@@ -22,6 +22,7 @@ export const useHeaderlStore = defineStore({
           ]
         },
         modalMenu: {
+          active: false,
           aboutCompany: ['Оплата и Доставка', 'История компании', 'Сотрудничесвто'],
           services: ['Инструкции', 'Видео-материалы']
         }
