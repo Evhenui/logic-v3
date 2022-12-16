@@ -18,7 +18,9 @@
               <ButtonLanguage :language="'ua'" />
               <ButtonLanguage :language="'ru'" />
             </div>
-            <button class="modal-menu__close">
+            <button 
+              class="modal-menu__close"
+            >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -132,7 +134,11 @@
 
             <section class="modal-menu__section">
               <section class="modal-menu__item-dropdown">
-                <div class="modal-menu__menu-header">
+                <div 
+                  class="modal-menu__menu-header"
+                  :class="{active : dropdownAboutCompany}"
+                  @click="dropdownAboutCompany = !dropdownAboutCompany"
+                >
                   <ModalMenuItem class="modal-menu__item">
                     <template v-slot:title>
                       <span class="modal-menu__item-title">О компании</span>
@@ -154,7 +160,10 @@
                     </svg>
                   </div>
                 </div>
-                <div class="modal-menu__menu-body">
+                <div 
+                  class="modal-menu__menu-body"
+                  v-if="dropdownAboutCompany"
+                >
                   <ul class="modal-menu__dropdown-list">
                     <li
                       class="modal-menu__dropdown-category"
@@ -181,7 +190,11 @@
               </ModalMenuItem>
               
               <section class="modal-menu__item-dropdown">
-                <div class="modal-menu__menu-header">
+                <div 
+                  class="modal-menu__menu-header"
+                  :class="{active : dropdownServices}"
+                  @click="dropdownServices = !dropdownServices"
+                >
                   <ModalMenuItem class="modal-menu__item">
                     <template v-slot:title>
                       <span class="modal-menu__item-title">Сервис и поддержка</span>
@@ -199,7 +212,10 @@
                     </svg>
                   </div>
                 </div>
-                <div class="modal-menu__menu-body">
+                <div 
+                  class="modal-menu__menu-body"
+                  v-if="dropdownServices"
+                >
                   <ul class="modal-menu__dropdown-list">
                     <li
                       class="modal-menu__dropdown-category"
@@ -268,6 +284,40 @@
               </ModalMenuItem>
             </section>
           </main>
+          <footer class="modal-menu__footer">
+            <p class="modal-menu__social-network-title">Мы в соцсетях:</p>
+            <div class="modal-menu__social-networks">
+              <a href="#" class="modal-menu__social-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16Z" stroke="#F36C21" stroke-width="1.5"/>
+                  <path d="M17.5 6.51L17.51 6.49889" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+
+              <a href="#" class="modal-menu__social-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 12L10.5 14V10L14 12Z" fill="#F36C21" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 12.708V11.2929C2 8.39754 2 6.94988 2.90549 6.01841C3.81099 5.08694 5.23656 5.04662 8.08769 4.96598C9.43873 4.92777 10.8188 4.90039 12 4.90039C13.1812 4.90039 14.5613 4.92777 15.9123 4.96598C18.7634 5.04662 20.189 5.08694 21.0945 6.01841C22 6.94988 22 8.39754 22 11.2929V12.708C22 15.6033 22 17.0509 21.0945 17.9824C20.189 18.9139 18.7635 18.9542 15.9124 19.0349C14.5613 19.0731 13.1812 19.1005 12 19.1005C10.8188 19.1005 9.43867 19.0731 8.0876 19.0349C5.23651 18.9542 3.81097 18.9139 2.90548 17.9824C2 17.0509 2 15.6033 2 12.708Z" stroke="#F36C21" stroke-width="1.5"/>
+                </svg>
+              </a>
+
+              <a href="#" class="modal-menu__social-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11 21C11 18 11 15 11 12C11 9.8125 11.5 8 15 8" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 13H11H15" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+
+              <a href="#" class="modal-menu__social-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 8L5 12.5L9.5 14M18 8L9.5 14M18 8L14 18.5L9.5 14" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </footer>
         </section>
       </div>
     </div>
@@ -279,8 +329,16 @@ import ButtonLanguage from '../UI/ButtonLanguage.vue';
 import ModalMenuItem from '../UI/ModalMenuItem.vue';
 import { useHeaderlStore } from "~~/store/headerStore";
 
+const dropdownAboutCompany = ref(false);
+const dropdownServices = ref(false);
+const activeModal = ref(false);
+
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
+
+function closeModal () {
+  console.log('hello')
+}
 
 </script>
 
@@ -290,12 +348,37 @@ const menuItems = header.getModalMenu;
 
   position: fixed;
   @include setAbs(0,0,0,0); 
-  z-index: 510;
+  z-index: -1;
 
   background-color: rgba(217, 217, 217, 0.4);
   backdrop-filter: blur(3px);
 
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity .3s ease-in-out;
+
+  &.active {
+    z-index: 510;
+    opacity: 1;
+    visibility: visible;
+
+    transition: all .3s ease-in-out;
+  }
+
   &__wrapper {
+    max-height: 100vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  &__content {
+    height: 100vh;
+
+    @include flex-container(column, flex-start);
   }
 
   &__header {
@@ -319,6 +402,8 @@ const menuItems = header.getModalMenu;
   }
 
   &__main {
+    flex: 1 1 auto;
+
     background-color: white;
 
     padding: 16px;
@@ -339,6 +424,10 @@ const menuItems = header.getModalMenu;
     }
   }
 
+  &__item {
+    cursor: pointer;
+  }
+
   &__item-title {
     max-width: 225px;
     width: 100%;
@@ -350,26 +439,63 @@ const menuItems = header.getModalMenu;
 
   &__menu-header {
     @include flex-container(row, space-between, center);
+
+    cursor: pointer;
+
+    &.active {
+      .modal-menu__item-arrow {
+        transform: rotate(90deg);
+      }
+    }
   }
 
   &__item-arrow {
     font-size: 0;
-  }
 
-  &__dropdown-category {
-    @include font(16, 22, 400);
-    color: #8A8A8A;
-    letter-spacing: 0.02em;
-  }
-
-  &__menu-body {
-    padding: 0 0 0 56px;
+    transition: transform .1s ease-in-out;
   }
 
   &__dropdown-list {
     @include flex-container(column, center, left);
 
     gap: 24px;
+  }
+
+  &__dropdown-category {
+    @include font(16, 22, 400);
+    color: #8A8A8A;
+    letter-spacing: 0.02em;
+
+    cursor: pointer;
+  }
+
+  &__menu-body {
+    padding: 16px 0 8px 56px;
+  }
+
+  &__footer {
+    @include flex-container(column, center, left);
+
+    background-color: white;
+
+    padding: 16px;
+    gap: 16px;
+  }
+
+  &__social-network-title {
+    @include font(16, 22, 400);
+    color: #2B2B2B;
+    letter-spacing: 0.02em;
+  }
+
+  &__social-networks {
+    @include flex-container(row, flex-start, center);
+
+    gap: 32px;
+  }
+
+  &__social-item {
+    font-size: 0;
   }
 
 }
