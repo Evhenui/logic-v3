@@ -376,8 +376,6 @@ function closeModal() {
   }
 
   &__wrapper {
-    max-height: 100vh;
-
     overflow-y: auto;
     transform: translateX(-100%);
 
@@ -415,20 +413,23 @@ function closeModal() {
   }
 
   &__main {
+    flex: 1 1 auto;
+    
     background-color: white;
 
     padding: 16px 8px 16px 16px;
+
+    overflow: auto;
   }
 
   &__main-wrapper {
-    height: 100vh;
-    flex: 1 1 auto;
-
+    height: 100%;
+    
     background-color: white;
 
     padding-right: 16px;
 
-    overflow-y: auto;
+    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 2px;

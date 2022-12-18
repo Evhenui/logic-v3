@@ -96,6 +96,7 @@
 import AdditionalInfo from "~~/components/header/sections/AdditionalInfo.vue";
 import MainInfo from "~~/components/header/sections/MainInfo.vue";
 import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
+import ModalCatalog from "~~/components/header/sections/ModalCatalog.vue";
 import { useHeaderlStore } from "~~/store/headerStore";
 
 const header = useHeaderlStore();

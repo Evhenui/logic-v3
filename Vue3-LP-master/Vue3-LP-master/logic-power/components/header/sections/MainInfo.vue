@@ -2,7 +2,10 @@
   <div class="main-info">
     <div class="main-info__wrapper">
       <ButtonBurger />
-      <ButtonCatalog class="main-info__button-catalog" />
+      <div class="main-info__catalog-menu">
+        <ButtonCatalog class="main-info__button-catalog" />
+        <ModalCatalog class="main-info__catalog" />
+      </div>
       <Logo class="main-info__logo"/>
       <SearchProduct  />
       <ChangeLanguage class="main-info__language" />
@@ -18,6 +21,7 @@ import Logo from "../UI/Logo.vue"
 import SearchProduct from "../UI/SearchProduct.vue";
 import ChangeLanguage from "../UI/ChangeLanguage.vue";
 import NavigationMenu from "./NavigationMenu.vue";
+import ModalCatalog from "./ModalCatalog.vue";
 
 </script>
 
@@ -30,6 +34,8 @@ import NavigationMenu from "./NavigationMenu.vue";
 
       @include flex-container(row, flex-start, center);
 
+      position: relative;
+
       padding: 4px 16px;
       margin: 0 auto;
       gap: 32px;
@@ -40,6 +46,14 @@ import NavigationMenu from "./NavigationMenu.vue";
         gap: 16px;
         padding: 8px 16px;
       }
+    }
+
+    &__catalog {
+      position: absolute;
+      top: 100%;
+      left: 0;
+
+      padding: 0 16px;
     }
 
     &__button-catalog,

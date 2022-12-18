@@ -1,5 +1,8 @@
 <template>
-  <button class="button-catalog">
+  <button 
+    class="button-catalog"
+    @click="menuItems.active = !menuItems.active"
+  >
     <div class="button-catalog__image">
       <svg
         width="21"
@@ -43,7 +46,10 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
+  import { useHeaderlStore } from "~~/store/headerStore";
+
+  const header = useHeaderlStore();
+  const menuItems = header.getModalCatalog;
 </script>
 
 <style lang="scss" scoped>
