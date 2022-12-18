@@ -1,7 +1,7 @@
 <template>
   <button 
     class="button-catalog"
-    @click="menuItems.active = !menuItems.active"
+    @click="activeCatalog(true)"
   >
     <div class="button-catalog__image">
       <svg
@@ -49,7 +49,7 @@
   import { useHeaderlStore } from "~~/store/headerStore";
 
   const header = useHeaderlStore();
-  const menuItems = header.getModalCatalog;
+  const activeCatalog = header.activeCatalog;
 </script>
 
 <style lang="scss" scoped>

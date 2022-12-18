@@ -1,7 +1,7 @@
 <template>
     <div 
       class="modal-menu" 
-      :class="{active: menuItems.active}"
+      :class="[{active: menuItems.active}, {catalog: mobileCatalog}]"
       @click.stop="closeModal"
     >
       <div @click.stop class="modal-menu__wrapper">
@@ -9,12 +9,12 @@
           <header class="modal-menu__header">
             <a href="#" class="modal-menu__logo">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.89062 30.1491L4.76522 16.748H7.24306L5.70576 27.7426H9.80522L9.46792 30.1491H2.89062Z" fill="#F36C21"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M35.1875 30.1491L37.0621 16.748H40.8113C42.3421 16.761 43.4707 17.1372 44.2037 17.8832C44.9302 18.6291 45.2026 19.6475 45.0275 20.9383C44.8589 22.1578 44.3075 23.1567 43.3929 23.9286C42.4718 24.707 41.2264 25.0897 39.6437 25.0897H38.3724L37.6653 30.1556H35.1875V30.1491ZM39.2026 19.1545L38.7097 22.6832H40.1821C40.8632 22.6832 41.4016 22.534 41.8037 22.2486C42.2059 21.9567 42.4589 21.5156 42.5497 20.9253C42.634 20.3416 42.5107 19.907 42.1799 19.6086C41.8491 19.3102 41.3497 19.161 40.6686 19.161H39.2026V19.1545Z" fill="#F36C21"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7237 19.5499C21.3399 17.2407 23.8178 8.00391 23.8178 8.00391H20.8859L16.475 24.4407C16.2545 25.2515 16.741 25.9066 17.5453 25.9066H23.954L24.888 22.9747H19.7961L20.7237 19.5499Z" fill="#F36C21"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.1882 19.252C28.999 19.252 29.479 19.9071 29.265 20.7179L27.1309 28.1449C26.9169 28.9557 26.0866 29.6109 25.2758 29.6109H21.4293C20.9428 31.4336 20.0088 34.8844 19.5158 36.7395H20.3006L17.0574 39.9957L15.6758 36.7395H16.5774L18.8931 28.1514C19.1071 27.3406 19.9374 26.6855 20.7482 26.6855H24.5947C24.8866 25.5828 25.6455 23.2865 25.9374 22.1903H20.9363L21.7017 19.2584H28.1882V19.252Z" fill="#F36C21"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1084 31.4529C14.65 29.7535 13.0414 26.9124 13.0414 23.7016C13.0414 18.6097 17.0825 14.4583 22.1354 14.2832L22.8425 11.6432C22.7322 11.6432 22.6219 11.6367 22.5052 11.6367C15.8695 11.6367 10.4922 17.014 10.4922 23.6497C10.4922 28.0605 12.8727 31.92 16.4208 34.0021L17.1084 31.4529Z" fill="#F36C21"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.7338 11.6953L23.0397 14.2899C27.9824 14.5818 31.8938 18.6813 31.8938 23.6953C31.8938 28.8975 27.6775 33.1202 22.4689 33.1202C20.8019 33.1202 19.2386 32.6856 17.883 31.9267L17.2148 34.424C18.8105 35.2088 20.6138 35.6564 22.5143 35.6564C29.15 35.6564 34.5273 30.2791 34.5273 23.6434C34.5208 17.4229 29.7921 12.3115 23.7338 11.6953Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M2.89062 30.1491L4.76522 16.748H7.24306L5.70576 27.7426H9.80522L9.46792 30.1491H2.89062Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M35.1875 30.1491L37.0621 16.748H40.8113C42.3421 16.761 43.4707 17.1372 44.2037 17.8832C44.9302 18.6291 45.2026 19.6475 45.0275 20.9383C44.8589 22.1578 44.3075 23.1567 43.3929 23.9286C42.4718 24.707 41.2264 25.0897 39.6437 25.0897H38.3724L37.6653 30.1556H35.1875V30.1491ZM39.2026 19.1545L38.7097 22.6832H40.1821C40.8632 22.6832 41.4016 22.534 41.8037 22.2486C42.2059 21.9567 42.4589 21.5156 42.5497 20.9253C42.634 20.3416 42.5107 19.907 42.1799 19.6086C41.8491 19.3102 41.3497 19.161 40.6686 19.161H39.2026V19.1545Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M20.7237 19.5499C21.3399 17.2407 23.8178 8.00391 23.8178 8.00391H20.8859L16.475 24.4407C16.2545 25.2515 16.741 25.9066 17.5453 25.9066H23.954L24.888 22.9747H19.7961L20.7237 19.5499Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M28.1882 19.252C28.999 19.252 29.479 19.9071 29.265 20.7179L27.1309 28.1449C26.9169 28.9557 26.0866 29.6109 25.2758 29.6109H21.4293C20.9428 31.4336 20.0088 34.8844 19.5158 36.7395H20.3006L17.0574 39.9957L15.6758 36.7395H16.5774L18.8931 28.1514C19.1071 27.3406 19.9374 26.6855 20.7482 26.6855H24.5947C24.8866 25.5828 25.6455 23.2865 25.9374 22.1903H20.9363L21.7017 19.2584H28.1882V19.252Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M17.1084 31.4529C14.65 29.7535 13.0414 26.9124 13.0414 23.7016C13.0414 18.6097 17.0825 14.4583 22.1354 14.2832L22.8425 11.6432C22.7322 11.6432 22.6219 11.6367 22.5052 11.6367C15.8695 11.6367 10.4922 17.014 10.4922 23.6497C10.4922 28.0605 12.8727 31.92 16.4208 34.0021L17.1084 31.4529Z" fill="#F36C21"/>
+                <path class="modal-menu__logo-image" fill-rule="evenodd" clip-rule="evenodd" d="M23.7338 11.6953L23.0397 14.2899C27.9824 14.5818 31.8938 18.6813 31.8938 23.6953C31.8938 28.8975 27.6775 33.1202 22.4689 33.1202C20.8019 33.1202 19.2386 32.6856 17.883 31.9267L17.2148 34.424C18.8105 35.2088 20.6138 35.6564 22.5143 35.6564C29.15 35.6564 34.5273 30.2791 34.5273 23.6434C34.5208 17.4229 29.7921 12.3115 23.7338 11.6953Z" fill="#F36C21"/>
               </svg>
             </a>
             <div class="modal-menu__language">
@@ -41,26 +41,29 @@
           <main class="modal-menu__main">
             <div class="modal-menu__main-wrapper">
               <section class="modal-menu__section">
-              <ModalMenuItem class="modal-menu__item catalog">
-                <template v-slot:title>
-                  <span class="modal-menu__item-title">Каталог</span>
-                </template>
-                <template v-slot:image>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_4486_36092)">
-                    <path d="M8.86262 2.46875H0.800781V10.5306H8.86262V2.46875Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21.5305 15.1367H13.4688V23.1986H21.5305V15.1367Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M8.86262 15.1367H0.800781V23.1986H8.86262V15.1367Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M17.5013 0.800781L11.8008 6.50134L17.5013 12.2019L23.2019 6.50134L17.5013 0.800781Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                    <defs>
-                    <clipPath id="clip0_4486_36092">
-                    <rect width="24" height="24" fill="white"/>
-                    </clipPath>
-                    </defs>
-                  </svg>
-                </template>
-              </ModalMenuItem>
+                <ModalMenuItem 
+                  class="modal-menu__item catalog"
+                  @click="openCatalog"
+                >
+                  <template v-slot:title>
+                    <span class="modal-menu__item-title">Каталог</span>
+                  </template>
+                  <template v-slot:image>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_4486_36092)">
+                      <path d="M8.86262 2.46875H0.800781V10.5306H8.86262V2.46875Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M21.5305 15.1367H13.4688V23.1986H21.5305V15.1367Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M8.86262 15.1367H0.800781V23.1986H8.86262V15.1367Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M17.5013 0.800781L11.8008 6.50134L17.5013 12.2019L23.2019 6.50134L17.5013 0.800781Z" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0_4486_36092">
+                      <rect width="24" height="24" fill="white"/>
+                      </clipPath>
+                      </defs>
+                    </svg>
+                  </template>
+                </ModalMenuItem>
               </section>
 
               <section class="modal-menu__section">
@@ -298,6 +301,29 @@
               </section>
             </div>
           </main>
+          <main class="modal-menu__catalog">
+            <div class="modal-menu__catalog-wrapper">
+              <div class="modal-menu__back">
+                <CatalogItem 
+                  :back="true"
+                  @click="mobileCatalog = false"
+                />
+              </div>
+              <section class="modal-menu__catalog-menu">
+                <div 
+                  class="modal-menu__catalog-item"
+                  v-for="(item, index) in catalogValues.menu"
+                  :key="index"
+                >
+                  <CatalogItem 
+                    :title="item.title"
+                    :img="item.image"
+                    :arrow="true"
+                  />
+                </div>
+              </section>
+            </div>
+          </main>
           <footer class="modal-menu__footer">
             <p class="modal-menu__social-network-title">Мы в соцсетях:</p>
             <div class="modal-menu__social-networks">
@@ -340,22 +366,45 @@
 <script setup>
 import ButtonLanguage from '../UI/ButtonLanguage.vue';
 import ModalMenuItem from '../UI/ModalMenuItem.vue';
+import CatalogItem from '../UI/CatalogItem.vue'
 import { useHeaderlStore } from "~~/store/headerStore";
 
 const dropdownAboutCompany = ref(false);
 const dropdownServices = ref(false);
-const selectLanguage = ref(false);
+const mobileCatalog = ref(false);
 
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
-
 const lang = header.getLanguage;
+const catalogValues = header.getModalCatalog;
+
 const changeLang = header.changeLang;
+const activeMenu = header.activeModal;
+const activeCatalog = header.activeCatalog;
 
 function closeModal() {
-  menuItems.active = false;
+  header.activeModal(false);
   document.body.style.overflow = "auto";
 }
+
+function openCatalog() {
+  if(window.innerWidth > 1024) {
+    activeMenu(false);
+    activeCatalog(true);
+  } else {
+    mobileCatalog.value = true;
+  }
+}
+
+function defaulModal() {
+  if(window.innerWidth > 1024) {
+    mobileCatalog.value = false;
+  }
+}
+
+onMounted(()=>{
+  window.addEventListener('resize', defaulModal);
+})
 
 </script>
 
@@ -375,6 +424,20 @@ function closeModal() {
   opacity: 0;
 
   transition: all .3s ease-in-out;
+
+  &.catalog {
+    .modal-menu__main {
+      display: none;
+    }
+
+    .modal-menu__catalog {
+      display: block;
+    }
+
+    .modal-menu__footer {
+      display: none;
+    }
+  }
 
   &.active {
     visibility: visible;
@@ -396,6 +459,10 @@ function closeModal() {
     &::-webkit-scrollbar {
       width: 0px;
     }
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   &__content {
@@ -411,6 +478,20 @@ function closeModal() {
 
     gap: 45px;
     padding: 4px 16px;
+
+    @include mobile {
+      justify-content: space-between;
+    }
+  }
+
+  &__logo {
+    font-size: 0;
+  }
+
+  &__logo-image {
+    @include bigMobile {
+      fill: white;
+    }
   }
 
   &__language {
@@ -524,6 +605,27 @@ function closeModal() {
 
   &__menu-body {
     padding: 16px 0 8px 56px;
+  }
+
+  &__catalog {
+    display: none;
+
+    background-color: white;
+  }
+
+  &__catalog-wrapper {
+    padding: 16px 0;
+  }
+
+  &__catalog-menu {
+    @include flex-container(column, flex-start);
+
+    padding-top: 24px;
+    gap: 8px;
+  }
+
+  &__back {
+    border-bottom: 1px solid #D1D1D1;
   }
 
   &__footer {

@@ -101,6 +101,7 @@ import { useHeaderlStore } from "~~/store/headerStore";
 
 const header = useHeaderlStore();
 const menuItems = header.getModalCatalog;
+const activeCatalog = header.activeCatalog;
 
 const currentIndex = ref(null);
 const currentIndexSubmenu = ref(null);
@@ -112,6 +113,17 @@ function selectIndex(i) {
 function selectIndexSubmenu(i) {
   currentIndexSubmenu.value = i;
 }
+
+function closeCatalog() {
+  if(window.innerWidth < 1024) {
+    activeCatalog(false)
+  }
+}
+
+onMounted(()=>{
+  window.addEventListener('resize', closeCatalog);
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -122,6 +134,10 @@ function selectIndexSubmenu(i) {
 
   &.active {
     display: flex;
+
+    @include bigMobile {
+      display: none;
+    }
   }
 
   &__wrapper {

@@ -104,6 +104,12 @@ export const useHeaderlStore = defineStore({
       changeLang(element) {
         this.language.active = element.classList.contains('ua') ? true: false;
       },
+      activeModal(state) {
+        this.modalMenu.active = state;
+      },
+      activeCatalog(state) {
+        this.modalCatalog.active = state;
+      }
     },
     getters: {
       getLanguage: (state) => state.language,

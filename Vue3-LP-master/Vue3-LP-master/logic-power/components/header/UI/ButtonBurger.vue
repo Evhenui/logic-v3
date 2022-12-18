@@ -47,8 +47,13 @@ const active = ref(false);
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
 
+const activeCatalog = header.activeCatalog;
+const activeMenu = header.activeModal;
+
+
 function activeModal() {
-  menuItems.active = !menuItems.active;
+  activeMenu(true);
+  activeCatalog(false);
   document.body.style.overflow = "hidden";
 }
 
@@ -65,7 +70,6 @@ function activeModal() {
     border: 1px solid #8A8A8A;
     border-radius: 6px;
     
-
     @include bigMobile {
       border: none;
     }
