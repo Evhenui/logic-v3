@@ -2,6 +2,9 @@ export const useHeaderlStore = defineStore({
     id: 'headerlStore',
     state: () => {
       return {
+        language: {
+          active: false
+        },
         menuItems: ['Блог', 'О нас', 'Сотрудничество', 'Контакты',],
         inputSerach: {
           value: ''
@@ -98,9 +101,12 @@ export const useHeaderlStore = defineStore({
       };
     },
     actions: {
-
+      changeLang(element) {
+        this.language.active = element.classList.contains('ua') ? true: false;
+      },
     },
     getters: {
+      getLanguage: (state) => state.language,
       getMenuItems: (state) => state.menuItems,
       getResult: (state) => state.result,
       getInputSerach: (state) => state.inputSerach,

@@ -18,8 +18,16 @@
               </svg>
             </a>
             <div class="modal-menu__language">
-              <ButtonLanguage :language="'ua'" />
-              <ButtonLanguage :language="'ru'" />
+              <ButtonLanguage 
+                :language="'ua'" 
+                :class="{ active: lang.active === true }"
+                @click="changeLang($event.currentTarget)"
+              />
+              <ButtonLanguage 
+                :language="'ru'" 
+                :class="{ active: lang.active === false }"
+                @click="changeLang($event.currentTarget)"
+              />
             </div>
             <button 
               class="modal-menu__close"
@@ -336,9 +344,13 @@ import { useHeaderlStore } from "~~/store/headerStore";
 
 const dropdownAboutCompany = ref(false);
 const dropdownServices = ref(false);
+const selectLanguage = ref(false);
 
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
+
+const lang = header.getLanguage;
+const changeLang = header.changeLang;
 
 function closeModal() {
   menuItems.active = false;
@@ -424,7 +436,7 @@ function closeModal() {
 
   &__main-wrapper {
     height: 100%;
-    
+
     background-color: white;
 
     padding-right: 16px;
@@ -464,6 +476,8 @@ function closeModal() {
   }
 
   &__item {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    
     cursor: pointer;
   }
 

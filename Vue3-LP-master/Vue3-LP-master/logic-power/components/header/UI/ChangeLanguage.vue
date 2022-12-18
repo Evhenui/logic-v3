@@ -1,16 +1,16 @@
 <template>
   <div class="language">
     <div
-      class="language__wrapper-uk"
-      :class="{ active: state === true }"
-      @click="state = true"
+      class="language__wrapper-ua ua"
+      :class="{ active: lang.active === true }"
+      @click="changeLang($event.currentTarget)"
     >
-      <a href="#" class="language__uk">Укр</a>
+      <a href="#" class="language__ua">Укр</a>
     </div>
     <div
-      class="language__wrapper-ru"
-      :class="{ active: state === false }"
-      @click="state = false"
+      class="language__wrapper-ru ru"
+      :class="{ active: lang.active === false }"
+      @click="changeLang($event.currentTarget)"
     >
       <a href="#" class="language__ru">Рус</a>
     </div>
@@ -18,19 +18,24 @@
 </template>
 
 <script setup>
-const state = ref(false);
+import { useHeaderlStore } from "~~/store/headerStore";
+
+const header = useHeaderlStore();
+const lang = header.getLanguage;
+const changeLang = header.changeLang;
+
 </script>
 
 <style lang="scss" scoped>
 .language {
   @include flex-container(row, flex-start, center);
 
-  &__wrapper-uk {
+  &__wrapper-ua {
     border-right: 1px solid white;
 
     padding: 4px 8px 4px 0;
 
-    &.active .language__uk {
+    &.active .language__ua {
       color: #f36c21;
     }
   }
@@ -43,7 +48,7 @@ const state = ref(false);
     }
   }
 
-  &__uk,
+  &__ua,
   &__ru {
     @include font(12, 14, 400);
     color: white;
