@@ -79,6 +79,8 @@ defineProps({
 
     @include flex-container(row, space-between);
 
+    gap: 136px;
+
     @include bigMobile {
       @include flex-container(column-reverse, center, center);
 

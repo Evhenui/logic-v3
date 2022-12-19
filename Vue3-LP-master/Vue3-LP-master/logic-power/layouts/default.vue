@@ -11,7 +11,10 @@
       <NuxtLink to="/warranty">Гарантия</NuxtLink>
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
-      <NuxtLink to="/FlatServices">FlatServices</NuxtLink>
+<!--       <NuxtLink to="/FlatServices">FlatServices</NuxtLink>
+      <NuxtLink to="/HomeServices">HomeServices</NuxtLink>
+      <NuxtLink to="/OfficeServices">OfficeServices</NuxtLink> -->
+      <NuxtLink to="/ScoreServices">ScoreServices</NuxtLink>
     </header>
 
     <div>

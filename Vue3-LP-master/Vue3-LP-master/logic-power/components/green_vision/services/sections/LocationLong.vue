@@ -18,6 +18,12 @@
   
   <style lang="scss" scoped>
 .location {
+
+  &.long {
+    .location__cards {
+      max-width: 100%;
+    }
+  }
   &__title {
     @include font(25, 35, 700);
     color: #1f1f1f;

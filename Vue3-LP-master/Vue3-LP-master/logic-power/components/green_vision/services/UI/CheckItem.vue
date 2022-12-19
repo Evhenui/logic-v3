@@ -17,7 +17,7 @@
 
 <style lang="scss" scoped>
 .item {
-  @include flex-container(row, flex-start, start);
+  @include flex-container(row, flex-start, flex-start);
 
   gap: 16px;
 

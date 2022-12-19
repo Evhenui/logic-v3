@@ -38,7 +38,7 @@ defineProps({
   &__amount {
     width: 100%;
 
-    @include flex-container(row, end);
+    @include flex-container(row, flex-end);
 
     margin-bottom: 32px;
 

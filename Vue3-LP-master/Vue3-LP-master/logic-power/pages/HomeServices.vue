@@ -11,32 +11,22 @@
         </p>
       </DescriptionSection>
 
-      <Capabilities class="home-services__capabilities">
-        <template v-slot:title>Система безопасности позволяет:</template>
+      <Capabilities 
+        class="home-services__capabilities"
+        :title="'Система безопасности позволяет:'"
+      >
         <template v-slot:card>
-          <CardCapabilities class="home-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="home-services__image-capabilities"
-                :icon="icons['home-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Просматривать периметр придомовой территории</template
-            >
+
+          <CardCapabilities 
+            class="home-services__capabilities-card"
+            v-for="(item, index) in capabilities" 
+            :key="index"
+            :column="false" 
+            :img="item.img"
+            :title="item.title"
+          >
           </CardCapabilities>
 
-          <CardCapabilities class="home-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="home-services__image-capabilities"
-                :icon="icons['lock-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Обезопасить от нежелательных гостей</template
-            >
-          </CardCapabilities>
         </template>
       </Capabilities>
 
@@ -50,59 +40,23 @@
         </p>
       </DescriptionSection>
 
-      <BasicSet class="home-services__set">
-        <template v-slot:title
-          >Пример базового комплекта оборудования для системы видеонаблюдения в
-          частном доме</template
-        >
+      <BasicSet 
+        class="home-services__set"
+        :title="'Пример базового комплекта оборудования для системы видеонаблюдения в квартире'"
+      >
         <template v-slot:cards>
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:amount>х8</template>
-            <template v-slot:image>
-              <img src="@/assets/img/camera-set.png" alt="camera" />
-            </template>
-            <template v-slot:name>Наружная IP камера</template>
-          </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/switch-set.png" alt="switch" />
-            </template>
-            <template v-slot:name>Коммуникатор сетевой POE</template>
-          </CardBasicSet>
+          <CardBasicSet 
+            class="home-services__set-card"
+            v-for="(item,index) in basicSet"
+            :key="index"
+            :number="item.number"
+            :img="item.img"
+            :description="item.description"
+          />
 
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/dvr-set.png" alt="dvr" />
-            </template>
-            <template v-slot:name>Видеорегистратор</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/hdmi-set.png" alt="hdmi" />
-            </template>
-            <template v-slot:name>Кабель HDMI 1.5 м</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:amount>х2</template>
-            <template v-slot:image>
-              <img src="@/assets/img/patch-cord-set.png" alt="patch cord" />
-            </template>
-            <template v-slot:name>Патч-корд</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="home-services__set-card">
-            <template v-slot:image>
-              <img src="@/assets/img/materials-set.png" alt="materials" />
-            </template>
-            <template v-slot:name>Материалы для подключения</template>
-          </CardBasicSet>
         </template>
+
         <template v-slot:description>
           <p class="home-services__description-text slim">
             Базовый перечень оборудования решает основные проблемы видеоконтроля
@@ -114,126 +68,116 @@
         </template>
       </BasicSet>
 
-      <Location class="home-services__location">
+      <Location 
+        class="home-services__location"
+        :row="true"
+        :subtitle="location.subtitlte"
+      >
+        <template v-slot:cards>
+
+          <CardLocation 
+            class="home-services__location-card"
+            v-for="(item, index) in location.values"
+            :key="index"
+            :img="item.img"
+            :title="item.title"
+          >
+            <template v-slot:item>
+              <CheckItem 
+                class="home-services__price-item"
+                v-for="(checkItem, i) in item.description"
+                :key="i"
+              >
+              {{ checkItem }}
+              </CheckItem
+              >
+            </template>
+          </CardLocation>
+
+        </template>
         <template v-slot:subtitle>
           Технические специалисты и монтажники оборудования GreenVision составят
           схему расположения камер исходя из конкретных целей и задач, которые
           должно решить видеонаблюдение. Мы поставляем качественное оборудование
           различных ценовых категорий (эконом, стандарт, премиум).
         </template>
-        <template v-slot:cards>
-          <CardLocation class="home-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="home-services__image-location"
-                :icon="icons['home-teritory-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Придомовая территория</template>
-          </CardLocation>
-
-          <CardLocation class="home-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="home-services__image-location"
-                :icon="icons['garage-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Гараж</template>
-          </CardLocation>
-
-          <CardLocation class="home-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="home-services__image-location"
-                :icon="icons['road-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Обзор на улицу</template>
-          </CardLocation>
-        </template>
       </Location>
 
-      <ServicePrice class="home-services__service-price">
-        <template v-slot:title
-          >Что входит в услугу установки типового комплекта видеонаблюдения для
-          дома?</template
-        >
-        <template v-slot:price>27 000 грн</template>
+      <ServicePrice 
+        class="home-services__service-price"
+        :title="prices.title"
+        :price="prices.price"
+        :img="prices.img"
+      >
         <template v-slot:item>
-          <CheckItem class="home-services__price-item"
-            >Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
-            внутренней установки с инфракрасной подсветкой до 20 метров
+          <CheckItem 
+            class="home-services__price-item"
+            v-for="(item, index) in prices.description"
+            :key="index"
+          >
+          {{ item }}
           </CheckItem>
-          <CheckItem class="home-services__price-item"
-            >Видеорегистратор без накопителя</CheckItem
-          >
-          <CheckItem class="home-services__price-item"
-            >Установка цветного видеодомофона и электромеханического
-            замка</CheckItem
-          >
-        </template>
-        <template v-slot:image>
-          <img src="@/assets/img/home-card.png" alt="home" />
         </template>
       </ServicePrice>
 
-      <Offers class="home-services__offers">
-        <template v-slot:title>Работы по установке:</template>
+      <Offers 
+        class="home-services__offers"
+        :title="offers.main.title"
+      >
         <template v-slot:item>
           <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item"
-              >Установка 8 камер на высоте не более 3 метров (с коробками)
-            </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Прокладка кабеля открытым способом не более 18 метров до камеры
-              (крепление стяжки; клипсы;под армрстронгом, без сверления
-              отверстий для фиксации кабельной трассы) на высоте до 3 метров
-            </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Сверление не более 4 отверстий до 20 сантиметров для прокладки в
-              них кабеля по необходимости</CheckItem
+            <CheckItem 
+              class="home-services__offer-item"
+              v-for="(item, index) in offers.main.descritions.sectionLeft"
+              :key="index"
             >
+            {{ item }}
+          </CheckItem>
           </div>
           <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item"
-              >Подключение видеорегистратора и камер к сети (3 свободные
-              розетки, или удлинитель заказчика)</CheckItem
+            <CheckItem 
+              class="home-services__offer-item"
+              v-for="(item, index) in offers.main.descritions.sectionRight"
+              :key="index"
             >
-            <CheckItem class="home-services__offer-item"
-              >Подключение видеорегистратора к телевизору заказчика на
-              расстоянии 1.5 метра
+            {{ item }}
             </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Установка СКУД</CheckItem
-            >
           </div>
         </template>
       </Offers>
 
-      <Offers class="home-services__offers">
-        <template v-slot:title
-          >Подключение и настройка удаленного доступа:</template
-        >
+      <Offers 
+        class="home-services__offers"
+        :title="offers.additionally.title"
+      >
         <template v-slot:item>
-          <CheckItem class="home-services__offer-item"
-            >Настройка удаленного просмотра на 2 устройствах через протокол Р2Р
-            все изменения и дополнительные работы и оборудование оговаривается и
-            оплачивается отдельно!</CheckItem
-          >
-          <CheckItem class="home-services__offer-item"
-            >Подключение видеорегистратора к роутеру заказчика в свободный порт,
-            длинна кабеля не более 5 метров.
+          <div class="home-services__offer-section">
+            <CheckItem 
+              class="home-services__offer-item"
+              v-for="(item, index) in offers.additionally.descritions.sectionLeft"
+              :key="index"
+            >
+            {{ item }}
           </CheckItem>
+          </div>
+          <div class="home-services__offer-section">
+            <CheckItem 
+              class="home-services__offer-item"
+              v-for="(item, index) in offers.additionally.descritions.sectionRight"
+              :key="index"
+            >
+            {{ item }}
+            </CheckItem>
+          </div>
         </template>
       </Offers>
 
       <Promt class="home-services__promt" />
 
-      <SchemeLocation class="home-services__scheme">
-        <template v-slot:scheme>
-          <img src="@/assets/img/scheme-home.png" alt="scheme home" />
-        </template>
+      <SchemeLocation 
+        class="home-services__scheme"
+        :img="'home'"
+      >
       </SchemeLocation>
 
       <ContactUs class="home-services__contacts" />
@@ -241,46 +185,87 @@
   </section>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "~/tools/version-types";
-import SvgIcon from "~/_shared/components/svg/SvgIcon.vue";
-import DescriptionSection from "./sections/DescriptionSection.vue";
-import Capabilities from "./sections/Capabilities.vue";
-import CardCapabilities from "./UI/CardCapabilities.vue";
-import InstallerBunner from "./sections/InstallerBunner.vue";
-import BasicSet from "./sections/BasicSet.vue";
-import CardBasicSet from "./UI/CardBasicSet.vue";
-import Location from "./sections/Location.vue";
-import CardLocation from "./UI/CardLocation.vue";
-import ServicePrice from "./sections/ServicePrice.vue";
-import CheckItem from "./UI/CheckItem.vue";
-import Offers from "./sections/Offers.vue";
-import Promt from "./sections/Promt.vue";
-import SchemeLocation from "./sections/SchemeLocation.vue";
-import ContactUs from "./sections/ContactUs.vue";
-import CardLocationRow from "./UI/CardLocationRow.vue";
+<script setup>
+import DescriptionSection from "~~/components/green_vision/services/sections/DescriptionSection.vue";
+import Capabilities from "~~/components/green_vision/services/sections/Capabilities.vue";
+import CardCapabilities from "~~/components/green_vision/services/UI/CardCapabilities.vue";
+import InstallerBunner from "~~/components/green_vision/services/sections/InstallerBunner.vue";
+import BasicSet from "~~/components/green_vision/services/sections/BasicSet.vue";
+import CardBasicSet from "~~/components/green_vision/services/UI/CardBasicSet.vue";
+import Location from "~~/components/green_vision/services/sections/Location.vue";
+import LocationRow from "~~/components/green_vision/services/sections/LocationRow.vue";
+import ServicePrice from "~~/components/green_vision/services/sections/ServicePrice.vue";
+import CheckItem from "~~/components/green_vision/services/UI/CheckItem.vue";
+import Offers from "~~/components/green_vision/services/sections/Offers.vue";
+import Promt from "~~/components/green_vision/services/sections/Promt.vue";
+import SchemeLocation from "~~/components/green_vision/services/sections/SchemeLocation.vue";
+import ContactUs from "~~/components/green_vision/services/sections/ContactUs.vue";
+import CardLocation from "~~/components/green_vision/services/UI/CardLocation.vue";
+import CardLocationRow from "~~/components/green_vision/services/UI/CardLocationRow.vue";
 
-@Component({
-  components: {
-    SvgIcon,
-    DescriptionSection,
-    Capabilities,
-    CardCapabilities,
-    InstallerBunner,
-    BasicSet,
-    CardBasicSet,
-    Location,
-    CardLocation,
-    ServicePrice,
-    CheckItem,
-    Offers,
-    Promt,
-    SchemeLocation,
-    ContactUs,
-    CardLocationRow,
+const capabilities = [
+  {img: 'home', title: 'Просматривать периметр придомовой территории'},
+  {img: 'lock', title: 'Обезопасить от нежелательных гостей'},
+]
+
+const basicSet = [
+  {number: '8' ,img: 'camera', description: 'Наружная IP камера'},
+  {number: '1' ,img: 'switch', description: 'Коммуникатор сетевой POE'},
+  {number: '1' ,img: 'dvr', description: 'Видеорегистратор'},
+  {number: '1' ,img: 'hdmi', description: 'Кабель HDMI 1.5 м'},
+  {number: '2' ,img: 'patch-cord', description: 'Патч-корд'},
+  {number: '0' ,img: 'materials', description: 'Материалы для подключения'},
+]
+
+const location = {
+  subtitlte: 'Специалисты-монтажники из команды GreenVision практикуют индивидуальный подход к каждому клиенту. Они обязательно подберут оптимальное решение для установки видеонаблюдения, исходя из целей, которые оно должно выполнять. Мы поставляем только проверенное (качественное) оборудование, рассчитанное на любой бюджет (от эконом до премиум класса).',
+  values: [
+    {img: 'home-teritory', title: 'Придомовая территория'},
+    {img: 'garage', title: 'Гараж'},
+    {img: 'road', title: 'Обзор на улицу'},
+  ]
+}
+
+const prices = {
+  title: 'Что входит в услугу установки типового комплекта видеонаблюдения для дома?',
+  price: '27 000 грн',
+  description: [
+    'Комплект видеонаблюдения FullHD разрешения, камеры для наружной и внутренней установки с инфракрасной подсветкой до 20 метров',
+    'Видеорегистратор без накопителя',
+    'Установка цветного видеодомофона и электромеханического замка'
+  ],
+  img: 'home'
+}
+
+const offers = {
+  main: {
+    title: 'Работы по установке:',
+    descritions: {
+      sectionLeft: [
+      'Установка 8 камер на высоте не более 3 метров (с коробками) ',
+      'Прокладка кабеля открытым способом не более 18 метров до камеры (крепление стяжки; клипсы;под армрстронгом, без сверления отверстий для фиксации кабельной трассы) на высоте до 3 метров ',
+      'Сверление не более 4 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости',
+      ],
+      sectionRight: [
+      'Подключение видеорегистратора и камер к сети (3 свободные розетки, или удлинитель заказчика)',
+      'Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра',
+      'Установка СКУД'
+      ]
+    }
+
   },
-})
-export default class HomeServicesComponent extends Vue {}
+  additionally: {
+    title: 'Подключение и настройка удаленного доступа:',
+    descritions: {
+      sectionLeft: [
+      'Настройка удаленного просмотра на 2 устройствах через протокол Р2Р все изменения и дополнительные работы и оборудование оговаривается и оплачивается отдельно!',
+      ],
+      sectionRight: [
+      'Подключение видеорегистратора к роутеру заказчика в свободный порт, длинна кабеля не более 5 метров.',
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

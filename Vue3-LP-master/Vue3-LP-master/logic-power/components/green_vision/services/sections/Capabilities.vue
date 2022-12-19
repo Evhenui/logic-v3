@@ -37,6 +37,8 @@ defineProps({
   }
 
   &__cards {
+    width: 100%;
+    
     @include flex-container(row, flex-start);
     flex-wrap: wrap;
 
