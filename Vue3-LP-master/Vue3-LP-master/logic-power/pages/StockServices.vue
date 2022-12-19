@@ -9,56 +9,22 @@
         </p>
       </DescriptionSection>
 
-      <Capabilities class="stock-services__capabilities">
-        <template v-slot:title>Система безопасности позволяет:</template>
+      <Capabilities 
+        class="stock-services__capabilities"
+        :title="'Система безопасности позволяет:'"
+      >
         <template v-slot:card>
-          <CardCapabilitiesColumn class="stock-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-capabilities"
-                :icon="icons['car-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Контроль перемещения сотрудников и груза на улице</template
-            >
-          </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="stock-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-capabilities"
-                :icon="icons['loading-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Контроль разгрузки погрузки груза</template
-            >
-          </CardCapabilitiesColumn>
+          <CardCapabilities 
+            class="stock-services__capabilities-card"
+            v-for="(item, index) in capabilities" 
+            :key="index"
+            :column="true" 
+            :img="item.img"
+            :title="item.title"
+          >
+          </CardCapabilities>
 
-          <CardCapabilitiesColumn class="stock-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-capabilities"
-                :icon="icons['control-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Контроль перемещения сотрудников и грузов по складу</template
-            >
-          </CardCapabilitiesColumn>
-
-          <CardCapabilitiesColumn class="stock-services__capabilities-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-capabilities"
-                :icon="icons['clock-capabilities']"
-              />
-            </template>
-            <template v-slot:subtitle
-              >Контроль учета рабочего времени сотрудников</template
-            >
-          </CardCapabilitiesColumn>
         </template>
       </Capabilities>
 
@@ -73,245 +39,132 @@
         </p>
       </DescriptionSection>
 
-      <BasicSet class="stock-services__set">
-        <template v-slot:title
-          >Пример базового комплекта оборудования для системы видеонаблюдения на
-          складе</template
-        >
+      <BasicSet 
+        class="stock-services__set"
+        :title="'Пример базового комплекта оборудования для системы видеонаблюдения на складе'"
+      >
         <template v-slot:cards>
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х7</template>
-            <template v-slot:image>
-              <img src="@/assets/img/camera-big-set.png" alt="camera" />
-            </template>
-            <template v-slot:name>Купольная IP камера</template>
-          </CardBasicSet>
 
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х7</template>
-            <template v-slot:image>
-              <img src="@/assets/img/camera-set.png" alt="camera" />
-            </template>
-            <template v-slot:name>Наружная IP камера</template>
-          </CardBasicSet>
+          <CardBasicSet 
+            class="stock-services__set-card"
+            v-for="(item,index) in basicSet"
+            :key="index"
+            :number="item.number"
+            :img="item.img"
+            :description="item.description"
+          />
 
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х2</template>
-            <template v-slot:image>
-              <img src="@/assets/img/rotary-camera-set.png" alt="dvr" />
-            </template>
-            <template v-slot:name>Поворотная IP камера</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/dvr-set.png" alt="dvr" />
-            </template>
-            <template v-slot:name>Видеорегистратор NVR</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/switch-set.png" alt="switch" />
-            </template>
-            <template v-slot:name>Коммуникатор сетевой POE</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х16</template>
-            <template v-slot:image>
-              <img src="@/assets/img/splitter-office-set.png" alt="splitter" />
-            </template>
-            <template v-slot:name>Сплиттер POE 48-12V</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/hdd-set.png" alt="hdd" />
-            </template>
-            <template v-slot:name>Жесткий диск 2ТВ</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х1</template>
-            <template v-slot:image>
-              <img src="@/assets/img/hdmi-set.png" alt="hdmi" />
-            </template>
-            <template v-slot:name>Кабель HDMI 1.5 м</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:amount>х2</template>
-            <template v-slot:image>
-              <img src="@/assets/img/patch-cord-set.png" alt="patch cord" />
-            </template>
-            <template v-slot:name>Патч-корд</template>
-          </CardBasicSet>
-
-          <CardBasicSet class="stock-services__set-card">
-            <template v-slot:image>
-              <img src="@/assets/img/materials-set.png" alt="materials" />
-            </template>
-            <template v-slot:name>Материалы для подключения</template>
-          </CardBasicSet>
         </template>
+
         <template v-slot:description>
           <p class="stock-services__description-text slim">
-            Базовый перечень оборудования решает основные проблемы видеоконтроля
-            в квартире. Наши специалисты готовы предложить схему подключения
-            системы видеонаблюдения исходя из особенностей Вашего объекта.
-            Соответственно, список необходимого Вам оборудования и его стоимость
-            может измениться.
+            Базовый перечень оборудования решает основные проблемы видеоконтроля в квартире. 
+            Наши специалисты готовы предложить схему подключения системы видеонаблюдения исходя 
+            из особенностей Вашего объекта. Соответственно, список необходимого Вам оборудования 
+            и его стоимость может измениться. 
           </p>
         </template>
       </BasicSet>
 
-      <LocationLong class="stock-services__location">
+      <Location 
+        class="stock-services__location"
+        :row="false"
+        :subtitle="location.subtitlte"
+      >
         <template v-slot:cards>
-          <CardLocation class="stock-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-location"
-                :icon="icons['product-warehouse-location']"
-              />
+
+          <CardLocation 
+            class="stock-services__location-card"
+            v-for="(item, index) in location.values"
+            :key="index"
+            :img="item.img"
+            :title="item.title"
+          >
+            <template v-slot:item>
+              <CheckItem 
+                class="stock-services__price-item"
+                v-for="(checkItem, i) in item.description"
+                :key="i"
+              >
+              {{ checkItem }}
+              </CheckItem
+              >
             </template>
-            <template v-slot:subtitle>Контроль площади производства</template>
           </CardLocation>
 
-          <CardLocation class="stock-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-location"
-                :icon="icons['ramp-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Рампа</template>
-          </CardLocation>
-
-          <CardLocation class="stock-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-location"
-                :icon="icons['unloading-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Разгрузка/погрузка грузов</template>
-          </CardLocation>
-
-          <CardLocation class="stock-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-location"
-                :icon="icons['product-stock-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Склад готовой продукции</template>
-          </CardLocation>
-
-          <CardLocation class="stock-services__location-card">
-            <template v-slot:image>
-              <SvgIcon
-                class="stock-services__image-location"
-                :icon="icons['perimeter-ware-location']"
-              />
-            </template>
-            <template v-slot:subtitle>Периметр склада</template>
-          </CardLocation>
         </template>
         <template v-slot:subtitle>
           Технические специалисты и монтажники оборудования GreenVision составят
           схему расположения камер исходя из конкретных целей и задач, которые
-          должно решить видеонаблюдение в Вашей торговой точке. Мы поставляем
-          качественное оборудование различных ценовых категорий (эконом,
-          стандарт, премиум).
+          должно решить видеонаблюдение. Мы поставляем качественное оборудование
+          различных ценовых категорий (эконом, стандарт, премиум).
         </template>
-      </LocationLong>
+      </Location>
 
-      <ServicePrice class="stock-services__service-price">
-        <template v-slot:title
-          >Что входит в услугу установки типового комплекта видеонаблюдения на
-          складе?</template
-        >
-        <template v-slot:price>80 000 ГРН</template>
+      <ServicePrice 
+        class="stock-services__service-price"
+        :title="prices.title"
+        :price="prices.price"
+        :img="prices.img"
+      >
         <template v-slot:item>
-          <CheckItem class="stock-services__price-item">
-            Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
-            внутренней установки с инфракрасной подсветкой до 20 метров
+          <CheckItem 
+            class="stock-services__price-item"
+            v-for="(item, index) in prices.description"
+            :key="index"
+          >
+          {{ item }}
           </CheckItem>
-          <CheckItem class="stock-services__price-item">
-            Видеорегистратор с накопителем объемом 8ТВ
-          </CheckItem>
-        </template>
-        <template v-slot:image>
-          <img src="@/assets/img/flat-stock-card.png" alt="office" />
         </template>
       </ServicePrice>
 
-      <Offers class="stock-services__offers">
-        <template v-slot:title>Работы по установке:</template>
+      <Offers 
+        class="stock-services__offers"
+        :title="offers.main.title"
+      >
         <template v-slot:item>
           <div class="stock-services__offer-section">
-            <CheckItem class="stock-services__offer-item">
-              Установка 14 камер на высоте не более 3 метров (с коробками)
-            </CheckItem>
-            <CheckItem class="stock-services__offer-item">
-              Прокладка кабеля открытым способом не более 30 метров до камеры
-              (крепление стяжки; клипсы; под армрстронгом, без сверления
-              отверстий для фиксации кабельной трассы) на высоте до 3 метров
-            </CheckItem>
-            <CheckItem class="stock-services__offer-item">
-              Сверление не более 16 отверстий до 20 сантиметров для прокладки в
-              них кабеля по необходимости
-            </CheckItem>
+            <CheckItem 
+              class="stock-services__offer-item"
+              v-for="(item, index) in offers.main.descritions.sectionLeft"
+              :key="index"
+            >
+            {{ item }}
+          </CheckItem>
           </div>
           <div class="stock-services__offer-section">
-            <CheckItem class="stock-services__offer-item">
-              Подключение видеорегистратора и камер к сети (3 свободные розетки,
-              или удлинитель заказчика)
-            </CheckItem>
-            <CheckItem class="stock-services__offer-item">
-              Подключение видеорегистратора к телевизору заказчика на расстоянии
-              1.5 метра
-            </CheckItem>
-            <CheckItem class="stock-services__offer-item">
-              Подключение и установка Жесткого диска в видеорегистратор
-            </CheckItem>
-            <CheckItem class="stock-services__offer-item">
-              Настройка записи камер: постоянно; по движению; по времени
+            <CheckItem 
+              class="stock-services__offer-item"
+              v-for="(item, index) in offers.main.descritions.sectionRight"
+              :key="index"
+            >
+            {{ item }}
             </CheckItem>
           </div>
         </template>
       </Offers>
 
-      <Offers class="stock-services__offers">
-        <template v-slot:title
-          >Подключение и настройка удаленного доступа:</template
-        >
+      <Offers 
+        class="stock-services__offers"
+        :title="offers.additionally.title"
+      >
         <template v-slot:item>
           <div class="stock-services__offer-section">
-            <CheckItem class="stock-services__offer-item">
-              Подключение видеорегистратора к роутеру заказчика в свободный
-              порт, длинна кабеля не более 5 метров.
-            </CheckItem>
-
-            <CheckItem class="stock-services__offer-item">
-              Настройка удаленного просмотра на 2 устройствах через протокол Р2Р
-              (обучение пользователя, просмотр записей, сохранение записи на usb
-              или память телефона)
-            </CheckItem>
+            <CheckItem 
+              class="stock-services__offer-item"
+              v-for="(item, index) in offers.additionally.descritions.sectionLeft"
+              :key="index"
+            >
+            {{ item }}
+          </CheckItem>
           </div>
           <div class="stock-services__offer-section">
-            <CheckItem class="stock-services__offer-item">
-              Проброс портов на роутере заказчика, регистрация в платном облаке
-              для резервирования записей
-            </CheckItem>
-
-            <CheckItem class="stock-services__offer-item">
-              Консультация заказчика по установке соответствующей скорости
-              интернета и статического адреса у провайдера интернета.
+            <CheckItem 
+              class="stock-services__offer-item"
+              v-for="(item, index) in offers.additionally.descritions.sectionRight"
+              :key="index"
+            >
+            {{ item }}
             </CheckItem>
           </div>
         </template>
@@ -319,10 +172,10 @@
 
       <Promt class="stock-services__promt" />
 
-      <SchemeLocation class="stock-services__scheme">
-        <template v-slot:scheme>
-          <img src="@/assets/img/scheme-stock.png" alt="scheme office" />
-        </template>
+      <SchemeLocation 
+        class="stock-services__scheme"
+        :img="'stock'"
+      >
       </SchemeLocation>
 
       <ContactUs class="stock-services__contacts" />
@@ -330,44 +183,96 @@
   </section>
 </template>
     
-    <script lang="ts">
-import { Component, Vue } from "~/tools/version-types";
-import SvgIcon from "~/_shared/components/svg/SvgIcon.vue";
-import DescriptionSection from "./sections/DescriptionSection.vue";
-import Capabilities from "./sections/Capabilities.vue";
-import CardCapabilitiesColumn from "./UI/CardCapabilitiesColumn.vue";
-import InstallerBunner from "./sections/InstallerBunner.vue";
-import BasicSet from "./sections/BasicSet.vue";
-import CardBasicSet from "./UI/CardBasicSet.vue";
-import LocationLong from "./sections/LocationLong.vue";
-import ServicePrice from "./sections/ServicePrice.vue";
-import CheckItem from "./UI/CheckItem.vue";
-import Offers from "./sections/Offers.vue";
-import Promt from "./sections/Promt.vue";
-import SchemeLocation from "./sections/SchemeLocation.vue";
-import ContactUs from "./sections/ContactUs.vue";
-import CardLocation from "./UI/CardLocation.vue";
+<script setup>
+import DescriptionSection from "~~/components/green_vision/services/sections/DescriptionSection.vue";
+import Capabilities from "~~/components/green_vision/services/sections/Capabilities.vue";
+import CardCapabilities from "~~/components/green_vision/services/UI/CardCapabilities.vue";
+import InstallerBunner from "~~/components/green_vision/services/sections/InstallerBunner.vue";
+import BasicSet from "~~/components/green_vision/services/sections/BasicSet.vue";
+import CardBasicSet from "~~/components/green_vision/services/UI/CardBasicSet.vue";
+import Location from "~~/components/green_vision/services/sections/Location.vue";
+import LocationRow from "~~/components/green_vision/services/sections/LocationRow.vue";
+import ServicePrice from "~~/components/green_vision/services/sections/ServicePrice.vue";
+import CheckItem from "~~/components/green_vision/services/UI/CheckItem.vue";
+import Offers from "~~/components/green_vision/services/sections/Offers.vue";
+import Promt from "~~/components/green_vision/services/sections/Promt.vue";
+import SchemeLocation from "~~/components/green_vision/services/sections/SchemeLocation.vue";
+import ContactUs from "~~/components/green_vision/services/sections/ContactUs.vue";
+import CardLocation from "~~/components/green_vision/services/UI/CardLocation.vue";
+import CardLocationRow from "~~/components/green_vision/services/UI/CardLocationRow.vue";
 
-@Component({
-  components: {
-    SvgIcon,
-    DescriptionSection,
-    Capabilities,
-    CardCapabilitiesColumn,
-    InstallerBunner,
-    BasicSet,
-    CardBasicSet,
-    LocationLong,
-    ServicePrice,
-    CheckItem,
-    Offers,
-    Promt,
-    SchemeLocation,
-    ContactUs,
-    CardLocation,
+const capabilities = [
+  {img: 'car', title: 'Контроль перемещения сотрудников и груза на улице'},
+  {img: 'loading', title: 'Контроль разгрузки погрузки груза'},
+  {img: 'control', title: 'Контроль перемещения сотрудников и грузов по складу'},
+  {img: 'clock', title: 'Контроль учета рабочего времени сотрудников'},
+]
+
+const basicSet = [
+  {number: '7' ,img: 'camera-big', description: 'Купольная IP камера'},
+  {number: '7' ,img: 'camera', description: 'Наружная IP камера'},
+  {number: '2' ,img: 'rotary-camera', description: 'Наружная IP камера'},
+  {number: '1' ,img: 'dvr', description: 'Видеорегистратор NVR'},
+  {number: '1' ,img: 'switch', description: 'Коммуникатор сетевой POE'},
+  {number: '16' ,img: 'splitter-office', description: 'Сплиттер POE 48-12V'},
+  {number: '1' ,img: 'hdd', description: 'Жесткий диск 2ТВ'},
+  {number: '1' ,img: 'hdmi', description: 'Кабель HDMI 1.5 м'},
+  {number: '2' ,img: 'patch-cord', description: 'Патч-корд'},
+  {number: '0' ,img: 'materials', description: 'Материалы для подключения'},
+]
+
+const location = {
+  subtitlte: 'Технические специалисты и монтажники оборудования GreenVision составят схему расположения камер исходя из конкретных целей и задач, которые должно решить видеонаблюдение в Вашей торговой точке. Мы поставляем качественное оборудование различных ценовых категорий (эконом, стандарт, премиум).',
+  values: [
+    {img: 'product-warehouse', title: 'Контроль площади производства'},
+    {img: 'ramp', title: 'Рампа'},
+    {img: 'unloading', title: 'Разгрузка/погрузка грузов'},
+    {img: 'product-stock', title: 'Склад готовой продукции'},
+    {img: 'perimeter-ware', title: 'Периметр склада'},
+  ]
+}
+
+const prices = {
+  title: 'Что входит в услугу установки типового комплекта видеонаблюдения на складе?',
+  price: '80 000 ГРН',
+  description: [
+    'Комплект видеонаблюдения FullHD разрешения, камеры для наружной и внутренней установки с инфракрасной подсветкой до 20 метров ',
+    'Видеорегистратор с накопителем объемом 8ТВ '
+  ],
+  img: 'flat'
+}
+
+const offers = {
+  main: {
+    title: 'Работы по установке:',
+    descritions: {
+      sectionLeft: [
+      'Установка 14 камер на высоте не более 3 метров (с коробками)',
+      'Прокладка кабеля открытым способом не более 30 метров до камеры (крепление стяжки; клипсы; под армрстронгом, без сверления отверстий для фиксации кабельной трассы) на высоте до 3 метров',
+      'Сверление не более 16 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости',
+      ],
+      sectionRight: [
+      'Подключение видеорегистратора и камер к сети (3 свободные розетки, или удлинитель заказчика)',
+      'Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра',
+      'Подключение и установка Жесткого диска в видеорегистратор',
+      'Настройка записи камер: постоянно; по движению; по времени'
+      ]
+    }
   },
-})
-export default class StockServicesComponent extends Vue {}
+  additionally: {
+    title: 'Подключение и настройка удаленного доступа:',
+    descritions: {
+      sectionLeft: [
+      'Подключение видеорегистратора к роутеру заказчика в свободный порт, длинна кабеля не более 5 метров.',
+      'Настройка удаленного просмотра на 2 устройствах через протокол Р2Р (обучение пользователя, просмотр записей, сохранение записи на usb или память телефона)',
+      ],
+      sectionRight: [
+      'Проброс портов на роутере заказчика, регистрация в платном облаке для резервирования записей',
+      'Консультация заказчика по установке соответствующей скорости интернета и статического адреса у провайдера интернета.',
+      ]
+    }
+  }
+}
 </script>
     
     <style lang="scss" scoped>
@@ -500,7 +405,7 @@ export default class StockServicesComponent extends Vue {}
   &__set-card {
     --gap: 16px;
 
-    @include set-item-count-in-row(3);
+    @include set-item-count-in-row(5);
 
     @include bigMobile {
       @include set-item-count-in-row(1);

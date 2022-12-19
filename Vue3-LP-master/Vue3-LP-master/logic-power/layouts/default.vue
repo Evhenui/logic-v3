@@ -13,8 +13,10 @@
       <NuxtLink to="/Header">Header</NuxtLink>
 <!--       <NuxtLink to="/FlatServices">FlatServices</NuxtLink>
       <NuxtLink to="/HomeServices">HomeServices</NuxtLink>
-      <NuxtLink to="/OfficeServices">OfficeServices</NuxtLink> -->
-      <NuxtLink to="/ScoreServices">ScoreServices</NuxtLink>
+      <NuxtLink to="/OfficeServices">OfficeServices</NuxtLink> 
+      <NuxtLink to="/ScoreServices">ScoreServices</NuxtLink> 
+      <NuxtLink to="/ShopsServices">ShopsServices</NuxtLink> --> 
+      <NuxtLink to="/StockServices">StockServices</NuxtLink>
     </header>
 
     <div>

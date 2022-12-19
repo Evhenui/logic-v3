@@ -21,6 +21,7 @@ defineProps({
 .location {
   &.long {
     .location__cards {
+      max-width: 100%;
       gap: 45px;
     }
   }

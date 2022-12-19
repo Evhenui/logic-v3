@@ -116,46 +116,6 @@
         </template>
       </ServicePrice>
 
-      <Offers class="score-services__offers">
-        <template v-slot:title>Работы по установке:</template>
-        <template v-slot:item>
-          <div class="score-services__offer-section">
-            <CheckItem class="score-services__offer-item"
-              >Установка 16 камер на высоте не более 3 метров (с коробками)
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Прокладка кабеля открытым способом не более 20 метров до камеры
-              (крепление стяжки; клипсы; под армрстронгом, без сверления
-              отверстий для фиксации кабельной трассы) на высоте до 3 метров
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Сверление не более 8 отверстий до 20 сантиметров для прокладки в
-              них кабеля по необходимости
-            </CheckItem>
-          </div>
-          <div class="score-services__offer-section">
-            <CheckItem class="score-services__offer-item">
-              Подключение видеорегистратора и камер к сети (3 свободные розетки,
-              или удлинитель заказчика)
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Подключение видеорегистратора и камер к сети (3 свободные розетки,
-              или удлинитель заказчика)
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Подключение видеорегистратора к телевизору заказчика на расстоянии
-              1.5 метра
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Подключение и установка Жесткого диска в видеорегистратор
-            </CheckItem>
-            <CheckItem class="score-services__offer-item">
-              Настройка записи камер: постоянно; по движению; по времени
-            </CheckItem>
-          </div>
-        </template>
-      </Offers>
-
       <Offers 
         class="score-services__offers"
         :title="offers.main.title"
