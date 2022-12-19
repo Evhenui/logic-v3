@@ -5,14 +5,14 @@
       :class="{ active: lang.active === true }"
       @click="changeLang($event.currentTarget)"
     >
-      <a href="#" class="language__ua">Укр</a>
+      <a @click.prevent href="#" class="language__ua">Укр</a>
     </div>
     <div
       class="language__wrapper-ru ru"
       :class="{ active: lang.active === false }"
       @click="changeLang($event.currentTarget)"
     >
-      <a href="#" class="language__ru">Рус</a>
+      <a @click.prevent href="#" class="language__ru">Рус</a>
     </div>
   </div>
 </template>
@@ -52,6 +52,8 @@ const changeLang = header.changeLang;
   &__ru {
     @include font(12, 14, 400);
     color: white;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 }
 </style>

@@ -128,7 +128,7 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
+
 </script>
 
 <style lang="scss" scoped>

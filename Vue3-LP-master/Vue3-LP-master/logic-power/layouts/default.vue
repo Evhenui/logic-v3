@@ -11,6 +11,7 @@
       <NuxtLink to="/warranty">Гарантия</NuxtLink>
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
+      <NuxtLink to="/FlatServices">FlatServices</NuxtLink>
     </header>
 
     <div>

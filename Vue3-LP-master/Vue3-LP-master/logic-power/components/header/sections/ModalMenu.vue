@@ -327,7 +327,7 @@
           <footer class="modal-menu__footer">
             <p class="modal-menu__social-network-title">Мы в соцсетях:</p>
             <div class="modal-menu__social-networks">
-              <a href="#" class="modal-menu__social-item">
+              <a @click.prevent href="#" class="modal-menu__social-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16Z" stroke="#F36C21" stroke-width="1.5"/>
@@ -335,14 +335,14 @@
                 </svg>
               </a>
 
-              <a href="#" class="modal-menu__social-item">
+              <a @click.prevent href="#" class="modal-menu__social-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14 12L10.5 14V10L14 12Z" fill="#F36C21" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M2 12.708V11.2929C2 8.39754 2 6.94988 2.90549 6.01841C3.81099 5.08694 5.23656 5.04662 8.08769 4.96598C9.43873 4.92777 10.8188 4.90039 12 4.90039C13.1812 4.90039 14.5613 4.92777 15.9123 4.96598C18.7634 5.04662 20.189 5.08694 21.0945 6.01841C22 6.94988 22 8.39754 22 11.2929V12.708C22 15.6033 22 17.0509 21.0945 17.9824C20.189 18.9139 18.7635 18.9542 15.9124 19.0349C14.5613 19.0731 13.1812 19.1005 12 19.1005C10.8188 19.1005 9.43867 19.0731 8.0876 19.0349C5.23651 18.9542 3.81097 18.9139 2.90548 17.9824C2 17.0509 2 15.6033 2 12.708Z" stroke="#F36C21" stroke-width="1.5"/>
                 </svg>
               </a>
 
-              <a href="#" class="modal-menu__social-item">
+              <a @click.prevent href="#" class="modal-menu__social-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M11 21C11 18 11 15 11 12C11 9.8125 11.5 8 15 8" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -350,7 +350,7 @@
                 </svg>
               </a>
 
-              <a href="#" class="modal-menu__social-item">
+              <a @click.prevent href="#" class="modal-menu__social-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 8L5 12.5L9.5 14M18 8L9.5 14M18 8L14 18.5L9.5 14" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -503,6 +503,8 @@ onMounted(()=>{
 
   &__close {
     font-size: 0;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   &__main {
@@ -651,6 +653,8 @@ onMounted(()=>{
 
   &__social-item {
     font-size: 0;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 }
 </style>
