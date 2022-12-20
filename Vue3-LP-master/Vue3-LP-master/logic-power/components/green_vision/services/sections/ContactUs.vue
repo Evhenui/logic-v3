@@ -12,10 +12,13 @@
       <div class="contacts__inputs">
         <form class="contacts__form">
           <div class="contacts__inputs-wrapper">
-            <InputServices class="contacts__input" />
-            <InputServices class="contacts__input" />
-            <InputServices class="contacts__input" />
-            <InputServices class="contacts__input" />
+            <InputServices 
+              class="contacts__input" 
+              v-for="(item,index) in inputValues"
+              :key="index"
+              :placeholder="item.placeholder"
+              :type="item.type"
+            />
           </div>
           <ButtonGreen />
         </form>
@@ -25,10 +28,15 @@
 </template>
 
 <script setup>
-
 import InputServices from "../UI/InputServices.vue";
 import ButtonGreen from "../UI/ButtonGreen.vue";
 
+const inputValues = [
+  { placeholder: 'Ваше имя', type: 'text' },
+  { placeholder: 'Mobile number', type: 'phone' },
+  { placeholder: 'Ваш e-mail', type: 'text' },
+  { placeholder: 'Город', type: 'text' },
+]
 </script>
 
 <style lang="scss" scoped>
