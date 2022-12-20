@@ -2,8 +2,8 @@
   <button class="button-details">
     <span class="button-details__title">Подробнее</span>
     <div class="button-details__arrow">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.9987 8H12.332M12.332 8L8.33203 4M12.332 8L8.33203 12" stroke="#F36C21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.5 12H19M19 12L13 6M19 12L13 18" stroke="#009B3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </button>

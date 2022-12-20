@@ -3,18 +3,14 @@
     <div class="card-price__wrapper">
       <div class="card-price__type">
         <div class="card-price__image-wrapper">
-          <slot name="image"></slot>
+          <img :src="`/_nuxt/public/img/${img}-price.png`" :alt="img">
         </div>
-        <h3 class="card-price__title">
-          <slot name="title"></slot>
-        </h3>
+        <h3 class="card-price__title">{{ title }}</h3>
       </div>
-      <h1 class="card-price__price">
-        <slot name="price"></slot>
-      </h1>
+      <h1 class="card-price__price">{{ price }}</h1>
       <div class="card-price__serveces">
         <div
-          v-for="(item, index) in values"
+          v-for="(item, index) in descriptions"
           :key="index"
           class="card-price__serveces-item"
         >
@@ -24,7 +20,7 @@
             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#009B3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-          <p class="card-price__check-description">{{ item.itemName }}</p>
+          <p class="card-price__check-description">{{ item }}</p>
         </div>
       </div>
       <ButtonDetails />
@@ -36,7 +32,10 @@
 import ButtonDetails from "./ButtonDetails.vue";
 
 defineProps({
-  values: { type: Array, required: false, default: false }
+  img: { type: String, required: true },
+  title: { type: String, required: true },
+  price: { type: String, required: true },
+  descriptions: { type: Array, required: true }
 });
 
 </script>

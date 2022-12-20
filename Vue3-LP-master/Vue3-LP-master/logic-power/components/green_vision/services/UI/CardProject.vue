@@ -2,22 +2,22 @@
   <div class="card-project">
     <div class="card-project__wrapper">
       <div class="card-project__image-wrapper">
-        <slot name="image"></slot>
+        <img :src="`/_nuxt/public/img/${img}-card.png`" :alt="img">
       </div>
       <div class="card-project__description">
-        <h3 class="card-project__title">
-          <slot name="title"></slot>
-        </h3>
-        <p class="card-project__subtitle">
-          <slot name="subtitle"></slot>
-        </p>
+        <h3 class="card-project__title">{{ title }}</h3>
+        <p class="card-project__subtitle">{{ subtitle }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-
+defineProps({
+  img: { type: String, required: true },
+  title: { type: String, required: true },
+  subtitle: { type: String, required: true }
+});
 </script>
 
 <style lang="scss" scoped>

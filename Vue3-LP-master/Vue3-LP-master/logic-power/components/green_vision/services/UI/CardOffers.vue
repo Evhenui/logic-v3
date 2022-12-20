@@ -2,14 +2,10 @@
   <div class="card-offer">
     <div class="card-offer__wrapper">
       <div class="card-offer__image-wrapper">
-        <slot name="image"></slot>
+        <img :src="`/_nuxt/public/img/${img}-card.png`" :alt="img">
       </div>
-      <h1 class="card-offer__title">
-        <slot name="title"></slot>
-      </h1>
-      <p class="card-offer__subtitle">
-        <slot name="subtitle"></slot>
-      </p>
+      <h1 class="card-offer__title">{{ title }}</h1>
+      <p class="card-offer__subtitle">{{ subtitle }}</p>
       <ButtonDetails />
     </div>
   </div>
@@ -17,6 +13,12 @@
 
 <script setup>
 import ButtonDetails from './ButtonDetails.vue';
+
+defineProps({
+  img: { type: String, required: true},
+  title: { type: String, required: true},
+  subtitle: { type: String, required: true}
+});
 </script>
 
 <style lang="scss" scoped>

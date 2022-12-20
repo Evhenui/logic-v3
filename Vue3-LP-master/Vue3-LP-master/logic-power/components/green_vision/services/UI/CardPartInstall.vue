@@ -2,22 +2,20 @@
   <div class="part-install">
     <div class="part-install__wrapper">
       <div class="part-install__number">
-        <h1 class="part-install__number-title">
-          <slot name="number"></slot>
-        </h1>
+        <h1 class="part-install__number-title">{{ number }}</h1>
       </div>
-      <h1 class="part-install__title">
-        <slot name="title"></slot>
-      </h1>
-      <p class="part-install__subtitle">
-        <slot name="subtitle"></slot>
-      </p>
+      <h1 class="part-install__title">{{ title }}</h1>
+      <p class="part-install__subtitle">{{ subtitle }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-
+defineProps({
+  number: { type: Number, required: true },
+  title: { type: String, required: true },
+  subtitle: { type: String, required: true }
+});
 </script>
 
 <style lang="scss" scoped>
