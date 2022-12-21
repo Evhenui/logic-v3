@@ -306,18 +306,57 @@
               <div class="modal-menu__back">
                 <CatalogItem 
                   :back="true"
-                  @click="mobileCatalog = false"
+                  @click="back"
                 />
               </div>
-              <section class="modal-menu__catalog-menu">
+              <section 
+                class="modal-menu__catalog-menu"
+                v-if="positionMenu === 0"
+              >
                 <div 
                   class="modal-menu__catalog-item"
                   v-for="(item, index) in catalogValues.menu"
                   :key="index"
+                  @click="showMenu(index)"
                 >
                   <CatalogItem 
                     :title="item.title"
                     :img="item.image"
+                    :arrow="true"
+                  />
+                </div>
+              </section>
+              <section 
+                class="modal-menu__catalog-submenu"
+                v-else-if="positionMenu === 1"
+              >
+                <div 
+                  class="modal-menu__submenu-item"
+                  :class="{ active: index === currentIndex }"
+                  v-for="(item, index) in catalogValues.menu"
+                  :key="index"
+                  @click="showSubmenu(index)"
+                >
+                  <CatalogItem 
+                    :submenu="true" 
+                    :title="'lvl1'"
+                    :arrow="true"
+                  />
+                </div>
+              </section> 
+              <section 
+                class="modal-menu__catalog-submenu-deep"
+                v-else-if="positionMenu === 2"
+              >
+                <div 
+                  class="modal-menu__submenu-item"
+                  :class="{ active: index === currentIndex }"
+                  v-for="(item, index) in catalogValues.menu"
+                  :key="index"
+                >
+                  <CatalogItem 
+                    :submenu="true" 
+                    :title="'lvl2'"
                     :arrow="true"
                   />
                 </div>
@@ -372,6 +411,9 @@ import { useHeaderlStore } from "~~/store/headerStore";
 const dropdownAboutCompany = ref(false);
 const dropdownServices = ref(false);
 const mobileCatalog = ref(false);
+const currentIndex = ref(null);
+const currentIndexSubmenu = ref(null);
+const positionMenu = ref(0);
 
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
@@ -384,6 +426,7 @@ const activeCatalog = header.activeCatalog;
 
 function closeModal() {
   header.activeModal(false);
+  mobileCatalog.value = false;
   document.body.style.overflow = "auto";
 }
 
@@ -400,6 +443,24 @@ function defaulModal() {
   if(window.innerWidth > 1024) {
     mobileCatalog.value = false;
   }
+}
+
+function showMenu(index) {
+  currentIndex.value = index;
+  positionMenu.value++;
+}
+
+function showSubmenu(index) {
+  currentIndexSubmenu.value = index;
+  positionMenu.value++;
+}
+
+function back () {
+ if(positionMenu.value > 0) {
+  positionMenu.value--;
+ } else {
+  mobileCatalog.value = false;
+ }
 }
 
 onMounted(()=>{
@@ -610,12 +671,16 @@ onMounted(()=>{
   }
 
   &__catalog {
-    display: none;
+    height: 100vh;
 
-    background-color: white;
+    display: none;
   }
 
   &__catalog-wrapper {
+    height: 100%;
+    
+    background-color: white;
+
     padding: 16px 0;
   }
 
@@ -624,6 +689,14 @@ onMounted(()=>{
 
     padding-top: 24px;
     gap: 8px;
+  }
+
+  &__submenu-item {
+    display: none;
+
+    &.active {
+      display: block;
+    }
   }
 
   &__back {

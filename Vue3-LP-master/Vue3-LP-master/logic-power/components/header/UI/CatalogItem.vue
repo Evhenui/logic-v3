@@ -1,8 +1,8 @@
 <template>
-  <div class="catalog-item" :class="{ back: back }">
+  <div class="catalog-item" :class="[{ back: back }, { submenu: submenu}]">
     <div class="catalog-item__main-wrapper">
       <div class="catalog-item__wrapper">
-        <div class="catalog-item__image">
+        <div v-if="!submenu" class="catalog-item__image">
           <img 
             v-if="!back"
             :src="`/_nuxt/public/icons/${img}`" 
@@ -31,6 +31,7 @@ defineProps({
   img: { type: String, required: false },
   title: { type: String, required: false },
   arrow: { type: Boolean, required: false, default: false },
+  submenu: { type: Boolean, required: false},
 });
 </script>
 
@@ -43,6 +44,12 @@ defineProps({
   &.back {
     .catalog-item__main-wrapper {
       padding: 16px;
+    }
+  }
+
+  &.submenu {
+    .catalog-item__image {
+      display: none;
     }
   }
 
