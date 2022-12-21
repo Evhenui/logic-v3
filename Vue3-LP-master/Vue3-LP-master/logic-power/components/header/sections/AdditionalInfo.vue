@@ -1,5 +1,5 @@
 <template>
-  <div class="additional-info">
+  <div class="additional-info" ref="additional">
     <div class="additional-info__section">
       <a href="tel:0800309988" class="additional-info__call">
         <div class="additional-info__image">
@@ -70,10 +70,17 @@
 
 <script setup>
 import { useHeaderlStore } from "~~/store/headerStore";
-import { storeToRefs } from "pinia";
+
+const additional = ref(null);
 
 const header = useHeaderlStore();
 const menuItems = header.getMenuItems;
+
+
+onMounted(()=>{
+ 
+})
+
 
 </script>
 

@@ -1,12 +1,16 @@
 <template>
-  <section class="catalog" :class="{ active: menuItems.active }">
+  <section 
+    class="catalog" 
+    :class="{ active: menuItems.active }"
+    ref="modal"
+  >
     <div class="catalog__wrapper">
       <ul class="catalog__main-list">
         <li
           class="catalog__main-item"
           v-for="(item, index) in menuItems.menu"
           :key="index"
-          @click="selectIndex(index)"
+          @mouseover="selectIndex(index)"
         >
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
@@ -37,7 +41,7 @@
           </div>
         </li>
       </ul>
-      <section class="catalog__submenu">
+      <section class="catalog__submenu"  :class="{active:counterMenu >= 1}">
         <div
           class="catalog__submenu-item"
           v-for="(item, index) in menuItems.submenu"
@@ -49,9 +53,9 @@
               class="catalog__category-item"
               v-for="(category, i) in item.catogory"
               :key="i"
-              @click="selectIndexSubmenu(i)"
+              @mouseover="selectIndexSubmenu(i)"
             >
-              <span class="catalog__title">{{ category }}</span>
+              <span class="catalog__title submenu">{{ category }}</span>
               <div v-if="item.submenu" class="catalog__image-arrow">
                 <svg
                   width="24"
@@ -73,7 +77,7 @@
           </ul>
         </div>
       </section>
-      <section class="catalog__submenu-deep">
+      <section class="catalog__submenu-deep"  :class="{active:counterMenu === 2}">
         <div
           class="catalog__submenu-item"
           v-for="(item, index) in menuItems.submenuDeep"
@@ -83,11 +87,10 @@
           <ul class="catalog__submenu-list">
             <li
               class="catalog__category-item"
-
               v-for="(category, i) in item.catogory"
               :key="i"
             >
-              <span class="catalog__title">{{ category }}</span>
+              <span class="catalog__title submenu">{{ category }}</span>
             </li>
           </ul>
         </div>
@@ -105,13 +108,19 @@ const activeCatalog = header.activeCatalog;
 
 const currentIndex = ref(null);
 const currentIndexSubmenu = ref(null);
+const modal = ref(null);
+const counterMenu = ref(0)
+
+const emits = defineEmits(['catalogModal']);
 
 function selectIndex(i) {
   currentIndex.value = i;
+  counterMenu.value = 1;
 }
 
 function selectIndexSubmenu(i) {
   currentIndexSubmenu.value = i;
+  counterMenu.value = 2;
 }
 
 function closeCatalog() {
@@ -121,6 +130,8 @@ function closeCatalog() {
 }
 
 onMounted(()=>{
+  emits('catalogModal', modal.value);
+
   window.addEventListener('resize', closeCatalog);
 })
 
@@ -128,8 +139,6 @@ onMounted(()=>{
 
 <style lang="scss" scoped>
 .catalog {
-  width: 100%;
-
   display: none;
 
   &.active {
@@ -144,17 +153,17 @@ onMounted(()=>{
     width: 100%;
 
     display: flex;
+
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
   }
 
   &__main-list {
-    max-width: 415px;
-    width: 100%;
+    width: 415px;
 
     @include flex-container(column, flex-start);
 
     background-color: white;
 
-    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
 
     gap: 8px;
     padding: 24px 0;
@@ -199,14 +208,28 @@ onMounted(()=>{
     @include font(16, 22, 400);
     color: #2B2B2B;
     letter-spacing: 0.02em;
+
+    &.submenu {
+      white-space: nowrap;
+    }
   }
 
   &__submenu {
+    width: 0;
+
     background-color: white;
 
-    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
-
     padding: 24px 0;
+
+    overflow: hidden;
+
+    transition: width .4s ease-in-out;
+
+    &.active {
+      width: 415px;
+
+      box-shadow: -16px -16px 7px -16px rgba(0, 0, 0, 0.25);
+    }
   }
 
   &__submenu-item {
@@ -240,7 +263,17 @@ onMounted(()=>{
   }
 
   &__submenu-deep {
-    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+    width: 0;
+
+    overflow: hidden;
+
+    transition: width .4s ease-in-out;
+
+    &.active {
+      width: 415px;
+
+      box-shadow: -16px -16px 7px -16px rgba(0, 0, 0, 0.25);
+    }
   }
 }
 </style>

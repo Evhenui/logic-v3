@@ -1,10 +1,16 @@
 <template>
-  <div class="main-info">
+  <div class="main-info" ref="mainInfo">
     <div class="main-info__wrapper">
       <ButtonBurger />
       <div class="main-info__catalog-menu">
-        <ButtonCatalog class="main-info__button-catalog" />
-        <ModalCatalog class="main-info__catalog" />
+        <ButtonCatalog 
+          class="main-info__button-catalog" 
+          @buttonCatalog="getButton"
+        />
+        <ModalCatalog 
+          class="main-info__catalog"
+          @catalogModal="getModalCatalog" 
+        />
       </div>
       <Logo class="main-info__logo"/>
       <SearchProduct  />
@@ -15,6 +21,7 @@
 </template>
 
 <script setup>
+import { useHeaderlStore } from "~~/store/headerStore";
 import ButtonBurger from "../UI/ButtonBurger.vue";
 import ButtonCatalog from "../UI/ButtonCatalog.vue";
 import Logo from "../UI/Logo.vue"
@@ -22,6 +29,42 @@ import SearchProduct from "../UI/SearchProduct.vue";
 import ChangeLanguage from "../UI/ChangeLanguage.vue";
 import NavigationMenu from "./NavigationMenu.vue";
 import ModalCatalog from "./ModalCatalog.vue";
+
+const header = useHeaderlStore();
+const activeCatalog = header.activeCatalog;
+
+const mainInfo = ref(null);
+
+const buttonCatalog = ref(null);
+const catalogModal = ref(null);
+
+const emits = defineEmits(['getPosition']);
+
+function getPosition() {
+  emits('getPosition', mainInfo.value.getBoundingClientRect().top);
+}
+
+function getButton(item) {
+  buttonCatalog.value = item;
+}
+
+function getModalCatalog(item) {
+  catalogModal.value = item;
+}
+
+onMounted(()=>{
+  getPosition();
+  window.addEventListener('resize', getPosition);
+
+  window.addEventListener('click', function(event) {
+    const clickModal = event.composedPath().includes(catalogModal.value);
+    const clickButton = event.composedPath().includes(buttonCatalog.value);
+
+    if(!clickModal && !clickButton) {
+      activeCatalog(false);
+    }
+  })
+})
 
 </script>
 

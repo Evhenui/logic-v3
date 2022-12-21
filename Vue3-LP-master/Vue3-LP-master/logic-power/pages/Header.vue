@@ -1,8 +1,12 @@
 <template>
   <header class="header">
     <div class="header__wrapper">
-      <AdditionalInfo class="header__additional" />
-      <MainInfo />
+      <AdditionalInfo class="header__additional"/>
+      <MainInfo 
+        class="header__main-info" 
+        :class="{active : activeScroll}"
+        @getPosition="getPosition" 
+      />
       <ModalMenu />
     </div>
   </header>
@@ -97,20 +101,37 @@ import AdditionalInfo from "~~/components/header/sections/AdditionalInfo.vue";
 import MainInfo from "~~/components/header/sections/MainInfo.vue";
 import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
 import ModalCatalog from "~~/components/header/sections/ModalCatalog.vue";
+
+const headerPosition = ref(0);
+const activeScroll = ref(false);
+
+function getPosition(position) {
+  headerPosition.value = Math.round(position);
+}
+
+onMounted(()=>{
+  window.addEventListener('scroll', () => {
+    if(window.scrollY >= headerPosition.value) {
+      activeScroll.value = true;
+    } else {
+      activeScroll.value = false;
+    }
+  });
+})
+
 </script>
   
 <style lang="scss" scoped>
 .header {
-  width: 100%;
-
-  position: fixed;
-  top: 0;
-
-  z-index: 501;
-
   background-color: white;
+  &__main-info {
+    width: 100%;
+    &.active {
+      position: fixed;
+      top: 0;
 
-  &__wrapper {
+      z-index: 501;
+    }
   }
 
   &__additional {

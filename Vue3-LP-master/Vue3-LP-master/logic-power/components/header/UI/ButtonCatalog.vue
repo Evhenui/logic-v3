@@ -1,7 +1,8 @@
 <template>
   <button 
     class="button-catalog"
-    @click="activeCatalog(true)"
+    @click="test"
+    ref="button"
   >
     <div class="button-catalog__image">
       <svg
@@ -49,7 +50,24 @@
   import { useHeaderlStore } from "~~/store/headerStore";
 
   const header = useHeaderlStore();
+  const modalCatalog = header.modalCatalog;
   const activeCatalog = header.activeCatalog;
+
+  const button = ref(null);
+
+  const emits = defineEmits(['buttonCatalog']);
+
+  function test() {
+    if(modalCatalog.active) {
+      activeCatalog(false)
+    } else {
+      activeCatalog(true)
+    }
+  } 
+
+  onMounted(()=>{
+    emits('buttonCatalog', button.value);
+  })
 </script>
 
 <style lang="scss" scoped>
