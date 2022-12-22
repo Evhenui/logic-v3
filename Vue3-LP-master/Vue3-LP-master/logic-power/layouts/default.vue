@@ -18,6 +18,7 @@
       <NuxtLink to="/ShopsServices">ShopsServices</NuxtLink>  
       <NuxtLink to="/StockServices">StockServices</NuxtLink> 
       <NuxtLink to="/Services">Services</NuxtLink>  -->
+      <NuxtLink to="/Cooperation">Cooperation</NuxtLink>
     </header>
 
     <div>
