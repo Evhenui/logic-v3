@@ -1,9 +1,5 @@
 <template>
-  <button 
-    class="button-catalog"
-    @click="test"
-    ref="button"
-  >
+  <button class="button-catalog" @click="showCatalog" ref="button">
     <div class="button-catalog__image">
       <svg
         width="21"
@@ -47,53 +43,52 @@
 </template>
 
 <script setup>
-  import { useHeaderlStore } from "~~/store/headerStore";
+import { useHeaderlStore } from "~~/store/headerStore";
 
-  const header = useHeaderlStore();
-  const modalCatalog = header.modalCatalog;
-  const activeCatalog = header.activeCatalog;
+const header = useHeaderlStore();
+const modalCatalog = header.modalCatalog;
+const activeCatalog = header.activeCatalog;
 
-  const button = ref(null);
+const button = ref(null);
 
-  const emits = defineEmits(['buttonCatalog']);
+const emits = defineEmits(["buttonCatalog"]);
 
-  function test() {
-    if(modalCatalog.active) {
-      activeCatalog(false)
-    } else {
-      activeCatalog(true)
-    }
-  } 
+function showCatalog() {
+  if (modalCatalog.active) {
+    activeCatalog(false);
+  } else {
+    activeCatalog(true);
+  }
+}
 
-  onMounted(()=>{
-    emits('buttonCatalog', button.value);
-  })
+onMounted(() => {
+  emits("buttonCatalog", button.value);
+});
 </script>
 
 <style lang="scss" scoped>
 .button-catalog {
-    width: max-content;
+  width: max-content;
 
-    @include flex-container(row, flex-start, center);
+  @include flex-container(row, flex-start, center);
 
-    background-color: #F36C21;
-    border-radius: 6px;
+  background-color: #f36c21;
+  border-radius: 6px;
 
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    padding: 8px;
-    gap: 8px;
+  padding: 8px;
+  gap: 8px;
 
-    &__image {
-        font-size: 0;
-    }
+  &__image {
+    font-size: 0;
+  }
 
-    &__title {
-        @include font(16, 19, 700);
-        color: white;
-        white-space: nowrap;
-    }
+  &__title {
+    @include font(16, 19, 700);
+    color: white;
+    white-space: nowrap;
+  }
 }
-
 </style>
       

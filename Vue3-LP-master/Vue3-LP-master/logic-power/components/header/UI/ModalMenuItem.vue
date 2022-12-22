@@ -14,17 +14,17 @@
 
 <style lang="scss">
 .menu-item {
-    @include flex-container(row, flex-start, center);
+  @include flex-container(row, flex-start, center);
 
-    gap: 32px;
-    padding: 8px 8px 8px 0;
+  gap: 32px;
+  padding: 8px 8px 8px 0;
 
-    &__image {
-        font-size: 0;
-    }
+  &__image {
+    font-size: 0;
+  }
 
-    &__titles {
-      @include flex-container(column, flex-start, center);
-    }
+  &__titles {
+    @include flex-container(column, flex-start, center);
+  }
 }
 </style>

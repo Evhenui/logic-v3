@@ -1,11 +1,7 @@
 <template>
-  <section 
-    class="catalog" 
-    :class="{ active: menuItems.active }"
-    ref="modal"
-  >
+  <section class="catalog" :class="{ active: menuItems.active }" ref="modal">
     <div class="catalog__wrapper">
-      <ul class="catalog__main-list">
+      <ul class="catalog__main-list" ref="content">
         <li
           class="catalog__main-item"
           v-for="(item, index) in menuItems.menu"
@@ -41,22 +37,22 @@
           </div>
         </li>
       </ul>
-      <section class="catalog__submenu" :class="{active:counterMenu >= 1}">
+      <section class="catalog__submenu" :class="{ active: counterMenu >= 1 }">
         <div
           class="catalog__submenu-item"
+          :class="{ active: index === currentIndex }"
           v-for="(item, index) in menuItems.submenu"
           :key="index"
-          :class="{ active: index === currentIndex }"
         >
           <ul class="catalog__submenu-list">
             <li
               class="catalog__category-item"
-              v-for="(category, i) in item.catogory"
+              v-for="(category, i) in item.category"
               :key="i"
-              @mouseover="selectIndexSubmenu(i)"
+              @mouseover="selectIndexSubmenu(i, category)"
             >
-              <span class="catalog__title submenu">{{ category }}</span>
-              <div v-if="item.submenu" class="catalog__image-arrow">
+              <span class="catalog__title submenu">{{ category.item }}</span>
+              <div v-if="category.submenu" class="catalog__image-arrow">
                 <svg
                   width="24"
                   height="24"
@@ -77,20 +73,23 @@
           </ul>
         </div>
       </section>
-      <section class="catalog__submenu-deep" :class="{active:counterMenu === 2}">
+      <section
+        class="catalog__submenu-deep"
+        :class="{ active: counterMenu === 2 }"
+      >
         <div
           class="catalog__submenu-item"
+          :class="{ active: index === currentIndexSubmenu }"
           v-for="(item, index) in menuItems.submenuDeep"
           :key="index"
-          :class="{ active: index === currentIndexSubmenu }"
         >
           <ul class="catalog__submenu-list">
             <li
               class="catalog__category-item"
-              v-for="(category, i) in item.catogory"
+              v-for="(category, i) in item.category"
               :key="i"
             >
-              <span class="catalog__title submenu">{{ category }}</span>
+              <span class="catalog__title submenu">{{ category.item }}</span>
             </li>
           </ul>
         </div>
@@ -106,35 +105,57 @@ const header = useHeaderlStore();
 const menuItems = header.getModalCatalog;
 const activeCatalog = header.activeCatalog;
 
+const counterMenu = ref(0);
 const currentIndex = ref(null);
 const currentIndexSubmenu = ref(null);
-const modal = ref(null);
-const counterMenu = ref(0);
 
-const emits = defineEmits(['catalogModal']);
+const modal = ref(null);
+const content = ref(null);
+
+let { nullState } = toRefs(props);
+
+const props = defineProps({
+  nullState: { type: Boolean, required: false },
+});
+
+const emits = defineEmits(["catalogModal", "heightContent"]);
+
+watch(nullState, (currentState) => {
+  if (currentState) {
+    counterMenu.value = 0;
+  }
+});
 
 function selectIndex(i) {
   currentIndex.value = i;
   counterMenu.value = 1;
 }
 
-function selectIndexSubmenu(i) {
-  currentIndexSubmenu.value = i;
-  counterMenu.value = 2;
-}
-
-function resizeCatalog() {
-  if(window.innerWidth < 1024) {
-    activeCatalog(false)
+function selectIndexSubmenu(i, category) {
+  if (category.submenu) {
+    currentIndexSubmenu.value = i;
+    counterMenu.value = 2;
+  } else {
+    counterMenu.value = 1;
   }
 }
 
-onMounted(()=>{
-  emits('catalogModal', modal.value);
+function resizeCatalog() {
+  if (window.innerWidth < 1024) {
+    activeCatalog(false);
+  }
+}
 
-  window.addEventListener('resize', resizeCatalog);
-})
+function sendEmits() {
+  emits("catalogModal", modal.value);
+  emits("heightContent", content.value.scrollHeight);
+}
 
+onMounted(() => {
+  sendEmits();
+
+  window.addEventListener("resize", resizeCatalog);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -145,11 +166,18 @@ onMounted(()=>{
   visibility: hidden;
 
   &.active {
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+
     opacity: 1;
     visibility: visible;
 
     @include bigMobile {
       display: none;
+    }
+
+    .catalog__blur {
+      visibility: visible;
+      opacity: 1;
     }
   }
 
@@ -157,8 +185,6 @@ onMounted(()=>{
     width: 100%;
 
     display: flex;
-
-    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
   }
 
   &__main-list {
@@ -215,7 +241,7 @@ onMounted(()=>{
     width: 100%;
 
     @include font(16, 22, 400);
-    color: #2B2B2B;
+    color: #2b2b2b;
     letter-spacing: 0.02em;
 
     &.submenu {
@@ -232,7 +258,7 @@ onMounted(()=>{
 
     overflow: hidden;
 
-    transition: width .4s ease-in-out;
+    transition: width 0.4s ease-in-out;
 
     overflow: auto;
 
@@ -243,7 +269,7 @@ onMounted(()=>{
     &.active {
       width: 415px;
 
-      box-shadow: -16px -16px 7px -16px rgba(0, 0, 0, 0.25);
+      box-shadow: -16px 0px 7px -16px rgba(0, 0, 0, 0.25);
     }
   }
 
@@ -280,7 +306,11 @@ onMounted(()=>{
   &__submenu-deep {
     width: 0;
 
-    transition: width .4s ease-in-out;
+    padding: 24px 0;
+
+    background-color: white;
+
+    transition: width 0.4s ease-in-out;
 
     overflow: auto;
 
@@ -291,8 +321,24 @@ onMounted(()=>{
     &.active {
       width: 415px;
 
-      box-shadow: -16px -16px 7px -16px rgba(0, 0, 0, 0.25);
+      box-shadow: -16px 0px 7px -16px rgba(0, 0, 0, 0.25);
     }
+  }
+
+  &__blur {
+    display: flex;
+
+    position: fixed;
+    @include setAbs(0, 0, 0, 0);
+
+    background-color: rgba(217, 217, 217, 0.4);
+    backdrop-filter: blur(3px);
+
+    z-index: 510;
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all 0.3s ease-in-out;
   }
 }
 </style>

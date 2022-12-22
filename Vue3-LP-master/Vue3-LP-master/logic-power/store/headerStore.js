@@ -54,48 +54,478 @@ export const useHeaderlStore = defineStore({
             { image: 'product-discontinued-catalog.svg', title: 'Товары снятые с производства' },
           ],
           submenu: [
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Корпуса', 'Блоки питания ATX', 'Вентиляторы', 'Кабели питания'], submenu: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true},
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
+            { category: [
+              {item: 'Корпуса', submenu: true}, 
+              {item: 'Блоки питания ATX', submenu: true}, 
+              {item: 'Вентиляторы', submenu: false}, 
+              {item: 'Кабели питания', submenu: false}
+            ]},
           ],
           submenuDeep: [
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
-            { catogory: ['Серия “Вторая”', 'Серия “Шестая”', 'Серия “Slim”', 'Серия “Perfect”', 'Серия “Elite”'] },
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},     { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: 'Серия “Вторая”'},
+              {item: 'Серия “Шестая”'}, 
+              {item: 'Серия “Slim”'}, 
+              {item: 'Серия “Perfect”'}
+            ]},
+            { category: [
+              {item: ''},
+            ]},
+            { category: [
+              {item: ''},
+            ]},
           ]
         }
       };
@@ -118,6 +548,7 @@ export const useHeaderlStore = defineStore({
       getInputSerach: (state) => state.inputSerach,
       getModalMenu: (state) => state.modalMenu,
       getModalCatalog: (state) => state.modalCatalog,
+      getHeightHeader: (state) => state.heightHeader
     },
   });
   

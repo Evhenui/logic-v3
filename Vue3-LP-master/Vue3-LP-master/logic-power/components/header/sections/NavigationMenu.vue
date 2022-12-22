@@ -77,7 +77,6 @@
         </div>
       </div>
       <span class="menu__title">Сравнение</span>
-  
     </li>
     <li class="menu__item basket">
       <div class="menu__image">
@@ -122,13 +121,11 @@
         </div>
       </div>
       <span class="menu__title">Корзина</span>
-
     </li>
   </ul>
 </template>
 
 <script setup>
-
 </script>
 
 <style lang="scss" scoped>
@@ -172,7 +169,7 @@
 
     @include flex-container(column, center, center);
 
-    background-color: #F36C21;
+    background-color: #f36c21;
 
     border-radius: 50%;
   }

@@ -1,12 +1,9 @@
 <template>
-  <div class="catalog-item" :class="[{ back: back }, { submenu: submenu}]">
+  <div class="catalog-item" :class="[{ back: back }, { submenu: submenu }]">
     <div class="catalog-item__main-wrapper">
       <div class="catalog-item__wrapper">
         <div v-if="!submenu" class="catalog-item__image">
-          <img 
-            v-if="!back"
-            :src="`/_nuxt/public/icons/${img}`" 
-            :alt="title" />
+          <img v-if="!back" :src="`/_nuxt/public/icons/${img}`" :alt="title" />
           <img
             v-else
             class="catalog-item__image-back"
@@ -17,7 +14,6 @@
         <span v-if="back" class="catalog-item__title">Назад</span>
         <span v-else class="catalog-item__title">{{ title }}</span>
       </div>
-
       <div class="catalog-item__image-arrow" v-if="arrow">
         <img src="@/public/icons/nav-arrow-right.svg" alt="arrow" />
       </div>
@@ -31,7 +27,7 @@ defineProps({
   img: { type: String, required: false },
   title: { type: String, required: false },
   arrow: { type: Boolean, required: false, default: false },
-  submenu: { type: Boolean, required: false},
+  submenu: { type: Boolean, required: false },
 });
 </script>
 

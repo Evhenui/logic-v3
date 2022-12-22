@@ -1,99 +1,16 @@
 <template>
-  <header class="header">
+  <header class="header" ref="header">
     <div class="header__wrapper">
-      <AdditionalInfo class="header__additional"/>
-      <MainInfo 
-        class="header__main-info" 
-        :class="{active : activeScroll}"
-        @getPosition="getPosition" 
+      <AdditionalInfo class="header__additional" />
+      <MainInfo
+        class="header__main-info"
+        :class="{ active: activeScroll }"
+        @getPosition="getPosition"
+        :heightHeader="heightHeader"
       />
       <ModalMenu />
     </div>
   </header>
-  <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
-      <div>Lorem ipsum dolor,<br>
-   sit amet consectetur adipisicing<br> 
-   elit. Expedita<br>
-    nihil numquam optio fugit repellat molestias<br>
-     soluta quasi ipsa molestiae sapiente dignissimos<br>
-      velit, laudantium, sit similique sequi maxime! Magnam, voluptatum a!
-      </div>
 </template>
 
 <script setup>
@@ -103,26 +20,39 @@ import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
 import ModalCatalog from "~~/components/header/sections/ModalCatalog.vue";
 
 const headerPosition = ref(0);
+const heightHeader = ref(0);
 const activeScroll = ref(false);
+
+const header = ref(null);
 
 function getPosition(position) {
   headerPosition.value = Math.round(position);
 }
 
-onMounted(()=>{
-  window.addEventListener('scroll', () => {
-    if(window.scrollY >= headerPosition.value) {
-      activeScroll.value = true;
-    } else {
-      activeScroll.value = false;
-    }
-  });
-})
+function getHeightHeader() {
+  heightHeader.value = header.value.offsetHeight;
+}
 
+function stateHeader() {
+  if (window.scrollY >= headerPosition.value) {
+    activeScroll.value = true;
+  } else {
+    activeScroll.value = false;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener("scroll", stateHeader);
+
+  getHeightHeader();
+  window.addEventListener("resize", getHeightHeader);
+  window.addEventListener("scroll", getHeightHeader);
+});
 </script>
   
 <style lang="scss" scoped>
 .header {
+
   background-color: white;
   &__main-info {
     width: 100%;
@@ -140,15 +70,4 @@ onMounted(()=>{
     }
   }
 }
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-
 </style>

@@ -35,7 +35,7 @@
       />
       <ButtonSearch class="search__button" />
     </form>
-    <div
+   <!--  <div
       class="search__result"
       :class="{ search: inputValue.value.length }"
       v-if="showResult"
@@ -107,7 +107,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

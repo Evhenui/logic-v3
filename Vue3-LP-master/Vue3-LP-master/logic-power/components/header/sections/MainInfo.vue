@@ -3,17 +3,20 @@
     <div class="main-info__wrapper">
       <ButtonBurger />
       <div class="main-info__catalog-menu">
-        <ButtonCatalog 
-          class="main-info__button-catalog" 
+        <ButtonCatalog
+          class="main-info__button-catalog"
           @buttonCatalog="getButton"
         />
-        <ModalCatalog 
+        <ModalCatalog
           class="main-info__catalog"
-          @catalogModal="getModalCatalog" 
+          @catalogModal="getModalCatalog"
+          @heightContent="getHeightContent"
+          :nullState="catalogState"
+          :style="{ '--bottom': heightCatalog > bottomValue - heightHeader ? -(bottomValue - heightHeader) + 'px' : -heightCatalog + 'px'}"
         />
       </div>
-      <Logo class="main-info__logo"/>
-      <SearchProduct  />
+      <Logo class="main-info__logo" />
+      <SearchProduct />
       <ChangeLanguage class="main-info__language" />
       <NavigationMenu />
     </div>
@@ -24,7 +27,7 @@
 import { useHeaderlStore } from "~~/store/headerStore";
 import ButtonBurger from "../UI/ButtonBurger.vue";
 import ButtonCatalog from "../UI/ButtonCatalog.vue";
-import Logo from "../UI/Logo.vue"
+import Logo from "../UI/Logo.vue";
 import SearchProduct from "../UI/SearchProduct.vue";
 import ChangeLanguage from "../UI/ChangeLanguage.vue";
 import NavigationMenu from "./NavigationMenu.vue";
@@ -34,14 +37,22 @@ const header = useHeaderlStore();
 const activeCatalog = header.activeCatalog;
 
 const mainInfo = ref(null);
-
 const buttonCatalog = ref(null);
 const catalogModal = ref(null);
 
-const emits = defineEmits(['getPosition']);
+const heightCatalog = ref(0);
+const bottomValue = ref(0);
+const catalogState = ref(false);
+
+const emits = defineEmits(["getPosition"]);
+
+const props = defineProps({
+  heightHeader: { type: Number, required: false },
+});
 
 function getPosition() {
-  emits('getPosition', mainInfo.value.getBoundingClientRect().top);
+  emits("getPosition", mainInfo.value.getBoundingClientRect().top);
+  getPositionButton();
 }
 
 function getButton(item) {
@@ -56,67 +67,88 @@ function closeModal(event) {
   const clickModal = event.composedPath().includes(catalogModal.value);
   const clickButton = event.composedPath().includes(buttonCatalog.value);
 
-    if(!clickModal && !clickButton) {
-      activeCatalog(false);
-    }
+  if (!clickModal && !clickButton) {
+    activeCatalog(false);
+  }
 }
 
-onMounted(()=>{
-  getPosition();
-  window.addEventListener('resize', getPosition);
+function startStateCatalog(event) {
+  const clickModal = event.composedPath().includes(catalogModal.value);
 
-  window.addEventListener('click', function(event) {
+  catalogState.value = !clickModal ? true : false;
+}
+
+function getPositionButton() {
+  bottomValue.value = document.documentElement.clientHeight;
+}
+
+function getHeightContent(value) {
+  heightCatalog.value = value;
+}
+
+onMounted(() => {
+  getPosition();
+  window.addEventListener("resize", getPosition);
+
+  window.addEventListener("click", function (event) {
     closeModal(event);
   });
-})
 
+  window.addEventListener("mouseover", function (event) {
+    startStateCatalog(event);
+  });
+});
 </script>
 
 <style lang="scss" scoped>
 .main-info {
-    background-color: #393D38;
-    
-    &__wrapper {
-      @extend %width-main;
+  background-color: #393d38;
 
-      @include flex-container(row, flex-start, center);
+  &__wrapper {
+    @extend %width-main;
 
-      position: relative;
+    @include flex-container(row, flex-start, center);
 
-      padding: 4px 16px;
-      margin: 0 auto;
-      gap: 32px;
+    position: relative;
 
-      @include bigMobile {
-        @include flex-container(row, space-between, center);
+    padding: 4px 16px;
+    margin: 0 auto;
+    gap: 32px;
 
-        gap: 16px;
-        padding: 8px 16px;
-      }
+    @include bigMobile {
+      @include flex-container(row, space-between, center);
+
+      gap: 16px;
+      padding: 8px 16px;
     }
+  }
 
-    &__catalog {
-      position: absolute;
-      top: 100%;
-      left: 0;
+  &__catalog {
+    --bottom: 0;
 
-      padding: 0 16px;
+    position: absolute;
+    top: 100%;
+    bottom: var(--bottom);
+    left: 0;
+    z-index: 501;
+
+    overflow: auto;
+  }
+
+  &__button-catalog,
+  &__language {
+    @include bigMobile {
+      display: none;
     }
+  }
 
-    &__button-catalog,
-    &__language {
-      @include bigMobile {
-        display: none;
-      }
+  &__logo {
+    margin-right: 4px;
+
+    @include bigMobile {
+      display: none;
     }
-
-    &__logo {
-      margin-right: 4px;
-
-      @include bigMobile {
-        display: none;
-      }
-    }
+  }
 }
 </style>
     

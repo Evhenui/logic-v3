@@ -1,8 +1,8 @@
 <template>
-  <button   
-    @click="activeModal" 
+  <button
+    @click="activeModal"
     class="button-burger"
-    :class="{active: menuItems.active}"
+    :class="{ active: menuItems.active }"
   >
     <svg
       class="button-burger__close-image"
@@ -31,64 +31,72 @@
         fill="white"
       />
     </svg>
-    <svg class="button-burger__open-image" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9.00972 22.9902L15.9999 16M22.9901 9.00981L15.9999 16M15.9999 16L9.00972 9.00981M15.9999 16L22.9901 22.9902" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg
+      class="button-burger__open-image"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.00972 22.9902L15.9999 16M22.9901 9.00981L15.9999 16M15.9999 16L9.00972 9.00981M15.9999 16L22.9901 22.9902"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
-
   </button>
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
 import { useHeaderlStore } from "~~/store/headerStore";
-
-const active = ref(false);
 
 const header = useHeaderlStore();
 const menuItems = header.getModalMenu;
-
 const activeCatalog = header.activeCatalog;
 const activeMenu = header.activeModal;
 
+const active = ref(false);
 
 function activeModal() {
   activeMenu(true);
   activeCatalog(false);
   document.body.style.overflow = "hidden";
 }
-
 </script>
 
 <style lang="scss" scoped>
 .button-burger {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 
-    @include flex-container(column, center, center);
-    flex: 0 0 auto;
+  @include flex-container(column, center, center);
+  flex: 0 0 auto;
 
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    border: 1px solid #8A8A8A;
-    border-radius: 6px;
-    
-    @include bigMobile {
-      border: none;
+  border: 1px solid #8a8a8a;
+  border-radius: 6px;
+
+  @include bigMobile {
+    border: none;
+  }
+
+  &.active {
+    .button-burger__open-image {
+      display: block;
     }
 
-    &.active {
-      .button-burger__open-image {
-        display: block;
-      }
-
-      .button-burger__close-image {
-        display: none;
-      }
-    }
-
-    &__open-image {
+    .button-burger__close-image {
       display: none;
     }
+  }
+
+  &__open-image {
+    display: none;
+  }
 }
 </style>
     

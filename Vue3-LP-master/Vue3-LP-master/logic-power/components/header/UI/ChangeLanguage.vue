@@ -23,7 +23,6 @@ import { useHeaderlStore } from "~~/store/headerStore";
 const header = useHeaderlStore();
 const lang = header.getLanguage;
 const changeLang = header.changeLang;
-
 </script>
 
 <style lang="scss" scoped>

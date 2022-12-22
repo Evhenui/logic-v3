@@ -75,62 +75,54 @@ const additional = ref(null);
 
 const header = useHeaderlStore();
 const menuItems = header.getMenuItems;
-
-
-onMounted(()=>{
- 
-})
-
-
 </script>
 
 <style lang="scss" scoped>
 .additional-info {
-    @extend %width-main;
-    
-    @include flex-container(row, space-between, center);
+  @extend %width-main;
 
-    background-color: white;
+  @include flex-container(row, space-between, center);
 
-    margin: 0 auto;
-    padding: 4px 16px;
+  background-color: white;
 
-    &__section {
-        @include flex-container(row, flex-start, center);
+  margin: 0 auto;
+  padding: 4px 16px;
 
-        gap: 64px;
-    }
+  &__section {
+    @include flex-container(row, flex-start, center);
 
-    &__call,
-    &__location {
-        @include flex-container(row, flex-start, center);
+    gap: 64px;
+  }
 
-        gap: 8px;
-    }
+  &__call,
+  &__location {
+    @include flex-container(row, flex-start, center);
 
-    &__image {
-        font-size: 0;
-    }
+    gap: 8px;
+  }
 
-    &__item-name {
-        @include font(12, 14, 400);
-        color: #021E0F;
-    }
+  &__image {
+    font-size: 0;
+  }
 
-    &__menu-items {
-      @include flex-container(row, flex-start, center);
+  &__item-name {
+    @include font(12, 14, 400);
+    color: #021e0f;
+  }
 
-      gap: 48px;
-    }
+  &__menu-items {
+    @include flex-container(row, flex-start, center);
 
-    &__menu-item {
-    }
+    gap: 48px;
+  }
 
-    &__menu-item-name {
-      @include font(12, 14, 400);
-      color: #393D38;
-    }
+  &__menu-item {
+  }
+
+  &__menu-item-name {
+    @include font(12, 14, 400);
+    color: #393d38;
+  }
 }
-
 </style>
   
