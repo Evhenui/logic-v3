@@ -41,7 +41,7 @@
           </div>
         </li>
       </ul>
-      <section class="catalog__submenu"  :class="{active:counterMenu >= 1}">
+      <section class="catalog__submenu" :class="{active:counterMenu >= 1}">
         <div
           class="catalog__submenu-item"
           v-for="(item, index) in menuItems.submenu"
@@ -77,7 +77,7 @@
           </ul>
         </div>
       </section>
-      <section class="catalog__submenu-deep"  :class="{active:counterMenu === 2}">
+      <section class="catalog__submenu-deep" :class="{active:counterMenu === 2}">
         <div
           class="catalog__submenu-item"
           v-for="(item, index) in menuItems.submenuDeep"
@@ -109,7 +109,7 @@ const activeCatalog = header.activeCatalog;
 const currentIndex = ref(null);
 const currentIndexSubmenu = ref(null);
 const modal = ref(null);
-const counterMenu = ref(0)
+const counterMenu = ref(0);
 
 const emits = defineEmits(['catalogModal']);
 
@@ -123,7 +123,7 @@ function selectIndexSubmenu(i) {
   counterMenu.value = 2;
 }
 
-function closeCatalog() {
+function resizeCatalog() {
   if(window.innerWidth < 1024) {
     activeCatalog(false)
   }
@@ -132,17 +132,21 @@ function closeCatalog() {
 onMounted(()=>{
   emits('catalogModal', modal.value);
 
-  window.addEventListener('resize', closeCatalog);
+  window.addEventListener('resize', resizeCatalog);
 })
 
 </script>
 
 <style lang="scss" scoped>
 .catalog {
-  display: none;
+  display: flex;
+
+  opacity: 0;
+  visibility: hidden;
 
   &.active {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
 
     @include bigMobile {
       display: none;
@@ -164,9 +168,14 @@ onMounted(()=>{
 
     background-color: white;
 
-
     gap: 8px;
     padding: 24px 0;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   }
 
   &__main-item {
@@ -225,6 +234,12 @@ onMounted(()=>{
 
     transition: width .4s ease-in-out;
 
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+
     &.active {
       width: 415px;
 
@@ -265,9 +280,13 @@ onMounted(()=>{
   &__submenu-deep {
     width: 0;
 
-    overflow: hidden;
-
     transition: width .4s ease-in-out;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 
     &.active {
       width: 415px;

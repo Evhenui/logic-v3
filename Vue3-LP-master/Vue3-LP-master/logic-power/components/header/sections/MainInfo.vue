@@ -52,18 +52,22 @@ function getModalCatalog(item) {
   catalogModal.value = item;
 }
 
+function closeModal(event) {
+  const clickModal = event.composedPath().includes(catalogModal.value);
+  const clickButton = event.composedPath().includes(buttonCatalog.value);
+
+    if(!clickModal && !clickButton) {
+      activeCatalog(false);
+    }
+}
+
 onMounted(()=>{
   getPosition();
   window.addEventListener('resize', getPosition);
 
   window.addEventListener('click', function(event) {
-    const clickModal = event.composedPath().includes(catalogModal.value);
-    const clickButton = event.composedPath().includes(buttonCatalog.value);
-
-    if(!clickModal && !clickButton) {
-      activeCatalog(false);
-    }
-  })
+    closeModal(event);
+  });
 })
 
 </script>
