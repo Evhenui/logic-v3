@@ -22,40 +22,66 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-
 .suggestions {
   border-radius: 16px;
 
   background-color: white;
 
-    &__wrapper {
-      @include flex-container(row, flex-start, center);
+  &.left {
+    .suggestions__wrapper {
+      @include flex-container(row-reverse, flex-start, center);
 
-      padding: 32px; 
-      gap: 24px;
+      @include bigMobile {
+        @include flex-container(column, flex-start, flex-start);
+      }
     }
+  }
 
-    &__image {
-      flex: 1 0 auto;
-    }
+  &__wrapper {
+    @include flex-container(row, flex-start, center);
 
-    &__main-info {
+    padding: 32px;
+    gap: 24px;
+
+    @include bigMobile {
       @include flex-container(column, flex-start, flex-start);
 
-      gap: 48px;
+      padding: 16px;
+      gap: 16px;
     }
+  }
 
-    &__title {
-      @include font(30, 39, 600);
-      letter-spacing: 0.02em;
-      color: #009B3E;
-    }
+  &__main-info {
+    max-width: 535px;
+    width: 100%;
 
-    &__subtitle {
-      @include font(20, 28, 400);
-      letter-spacing: 0.02em;
-      color: #1F1F1F;
+    @include flex-container(column, flex-start, flex-start);
+
+    gap: 48px;
+
+    @include bigMobile {
+      gap: 16px;
     }
+  }
+
+  &__title {
+    @include font(30, 39, 600);
+    letter-spacing: 0.02em;
+    color: #009b3e;
+
+    @include bigMobile {
+      @include font(18, 22, 600);
+    }
+  }
+
+  &__subtitle {
+    @include font(20, 28, 400);
+    letter-spacing: 0.02em;
+    color: #1f1f1f;
+
+    @include bigMobile {
+      @include font(16, 22, 400);
+    }
+  }
 }
-
 </style>

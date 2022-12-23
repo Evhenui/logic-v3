@@ -1,6 +1,8 @@
 <template>
   <button class="button-green">
-    <span class="button-green__title">Оставить заявку</span>
+    <span class="button-green__title">
+      <slot>Оставить заявку</slot>
+    </span>
   </button>
 </template>
 
