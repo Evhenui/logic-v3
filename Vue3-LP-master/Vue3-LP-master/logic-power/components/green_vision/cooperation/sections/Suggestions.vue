@@ -24,25 +24,37 @@ defineProps({
 <style lang="scss" scoped>
 
 .suggestions {
-    background-color: white;
+  border-radius: 16px;
+
+  background-color: white;
 
     &__wrapper {
-        @include flex-container(row, flex-start, center);
+      @include flex-container(row, flex-start, center);
 
-        padding: 32px; 
+      padding: 32px; 
+      gap: 24px;
     }
 
     &__image {
+      flex: 1 0 auto;
     }
 
     &__main-info {
+      @include flex-container(column, flex-start, flex-start);
 
+      gap: 48px;
     }
 
     &__title {
+      @include font(30, 39, 600);
+      letter-spacing: 0.02em;
+      color: #009B3E;
     }
 
     &__subtitle {
+      @include font(20, 28, 400);
+      letter-spacing: 0.02em;
+      color: #1F1F1F;
     }
 }
 
