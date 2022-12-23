@@ -17,8 +17,9 @@
       <NuxtLink to="/ScoreServices">ScoreServices</NuxtLink> 
       <NuxtLink to="/ShopsServices">ShopsServices</NuxtLink>  
       <NuxtLink to="/StockServices">StockServices</NuxtLink> 
-      <NuxtLink to="/Services">Services</NuxtLink>  -->
-      <NuxtLink to="/Cooperation">Cooperation</NuxtLink>
+      <NuxtLink to="/Services">Services</NuxtLink> 
+      <NuxtLink to="/Cooperation">Cooperation</NuxtLink> -->
+      <NuxtLink to="/CardSlider">CardSlider</NuxtLink>
     </header>
 
     <div>
