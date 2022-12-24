@@ -12,7 +12,7 @@
           :key="index"
           :img="item.image"
           :class="{ active: index === indexSlide }"
-          @click="activeItem(index)"
+          @click="activeSlide(index)"
         />
       </div>
       <ArrowButton :bottom="true" @click="nextSlide(maxSlides)" />
@@ -36,13 +36,15 @@ defineProps({
   items: { type: Array, required: true },
 });
 
-function getSizeSlide() {
+function getValuesSlide() {
   const gap = parseInt(getComputedStyle(pagination.value, null).getPropertyValue("gap"));
+  const heightSlide = pagination.value.children[0].offsetHeight;
 
-  sizeSlide.value = pagination.value.children[0].offsetHeight + gap;
+  sizeSlide.value = heightSlide + gap;
+  maxSlides.value = slides.value.length - 1;
 }
 
-function activeItem(index) {
+function activeSlide(index) {
   indexSlide.value = index;
   positionScroll.value =  sizeSlide.value * indexSlide.value;
 }
@@ -61,19 +63,11 @@ function nextSlide(maxSlides) {
   }
 }
 
-function getMaxSlides() {
-  maxSlides.value = slides.value.length - 1;
-}
-
-watch(indexSlide, (currentState) => {
-  pagination.value.scrollTop = positionScroll.value;
-});
+watch(indexSlide, () => pagination.value.scrollTop = positionScroll.value);
 
 
 onMounted(() => {
-  getMaxSlides();
-  getSizeSlide();
-
+  getValuesSlide();
 });
 </script>
   
