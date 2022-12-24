@@ -6,26 +6,34 @@
         class="paginaion__slides"
         ref="pagination"
       >
-        <PreviewItem
+        <Slide
           ref="slides"
           v-for="(item, index) in items"
           :key="index"
           :img="item.image"
-          :class="{ active: index === indexSlide }"
+          :class="{ active: index === sliderCounter.counter }"
+          :mainSlide="false"
           @click="activeSlide(index)"
         />
       </div>
-      <ArrowButton :bottom="true" @click="nextSlide(maxSlides)" />
+      <ArrowButton :bottom="true" @click="nextSlide" />
     </div>
   </div>
 </template>
   
 <script setup>
-import PreviewItem from "~~/components/card_slider/UI/PreviewItem.vue";
+import Slide from "~~/components/card_slider/UI/Slide.vue";
 import ArrowButton from "~~/components/card_slider/UI/ArrowButton.vue";
+import { useSliderCardStore } from "~~/store/sliderCard";
+
+const slider = useSliderCardStore();
+const sliderCounter = slider.getCounter;
+const changeCounter = slider.changeCounter;
+const activeCounter = slider.activeCounter;
+const calcSliderLength = slider.calcSliderLength;
+const sliderLength = slider.getLength;
 
 const indexSlide = ref(0);
-const maxSlides = ref(0);
 const positionScroll = ref(0);
 const sizeSlide = ref(0);
 
@@ -36,39 +44,51 @@ defineProps({
   items: { type: Array, required: true },
 });
 
-function getValuesSlide() {
+function getValuesSlider() {
   const gap = parseInt(getComputedStyle(pagination.value, null).getPropertyValue("gap"));
   const heightSlide = pagination.value.children[0].offsetHeight;
 
   sizeSlide.value = heightSlide + gap;
-  maxSlides.value = slides.value.length - 1;
+  calcSliderLength(slides.value);
+}
+
+function resizePagination() {
+  getValuesSlider();
+  changeCounter('null');
+
+  positionScroll.value = 0
 }
 
 function activeSlide(index) {
+  activeCounter(index);
   indexSlide.value = index;
-  positionScroll.value =  sizeSlide.value * indexSlide.value;
 }
 
 function prevSlide() {
-  if (indexSlide.value !== 0) {
+  if (sliderCounter.counter !== 0) {
     indexSlide.value--;
-    positionScroll.value =  sizeSlide.value * indexSlide.value;
+    changeCounter('remove');
   }
 }
 
-function nextSlide(maxSlides) {
-  if (indexSlide.value < maxSlides) {
+function nextSlide() {
+  if (sliderCounter.counter < sliderLength.length) {
     indexSlide.value++;
-    positionScroll.value =  sizeSlide.value * indexSlide.value;
+    changeCounter('add');
   }
 }
 
-watch(indexSlide, () => pagination.value.scrollTop = positionScroll.value);
-
+watch(sliderCounter, (current) => {
+  positionScroll.value =  sizeSlide.value * current.counter;
+  pagination.value.scrollTop = sizeSlide.value * current.counter;
+});
 
 onMounted(() => {
-  getValuesSlide();
+  getValuesSlider();
+
+  window.addEventListener('resize', resizePagination)
 });
+
 </script>
   
 <style lang="scss" scoped>
@@ -88,6 +108,12 @@ onMounted(() => {
 
     &::-webkit-scrollbar {
       width: 0px;
+    }
+
+    @include bigMobile {
+      height: 221px;
+
+      gap: 4px;
     }
   }
 }

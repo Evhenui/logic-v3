@@ -12,7 +12,7 @@
   
   <style lang="scss" scoped>
   .suggestions {
-    border-radius: 4px;
+    border-radius: 8px;
   
     padding: 4px 8px;
     &.novelty {
@@ -39,7 +39,7 @@
     &__name {
       display: none;
       
-      @include font(10, 14, 400);
+      @include font(12, 16, 300);
       text-transform: uppercase;
       letter-spacing: 0.02em;
       color: white;

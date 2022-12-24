@@ -25,6 +25,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .button-arrow {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   &.active {
     transform: rotateX(180deg);
   }
