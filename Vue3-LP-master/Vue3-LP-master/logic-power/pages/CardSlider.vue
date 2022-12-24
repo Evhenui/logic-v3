@@ -17,6 +17,13 @@ const items = [
     {image: 'slide-item'},
     {image: 'slide-item'},
     {image: 'slide-item'},
+    {image: 'slide-item'},
+    {image: 'slide-item'},
+    {image: 'slide-item'},
+    {image: 'slide-item'},
+    {image: 'slide-item'},
+    {image: 'slide-item'},
+    
 ]
 </script>
 
