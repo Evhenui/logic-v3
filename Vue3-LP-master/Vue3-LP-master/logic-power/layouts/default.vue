@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header class="header">
       <button
         v-for="(item, index) in languageList"
         :key="index"
@@ -11,14 +11,6 @@
       <NuxtLink to="/warranty">Гарантия</NuxtLink>
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
- <!--      <NuxtLink to="/FlatServices">FlatServices</NuxtLink>
-      <NuxtLink to="/HomeServices">HomeServices</NuxtLink>
-      <NuxtLink to="/OfficeServices">OfficeServices</NuxtLink> 
-      <NuxtLink to="/ScoreServices">ScoreServices</NuxtLink> 
-      <NuxtLink to="/ShopsServices">ShopsServices</NuxtLink>  
-      <NuxtLink to="/StockServices">StockServices</NuxtLink> 
-      <NuxtLink to="/Services">Services</NuxtLink> 
-      <NuxtLink to="/Cooperation">Cooperation</NuxtLink> -->
       <NuxtLink to="/CardSlider">CardSlider</NuxtLink>
     </header>
 
@@ -39,4 +31,10 @@ const toggleLanguage = (item) => {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.header {
+  @include flex-container(row, flex-start, center);
+
+  gap: 16px;
+}
+</style>
