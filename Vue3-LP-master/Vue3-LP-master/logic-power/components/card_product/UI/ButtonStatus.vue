@@ -1,5 +1,5 @@
 <template>
-  <button
+  <div
     class="button-status"
     :class="[status, { filter: changeView }, { inactive: inactive }]"
     :disabled="inactive"
@@ -47,7 +47,7 @@
       <span class="button-status__title ends">Заканчивается</span>
       <span class="button-status__title pre-order">Предзаказ</span>
     </div>
-  </button>
+  </div>
 </template>
 
 <script setup>
