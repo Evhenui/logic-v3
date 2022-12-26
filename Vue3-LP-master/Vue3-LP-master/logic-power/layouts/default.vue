@@ -12,6 +12,8 @@
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
       <NuxtLink to="/CardSlider">CardSlider</NuxtLink>
+      <NuxtLink to="/NewProductSlider">NewProductSlider</NuxtLink>
+      <NuxtLink to="/CardProduct">CardProduct</NuxtLink>
     </header>
 
     <div>
@@ -34,6 +36,7 @@ const toggleLanguage = (item) => {
 <style lang="scss" scoped>
 .header {
   @include flex-container(row, flex-start, center);
+  flex-wrap: wrap;
 
   gap: 16px;
 }
