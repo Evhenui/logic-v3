@@ -79,20 +79,20 @@ const footerValues = {
     
 <style lang="scss" scoped>
 .card-product {
-  /* --gap: 8px; */
-  flex: 1 0 353px;
+ /*  --gap: 8px; */
+  /* flex: 1 0 353px; */
 
   background-color: white;
 
   border: 1px solid #E9E9E9;
   border-radius: 8px;
 
-  @include bigMobile {
+/*   @include bigMobile {
     max-width: 164px;
-  }
+  } */
 
-/*   @include set-item-count-in-row(4);
-
+  /*  @include set-item-count-in-row(4); */
+/*
   @include smallestScreen {
     @include set-item-count-in-row(3);
   }
@@ -100,10 +100,10 @@ const footerValues = {
   @include bigMobile { 
     @include set-item-count-in-row(4);
   }
-
-  @include mobile { 
+*/
+/*   @include mobile { 
     @include set-item-count-in-row(2);
-  } */
+  }  */
 
   &.inactive {
     .card-product__image {
@@ -113,7 +113,7 @@ const footerValues = {
   &.filter {
     @include bigMobile { 
       // max-width: 343px;
-      @include set-item-count-in-row(2);
+      /* @include set-item-count-in-row(2); */
 
       .card-product__header-nav {
         left: 0;
@@ -258,7 +258,7 @@ const footerValues = {
   }
 
   &__identification {
-    @include flex-container(column, center, start);
+    @include flex-container(column, center, flex-start);
 
     gap: 8px;
   }

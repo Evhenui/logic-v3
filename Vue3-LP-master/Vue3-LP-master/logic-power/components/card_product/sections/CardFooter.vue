@@ -10,8 +10,8 @@ import ButtonBuy from "../UI/ButtonBuy.vue";
 import Price from "../UI/Price.vue";
 
 defineProps({
-  status: { type: Boolean, required: true },
-  price: { type: Boolean, required: true },
+  status: { type: Object, required: true },
+  price: { type: Object, required: true },
   inactive: { type: Boolean, required: true },
 });
 </script>

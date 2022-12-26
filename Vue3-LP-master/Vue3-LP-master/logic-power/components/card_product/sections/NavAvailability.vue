@@ -18,7 +18,7 @@ import Delivery from "../UI/Delivery.vue";
 import ButtonStatus from "../UI/ButtonStatus.vue";
 
 defineProps({
-  status: { type: Boolean, status: true },
+  status: { type: Object, status: true },
   changeView: { type: Boolean, status: false },
   inactive: { type: Boolean, status: true },
 });

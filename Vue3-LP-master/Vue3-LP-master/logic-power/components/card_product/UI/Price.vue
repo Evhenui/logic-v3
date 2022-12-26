@@ -12,7 +12,7 @@
 
 <script setup>
 defineProps({
-  price: { type: String, required: true },
+  price: { type: Object, required: true },
   inactive: { type: Boolean, required: true },
 });
 </script>
