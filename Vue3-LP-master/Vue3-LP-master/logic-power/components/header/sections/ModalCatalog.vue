@@ -188,14 +188,14 @@ onMounted(() => {
   }
 
   &__main-list {
-    width: 415px;
+    max-width: 334px;
+    width: 100%;
 
     @include flex-container(column, flex-start);
 
     background-color: white;
 
     gap: 8px;
-    padding: 24px 0;
 
     overflow: auto;
 
@@ -205,11 +205,11 @@ onMounted(() => {
   }
 
   &__main-item {
-    min-height: 56px;
+    min-height: 44px;
 
     @include flex-container(row, space-between, center);
 
-    padding: 16px;
+    padding: 0 16px;
 
     cursor: pointer;
 
@@ -240,7 +240,7 @@ onMounted(() => {
     max-width: 270px;
     width: 100%;
 
-    @include font(16, 22, 400);
+    @include font(14, 22, 400);
     color: #2b2b2b;
     letter-spacing: 0.02em;
 
@@ -254,8 +254,6 @@ onMounted(() => {
 
     background-color: white;
 
-    padding: 24px 0;
-
     overflow: hidden;
 
     transition: width 0.4s ease-in-out;
@@ -267,7 +265,7 @@ onMounted(() => {
     }
 
     &.active {
-      width: 415px;
+      width: 334px;
 
       box-shadow: -16px 0px 7px -16px rgba(0, 0, 0, 0.25);
     }
@@ -288,11 +286,11 @@ onMounted(() => {
   }
 
   &__category-item {
-    min-height: 56px;
+    min-height: 44px;
 
     @include flex-container(row, space-between, center);
 
-    padding: 16px 32px;
+    padding: 0 16px;
 
     cursor: pointer;
 
@@ -306,8 +304,6 @@ onMounted(() => {
   &__submenu-deep {
     width: 0;
 
-    padding: 24px 0;
-
     background-color: white;
 
     transition: width 0.4s ease-in-out;
@@ -319,7 +315,7 @@ onMounted(() => {
     }
 
     &.active {
-      width: 415px;
+      width: 334px;
 
       box-shadow: -16px 0px 7px -16px rgba(0, 0, 0, 0.25);
     }

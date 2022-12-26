@@ -1,5 +1,5 @@
 <template>
-  <button class="button-catalog" @click="showCatalog" ref="button">
+  <button class="button-catalog" @click.prevent="showCatalog" ref="button">
     <div class="button-catalog__image">
       <svg
         width="21"

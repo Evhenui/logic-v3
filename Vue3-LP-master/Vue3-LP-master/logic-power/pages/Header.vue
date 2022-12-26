@@ -52,8 +52,8 @@ onMounted(() => {
   
 <style lang="scss" scoped>
 .header {
-
   background-color: white;
+
   &__main-info {
     width: 100%;
     &.active {
