@@ -1,9 +1,9 @@
 <template>
   <button class="button-buy" :class="[state, { disabled: inactive }]">
     <div class="button-buy__images">
-      <img class="button-buy__image buy" src="@/public/icons/card-buy.svg" alt="buy">
-      <img class="button-buy__image report" src="@/public/icons/card-report.svg" alt="report">
-      <img class="button-buy__image pre-order" src="@/public/icons/card-pre-order.svg" alt="pre order">
+      <img class="button-buy__image buy" src="/icons/card-buy.svg" alt="buy">
+      <img class="button-buy__image report" src="/icons/card-report.svg" alt="report">
+      <img class="button-buy__image pre-order" src="/icons/card-pre-order.svg" alt="pre order">
     </div>
     <div class="button-buy__titles">
       <span class="button-buy__title buy">Купить</span>

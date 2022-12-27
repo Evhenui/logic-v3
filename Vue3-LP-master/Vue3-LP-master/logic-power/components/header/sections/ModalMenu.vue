@@ -1178,6 +1178,8 @@ onMounted(() => {
   &__catalog-menu {
     @include flex-container(column, flex-start);
 
+    background-color: white;
+
     padding-top: 24px;
     gap: 8px;
   }

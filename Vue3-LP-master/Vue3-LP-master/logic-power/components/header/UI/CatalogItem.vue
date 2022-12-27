@@ -3,11 +3,11 @@
     <div class="catalog-item__main-wrapper">
       <div class="catalog-item__wrapper">
         <div v-if="!submenu" class="catalog-item__image">
-          <img v-if="!back" :src="`/_nuxt/public/icons/${img}`" :alt="title" />
+          <img v-if="!back" :src="`/icons/${img}`" :alt="title" />
           <img
             v-else
             class="catalog-item__image-back"
-            src="@/public/icons/return-catalog.svg"
+            src="/icons/return-catalog.svg"
             alt="back"
           />
         </div>
@@ -15,7 +15,7 @@
         <span v-else class="catalog-item__title">{{ title }}</span>
       </div>
       <div class="catalog-item__image-arrow" v-if="arrow">
-        <img src="@/public/icons/nav-arrow-right.svg" alt="arrow" />
+        <img src="/icons/nav-arrow-right.svg" alt="arrow" />
       </div>
     </div>
   </div>

@@ -12,9 +12,9 @@
           :inactive="inactiveCard"
         />
         <div class="card-product__section header">
-          <div class="card-product__image-wrapper">
-            <img class="card-product__image" src="@/public/img/product-card-catalog.png" alt="product name">
-          </div>
+            <a class="card-product__image-wrapper" href="#">
+              <img class="card-product__image" src="/img/product-card-catalog.png" alt="product name">
+            </a>
           <Rating 
             class="card-product__rating" 
             :inactive="inactiveCard"
@@ -28,7 +28,7 @@
               :inactive="inactiveCard"
             />
             <div class="card-product__identification">
-              <p class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</p>
+              <a href="#" class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</a>
               <p class="card-product__code">Код: 56983</p>
             </div>
           </div>

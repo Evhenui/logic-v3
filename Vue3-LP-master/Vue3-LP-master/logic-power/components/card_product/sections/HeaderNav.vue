@@ -38,7 +38,7 @@ const typeAvailability = {
   }
 
   &__suggestions {
-    @include flex-container(column, flex-start, start);
+    @include flex-container(column, flex-start, flex-start);
 
     gap: 4px;
   }

@@ -6,14 +6,13 @@
 
     <div class="pagination__pages">
       <PaginationBtnNumber 
-        v-for="(item,index) in sliderSize"
+        v-for="(item,index) in (sliderValues.length / 4)"
         :key="index"
-        :directionRight="item" 
-        :class="{ active: index === counter }"
+        :directionRight="index + 1" 
+        :class="{ active: index === sliderValues.counter }"
         @click="activePage(index)"
       />
     </div>
-
     <PaginationBtnArrow 
       :directionRight="true"
       @click="nextPage" 
@@ -22,29 +21,54 @@
 </template>
 
 <script setup>
+import { useSliderCardStore } from "~~/store/sliderCard";
 import PaginationBtnArrow from '~~/components/common/buttons/PaginationBtnArrow.vue';
 import PaginationBtnNumber from '~~/components/common/buttons/PaginationBtnNumber.vue';
+
+const sliderNewProd = useSliderCardStore();
+const sliderValues = sliderNewProd.getSliderNewProduct;
+const changeCounter = sliderNewProd.changeCounterNewProduct;
+const activePagination = sliderNewProd.activeCounterNewProduct;
 
 const indexSlide = ref(0);
 const counter = ref(0);
 
-const sliderSize = [1,2,3,4];
-
 function activePage(index) {
-  counter.value = index;
+  activePagination(index)
 }
 
 function prevPage() {
-  if (counter.value !== 0) {
-    counter.value--;
+  let maxStep = 0;
+
+  if(window.innerWidth > 680) {
+    maxStep = (sliderValues.length / sliderValues.amountItems) - 1;
+  } else  {
+    maxStep = (sliderValues.length / sliderValues.amountItemsMobile) - 1;
+  }
+
+  if (sliderValues.counter !== 0) {
+    indexSlide.value--;
+    changeCounter('remove');
   }
 }
 
 function nextPage() {
-  if (counter.value < 3) {
-    counter.value++;
+  let maxStep = 0;
+
+  if(window.innerWidth > 680) {
+    maxStep = (sliderValues.length / sliderValues.amountItems) - 1;
+  } else  {
+    maxStep = (sliderValues.length / 2) - 1;
+  }
+
+  if (sliderValues.counter < maxStep) {
+    indexSlide.value++;
+    changeCounter('add');
   }
 }
+
+onMounted(() => {
+});
 
 </script>
 

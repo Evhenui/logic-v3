@@ -11,7 +11,7 @@
           <div class="catalog__item-wrapper">
             <div class="catalog__image">
               <img
-                :src="`/_nuxt/public/icons/${item.image}`"
+                :src="`/icons/${item.image}`"
                 :alt="item.title"
               />
             </div>

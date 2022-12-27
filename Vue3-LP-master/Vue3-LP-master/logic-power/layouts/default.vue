@@ -14,6 +14,7 @@
       <NuxtLink to="/CardSlider">CardSlider</NuxtLink>
       <NuxtLink to="/NewProductSlider">NewProductSlider</NuxtLink>
       <NuxtLink to="/CardProduct">CardProduct</NuxtLink>
+      <NuxtLink to="/AboutProduct">AboutProduct</NuxtLink>
     </header>
 
     <div>
