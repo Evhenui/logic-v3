@@ -26,11 +26,12 @@
         />
       </div>
     </div>
- <!--    <CardProductNav
+    <CardProductNav
       @navChange="calcCurrNav"
       :CurrentNav="currentNav"
       ref="productNavList"
     />
+    
     <div class="card-product__w">
       <div class="card-product__container">
         <CardAboutProduct
@@ -39,6 +40,7 @@
         />
       </div>
     </div>
+    <!-- 
     <div class="card-product__w">
       <div class="card-product__container">
         <div class="spec">
@@ -108,7 +110,7 @@ const productWrapper = ref(null);
 const aboutSection = ref(null);
 const productNavList = ref(null);
 
-const currentNav = ref(0);
+const currentNav = ref(1);
 const isSale = ref(true);
 const isMobile = ref(false);
 const isVisibility = ref(false);
@@ -345,10 +347,12 @@ onUnmounted(() => {
     @include flex-container(row, center, center);
     gap: 8px;
 
-    @include font(36, 42, 500);
+    @include font(36, 47, 600);
 
     @include bigMobile {
       @include font(24, 28);
+
+      gap: 4px;
     }
   }
 

@@ -114,7 +114,7 @@ onMounted(() => {
 
   overflow: hidden;
 
-  @include bigMobile {
+  @include mobile {
     width: 272px;
   }
   

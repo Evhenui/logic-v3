@@ -1,7 +1,7 @@
 <template>
-  <nav class="nav" ref="navListHTML">
+  <nav class="nav">
     <div class="nav__w">
-      <ul class="nav__list" @scroll="onNavScroll" ref="navItems">
+      <ul class="nav__list" @scroll="calcColorLinePosX(getIndex(CurrentNav))" ref="navItems">
         <li
           class="nav__item"
           v-for="item in navList"
@@ -11,9 +11,7 @@
         >
           <h3
             class="nav__title"
-            :class="{
-              active: item.id === currentNav,
-            }"
+            :class="{active: item.id === CurrentNav}"
           >
             {{ item.title }}
           </h3>
@@ -32,21 +30,12 @@
 </template>
 
 <script setup>
-defineProps({
-  currentNav: { type: Number, required: true},
-});
+const { CurrentNav } = defineProps(['CurrentNav']);
 
 const emits = defineEmits(["navChange"]);
- /*  @Prop({ required: true }) CurrentNav: ProductNav; */
-const navListHTML = ref(null);
+
 const navItems = ref(null);
 const navItemList = ref(null);
-
-/*   declare $refs: {
-    navListHTML: HTMLElement;
-    navItems: HTMLElement;
-    navItemList: HTMLElement[];
-  }; */
 
 const colorLineWidth = ref(0);
 const colorLinePosX = ref(0);
@@ -75,32 +64,27 @@ const navList = [
 ];
 
 function getIndex(id) {
-  return navList.value.findIndex((el) => el.id === id);
+  return navList.findIndex((el) => el.id === id);
 }
 
 function calcColorLineWidth(index) {
-  const currNavItemWidth = navItemList.value.scrollWidth;
+  const currNavItemWidth = navItems.value.children[index].scrollWidth;
   colorLineWidth.value = currNavItemWidth;
 }
 
 function clickNav(id) {
-/*   this.$emit("navChange", id); */
   emits("navChange", id);
   calcColorLineWidth(getIndex(id));
   calcColorLinePosX(getIndex(id));
 }
 
 function calcColorLinePosX(index) {
-  colorLinePosX.value = navItemList.value[index].offsetLeft - navItems.value.scrollLeft;
+  colorLinePosX.value = navItems.value.children[index].offsetLeft - navItems.value.scrollLeft;
 }
 
 function onResize() {
-  calcColorLineWidth(getIndex(CurrentNav.value));
-  calcColorLinePosX(getIndex(CurrentNav.value));
-}
-
-function onNavScroll() {
-  calcColorLinePosX(getIndex(CurrentNav.value));
+  calcColorLineWidth(getIndex(CurrentNav));
+  calcColorLinePosX(getIndex(CurrentNav));
 }
 
 onMounted(() => {
@@ -197,6 +181,8 @@ onUnmounted(() => {
 
   &__item {
     width: 100%;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   &__title {

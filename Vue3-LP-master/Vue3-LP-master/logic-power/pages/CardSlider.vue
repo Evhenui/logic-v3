@@ -49,7 +49,7 @@ const suggestions = {
   box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 
-  @include bigMobile {
+  @include mobile {
     max-width: 343px;
   }
 

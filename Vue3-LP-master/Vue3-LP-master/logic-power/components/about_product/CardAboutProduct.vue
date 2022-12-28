@@ -1,9 +1,7 @@
 <template>
   <article class="product-about">
     <div class="gallery">
-      <div class="gallery__w">
-        <CardSlider />
-      </div>
+      <CardSlider class="slider-main" />
       <div class="info__block">
         <div class="advantage">
           <h2 class="info__block-title">Преимущества</h2>
@@ -30,7 +28,7 @@
         </div>
       </div>
       <div class="read-more">
-        <a class="read-more__link" href="#description">
+        <a class="read-more__link" href="#">
           <p class="read-more__text">Подробнее о товаре</p>
           <svg class="read-more__img" width="20" height="20" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -63,12 +61,12 @@
         <div class="price">
           <div class="price__money" @click="isSale = !isSale">
             <div class="price__money-sale" v-if="isSale">
-              <p class="price__money-sale-old">3500 грн</p>
-              <p class="price__money-sale-new">3113 грн</p>
+              <p class="price__money-sale-old">1 625 ₴</p>
+              <p class="price__money-sale-new">2 625 ₴</p>
             </div>
             <div class="price__money-regular" v-else>3113 грн</div>
             <div class="price__money-btn-w">
-              <button class="buy">Купить</button>
+              <ButtonBuy class="price__btn-buy" />
               <button class="buy__credit">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -89,7 +87,8 @@
           </div>
           <div class="price__info">
             <div class="price__info-facilities">
-              <div class="price__info-facilities-availability">В наличии</div>
+              <Availbility :availbility="true" /> 
+        <!--       <div class="price__info-facilities-availability">В наличии</div>
               <div class="price__info-facilities-item">
                 <img
                   class="price__info-facilities-item-img"
@@ -117,10 +116,9 @@
                 <p class="price__info-facilities-item-text">
                   14 дней обмен/возврат
                 </p>
-              </div>
+              </div> -->
             </div>
-            <div class="price__info-facilities-availability">В наличии</div>
-            <div class="price__info-tools">Компонент у Андрея</div>
+            <NavButtons class="price__nav-buttons" />
           </div>
         </div>
       </div>
@@ -233,6 +231,9 @@
 
 <script setup>
 import CardSlider from '~~/pages/CardSlider.vue';
+import ButtonBuy from '../common/buttons/ButtonBuy.vue';
+import Availbility from '../common/sections/Availbility.vue';
+import NavButtons from '../common/sections/NavButtons.vue'
 const DeliveryLabel = {
   ODESA: 1,
   UKRAINE: 0
@@ -352,9 +353,19 @@ const currLabel = ref(1);
   }
 }
 
+.slider-main {
+  @include bigMobile {
+    align-self: center;
+  }
+}
+
 .advantage {
   @include flex-container(column, flex-start);
   gap: 16px;
+
+  @include bigMobile {
+    gap: 24px;
+  }
 
   &__w {
     width: 100%;
@@ -563,7 +574,7 @@ const currLabel = ref(1);
 
   &__money-sale-new {
     @include font(48, 52, 500);
-    color: red;
+    color: #2B2B2B;
 
     @include bigMobile {
       @include font(24, 28, 500);
@@ -587,7 +598,7 @@ const currLabel = ref(1);
   &__info {
     height: 100%;
 
-    @include flex-container(column, space-between);
+    @include flex-container(column, space-between, flex-end);
 
     @include bigMobile {
       width: 100%;
@@ -634,6 +645,23 @@ const currLabel = ref(1);
     }
   }
 
+  &__btn-buy {
+    max-width: 273px;
+    width: 100%;
+
+    gap: 32px;
+
+    @include mobile {
+      max-width: 100%;
+    }
+  }
+
+  &__nav-buttons {
+    justify-content: space-between;
+
+    gap: 32px;
+  }
+
   &__info-tools {}
 }
 
@@ -647,6 +675,8 @@ const currLabel = ref(1);
     @include flex-container(column, flex-start);
 
     position: relative;
+
+    padding-top: 8px;
   }
 
   &__nav-line {
@@ -692,11 +722,11 @@ const currLabel = ref(1);
     @include font;
     text-align: center;
 
-    border-top: 3px solid transparent;
+    border-bottom: 3px solid #D3D3D3;
 
     white-space: nowrap;
 
-    padding-top: 8px;
+    padding-bottom: 8px;
 
     cursor: pointer;
     transition: 0.2s ease;
@@ -704,12 +734,12 @@ const currLabel = ref(1);
     z-index: 2;
 
     &:hover {
-      border-top: 3px solid #F36C21;
+      border-bottom: 3px solid #F36C21;
       color: #F36C21;
     }
 
     &.active {
-      border-top: 3px solid #F36C21;
+      border-bottom: 3px solid #F36C21;
       color: #F36C21;
     }
 

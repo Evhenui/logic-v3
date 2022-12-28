@@ -38,7 +38,7 @@ defineProps({
 
     user-select: none;
 
-    @include bigMobile {
+    @include mobile {
       width: 272px;
       height: 272px;
     }
@@ -48,7 +48,7 @@ defineProps({
     cursor: pointer;
   }
 
-  @include bigMobile {
+  @include mobile {
     width: 41px;
     height: 41px;
   }

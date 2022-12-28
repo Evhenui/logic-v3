@@ -110,7 +110,7 @@ onMounted(() => {
       width: 0px;
     }
 
-    @include bigMobile {
+    @include mobile {
       height: 221px;
 
       gap: 4px;

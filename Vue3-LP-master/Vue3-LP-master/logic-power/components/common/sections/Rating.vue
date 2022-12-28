@@ -5,7 +5,7 @@
       {active: state},
       {inactive: inactive},
       {large: large}
-      ]"
+    ]"
   >
     <section class="rating__points">
       <svg class="rating__star" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,7 @@ defineProps({
 
       padding: 0;
       margin: 0;
-      gap: 6px;
+      gap: 8px;
 
       .rating__points {
         display: none;
@@ -162,6 +162,8 @@ defineProps({
         @include font(12, 16, 400);
         color: #8A8A8A;
         letter-spacing: 0.02em;
+
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
         @include bigMobile {
           @include font(8, 10, 400)
