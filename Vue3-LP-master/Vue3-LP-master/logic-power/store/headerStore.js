@@ -2,6 +2,9 @@ export const useHeaderlStore = defineStore({
     id: 'headerlStore',
     state: () => {
       return {
+        size: {
+          height: 0
+        },
         language: {
           active: false
         },
@@ -539,9 +542,13 @@ export const useHeaderlStore = defineStore({
       },
       activeCatalog(state) {
         this.modalCatalog.active = state;
+      },
+      getSize(size) {
+        this.size.height = size;
       }
     },
     getters: {
+      getHeight: (state) => state.size,
       getLanguage: (state) => state.language,
       getMenuItems: (state) => state.menuItems,
       getResult: (state) => state.result,

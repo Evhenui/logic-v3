@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" ref="nav">
     <div class="nav__w">
       <ul class="nav__list" @scroll="calcColorLinePosX(getIndex(CurrentNav))" ref="navItems">
         <li
@@ -36,6 +36,7 @@ const emits = defineEmits(["navChange"]);
 
 const navItems = ref(null);
 const navItemList = ref(null);
+const nav = ref(null);
 
 const colorLineWidth = ref(0);
 const colorLinePosX = ref(0);

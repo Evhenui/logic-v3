@@ -32,7 +32,7 @@
 import ButtonBuy from '~~/components/card_product/UI/ButtonBuy.vue'
 
 defineProps({
-  code: { type: Number, required: true},
+  code: { type: String, required: true},
   navHeight: { type: Number, required: true },
 });
 

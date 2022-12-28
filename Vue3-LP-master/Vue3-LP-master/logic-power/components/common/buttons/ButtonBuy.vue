@@ -1,7 +1,7 @@
 <template>
   <button 
     class="button-buy"
-    :class="{active: active}"
+    :class="[{active: active}, {'card-mobile': cardMobile}]"
     @click="active = !active"
   >
     <div class="button-buy__image-wrapper">
@@ -20,7 +20,9 @@
 <script setup>
 
 const active = ref(false);
-
+defineProps({
+  cardMobile: { type: Boolean, required: false},
+});
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +49,10 @@ const active = ref(false);
     .button-buy__title {
       color: #F36C21;
     }
+  }
+
+  &.card-mobile {
+    padding: 8px 4px;
   }
 
   &__image-wrapper {

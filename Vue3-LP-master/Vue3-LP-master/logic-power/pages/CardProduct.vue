@@ -80,16 +80,16 @@ const footerValues = {
 <style lang="scss" scoped>
 .card-product {
  /*  --gap: 8px; */
-  /* flex: 1 0 353px; */
+  flex: 1 0 353px;
 
   background-color: white;
 
   border: 1px solid #E9E9E9;
   border-radius: 8px;
 
-/*   @include bigMobile {
+  @include bigMobile {
     max-width: 164px;
-  } */
+  }
 
   /*  @include set-item-count-in-row(4); */
 /*

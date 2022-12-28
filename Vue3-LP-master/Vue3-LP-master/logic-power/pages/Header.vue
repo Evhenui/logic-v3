@@ -18,6 +18,11 @@ import AdditionalInfo from "~~/components/header/sections/AdditionalInfo.vue";
 import MainInfo from "~~/components/header/sections/MainInfo.vue";
 import ModalMenu from "~~/components/header/sections/ModalMenu.vue";
 import ModalCatalog from "~~/components/header/sections/ModalCatalog.vue";
+import { useHeaderlStore } from "~~/store/headerStore";
+
+const headerSection = useHeaderlStore();
+const headerSize = headerSection.getHeight;
+const getSizeHeader = headerSection.getSize;
 
 const headerPosition = ref(0);
 const heightHeader = ref(0);
@@ -31,6 +36,7 @@ function getPosition(position) {
 
 function getHeightHeader() {
   heightHeader.value = header.value.offsetHeight;
+  getSizeHeader(header.value.offsetHeight);
 }
 
 function stateHeader() {
@@ -48,6 +54,12 @@ onMounted(() => {
   window.addEventListener("resize", getHeightHeader);
   window.addEventListener("scroll", getHeightHeader);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", stateHeader);
+  window.removeEventListener("resize", getHeightHeader);
+  window.removeEventListener("scroll", getHeightHeader);
+})
 </script>
   
 <style lang="scss" scoped>

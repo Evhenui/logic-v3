@@ -310,7 +310,7 @@ const currLabel = ref(1);
 }
 
 .product-about {
-  /* display: none; */
+  display: none;
 
   --local-pad: 16px;
   --mobile-width: #{$mobile-big-width};

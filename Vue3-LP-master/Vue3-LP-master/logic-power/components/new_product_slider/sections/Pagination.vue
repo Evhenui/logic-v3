@@ -3,16 +3,6 @@
     <PaginationBtnArrow
       @click="prevPage"
     />
-
-    <div class="pagination__pages">
-      <PaginationBtnNumber 
-        v-for="(item,index) in (sliderValues.length / 4)"
-        :key="index"
-        :directionRight="index + 1" 
-        :class="{ active: index === sliderValues.counter }"
-        @click="activePage(index)"
-      />
-    </div>
     <PaginationBtnArrow 
       :directionRight="true"
       @click="nextPage" 
@@ -23,7 +13,6 @@
 <script setup>
 import { useSliderCardStore } from "~~/store/sliderCard";
 import PaginationBtnArrow from '~~/components/common/buttons/PaginationBtnArrow.vue';
-import PaginationBtnNumber from '~~/components/common/buttons/PaginationBtnNumber.vue';
 
 const sliderNewProd = useSliderCardStore();
 const sliderValues = sliderNewProd.getSliderNewProduct;

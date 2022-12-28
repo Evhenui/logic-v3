@@ -26,21 +26,23 @@
         />
       </div>
     </div>
-    <CardProductNav
-      @navChange="calcCurrNav"
-      :CurrentNav="currentNav"
-      ref="productNavList"
-    />
-    
+
+    <div class="card-product__navigation" ref="navigation">
+      <CardProductNav
+        @navChange="calcCurrNav"
+        :CurrentNav="currentNav"
+        ref="productNavList"
+      />
+    </div>
+
     <div class="card-product__w">
-      <div class="card-product__container">
+      <div class="card-product__container" ref="aboutSection">
         <CardAboutProduct
           :class="{ active: currentNav === ProductNav }"
-          ref="aboutSection"
         />
       </div>
     </div>
-    <!-- 
+
     <div class="card-product__w">
       <div class="card-product__container">
         <div class="spec">
@@ -53,6 +55,7 @@
                 <span class="spec__article">{{ card.name.ru }}</span>
               </h3>
             </CardProductDescription>
+
             <CardProductCharacteristics
               :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
             >
@@ -61,16 +64,18 @@
                 <span class="spec__article">{{ card.name.ru }}</span>
               </h3>
             </CardProductCharacteristics>
+
             <CardProductInstruction
-            :class="[{active: currentNav === ProductNav}, {active: currentNav === 3}]"
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 5}]"
             >
               <h3 class="spec__title">
                 Загрузки
                 <span class="spec__article">{{ card.name.ru }}</span>
               </h3>
             </CardProductInstruction>
+
             <CardProductVideo
-              :class="{active: currentNav === 4}"
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 4}]"
             >
               <h3 class="spec__title">
                 Видео
@@ -78,6 +83,7 @@
               </h3>
             </CardProductVideo>
           </div>
+
           <CardProductAside :code="card.code" :navHeight="navHeight" />
         </div>
         <div class="mobile-price" v-if="isMobile && isVisibility">
@@ -85,16 +91,15 @@
             <p class="mobile-price__money-sale-old">3500 грн</p>
             <p class="mobile-price__money-sale-new">3113 грн</p>
           </div>
-          <div class="mobile-price__money-regular">3113 грн</div>
-          <button class="buy">Купить</button>
+      <!--     <div class="mobile-price__money-regular">3113 грн</div> -->
+          <ButtonBuy :cardMobile="true" />
         </div>
       </div>
-    </div> -->
+    </div> 
   </div>
 </template>
 
 <script setup>
-
 import CardAboutProduct from '~~/components/about_product/CardAboutProduct.vue';
 import CardProductAside from '~~/components/about_product/CardProductAside.vue';
 import CardProductCharacteristics from '~~/components/about_product/CardProductCharacteristics.vue';
@@ -103,12 +108,16 @@ import CardProductInstruction from '~~/components/about_product/CardProductInstr
 import CardProductNav from '~~/components/about_product/CardProductNav.vue';
 import CardProductVideo from '~~/components/about_product/CardProductVideo.vue';
 import Rating from '../common/sections/Rating.vue';
+import ButtonBuy from '../common/buttons/ButtonBuy.vue';
+import { useHeaderlStore } from "~~/store/headerStore";
 
-/* import { headerViewService } from "~/services/header/view/header.view.service"; */
+const header = useHeaderlStore();
+const headerSize = header.getHeight;
 
 const productWrapper = ref(null);
 const aboutSection = ref(null);
 const productNavList = ref(null);
+const navigation = ref(null)
 
 const currentNav = ref(1);
 const isSale = ref(true);
@@ -116,15 +125,7 @@ const isMobile = ref(false);
 const isVisibility = ref(false);
 const navHeight = ref(0);
 const ProductNav = ref(1);
-
-/*   declare $refs: {
-    productWrapper: HTMLElement;
-    aboutSection: CardAboutProductComponent;
-    productNavList: CardProductNavComponent;
-  }; */
-
-/*   ProductNav = ProductNav;
-  currentNav: ProductNav = ProductNav.ALL; */
+const heightHeader = ref();
 
 const card = {
     code: "0000001",
@@ -217,31 +218,25 @@ function calcCurrNav(idx) {
 }
 
 function calcNavHeight() {
- /*  const navHeightRect =
-  this.$refs.productNavList.$refs.navListHTML.getBoundingClientRect();
-  this.navHeight = navHeightRect.height; */
+  navHeight.value = navigation.value.getBoundingClientRect().height;
 }
 
 function calcBlockPriceVisibility() {
-/*     const priceBlock = this.$refs.aboutSection.$refs.blockPrice;
-    const blockPriceRect = priceBlock.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+  const blockPriceRect = aboutSection.value.getBoundingClientRect();
+  const windowHeight = window.innerHeight
 
-    if (
-      blockPriceRect.bottom <= windowHeight &&
-      blockPriceRect.top > headerViewService.headerHeight
+  if (blockPriceRect.bottom <= windowHeight &&
+      blockPriceRect.top > 86
     ) {
-      this.isVisibility = false;
+      isVisibility.value = false;
     } else {
-      this.isVisibility = true;
-    } */
+      isVisibility.value = true;
+    } 
 }
 
 function calsIsMobile() {
-/*   const mobWidth = getComputedStyle(
-    this.$refs.productWrapper
-  ).getPropertyValue("--mobile-width");
-  this.isMobile = window.innerWidth <= parseInt(mobWidth); */
+  const mobWidth = getComputedStyle(productWrapper.value).getPropertyValue("--mobile-width");
+  isMobile.value = window.innerWidth <= parseInt(mobWidth);
 }
 
 function onResize() {
@@ -275,6 +270,18 @@ onUnmounted(() => {
   gap: 16px;
 
   padding-bottom: 80px;
+
+  &__navigation {
+    width: 100%;
+    position: sticky;
+    top: 136px;
+    z-index: 100;
+    background-color: #F7F9FA;
+
+    @include mobile {
+      top: 56px;
+    }
+  }
 
   &__rating {
     @include mobile {
@@ -415,7 +422,7 @@ onUnmounted(() => {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 
-  padding: 8px;
+  padding: 16px 8px;
 
   & .buy {
     max-width: 160px;

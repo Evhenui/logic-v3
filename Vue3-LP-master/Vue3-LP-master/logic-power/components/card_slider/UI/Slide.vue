@@ -6,7 +6,7 @@
     <div class="slide__image-wrapper">
       <img 
         class="slide__image" 
-        :src="`/_nuxt/public/img/${img}.png`" 
+        :src="`/img/${img}.png`" 
         :alt="img"
       />
     </div>

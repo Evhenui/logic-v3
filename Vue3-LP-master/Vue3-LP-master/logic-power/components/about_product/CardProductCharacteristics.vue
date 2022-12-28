@@ -18,7 +18,7 @@
 
 <style lang="scss" scoped>
 .characteristics {
- /*  display: none; */
+  display: none;
   gap: 16px;
 
   background-color: white;

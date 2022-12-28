@@ -40,6 +40,7 @@ const sizeSlide = ref(0);
 const slides = ref(null);
 const pagination = ref(null);
 
+
 defineProps({
   items: { type: Array, required: true },
 });
