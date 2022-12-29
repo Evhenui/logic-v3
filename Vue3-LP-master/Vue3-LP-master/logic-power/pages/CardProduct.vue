@@ -80,7 +80,7 @@ const footerValues = {
 <style lang="scss" scoped>
 .card-product {
  /*  --gap: 8px; */
-  flex: 1 0 353px;
+  flex: 1 0 267px;
 
   background-color: white;
 

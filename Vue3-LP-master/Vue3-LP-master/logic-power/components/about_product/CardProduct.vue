@@ -47,6 +47,8 @@
       <div class="card-product__container">
         <div class="spec">
           <div class="spec__w">
+            
+
             <CardProductDescription
               :class="{ active: currentNav === ProductNav }"
             >
@@ -82,6 +84,8 @@
                 <span class="spec__article">{{ card.name.ru }}</span>
               </h3>
             </CardProductVideo>
+
+            <!-- <ProductSlider :title="'С этим товаром покупают'" /> -->
           </div>
 
           <CardProductAside :code="card.code" :navHeight="navHeight" />
@@ -96,6 +100,7 @@
         </div>
       </div>
     </div> 
+    
   </div>
 </template>
 
@@ -109,6 +114,7 @@ import CardProductNav from '~~/components/about_product/CardProductNav.vue';
 import CardProductVideo from '~~/components/about_product/CardProductVideo.vue';
 import Rating from '../common/sections/Rating.vue';
 import ButtonBuy from '../common/buttons/ButtonBuy.vue';
+import ProductSlider from '~~/pages/ProductSlider.vue';
 import { useHeaderlStore } from "~~/store/headerStore";
 
 const header = useHeaderlStore();

@@ -1,10 +1,13 @@
 <template>
   <section class="slider" ref="slider">
+    <h1 class="slider__title">{{ title }}</h1>
     <div class="slider__wrapper">
       <PaginationBtnArrow @click="prevSlide" class="slider__prev" :directionRight="false"/>
         <div 
           class="slider__items"
           ref="items"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
         >
           <CardProduct class="slider__item"/>
           <CardProduct class="slider__item"/>
@@ -33,9 +36,13 @@
 </template>
 
 <script setup>
-import { useSliderCardStore } from "~~/store/sliderCard";
 import PaginationBtnArrow from '~~/components/common/buttons/PaginationBtnArrow.vue';
 import CardProduct from './CardProduct.vue';
+
+defineProps({
+  cards: {type: Object, required: false},
+  title: {type: String, required: false},
+});
 
 const items = ref(null);
 const slider = ref(null);
@@ -45,7 +52,10 @@ const spaceSlides = ref(0);
 const distance = ref(0);
 const translateX = ref(0);
 const counter = ref(0);
-const translateXVar = ref('');
+const translateXVar = ref(0);
+
+const mobileTranslateX = ref(0);
+const difference = ref(0);
 
 function getSizeSlide() {
   slideWidth.value = items.value.children[0].offsetWidth;
@@ -65,91 +75,49 @@ function nextSlide() {
     translateXVar.value = `-${translateX.value}px`;
 
   } else {
-    translateX.value =( sliderWidth + spaceSlides.value) - sliderWindow;
+    translateX.value = ( sliderWidth + spaceSlides.value) - sliderWindow;
     counter.value = maxStep;
     translateXVar.value = `-${translateX.value}px`;
   }
 }
 
 function prevSlide() {
-/*   const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
-  const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
-  const slidesLength: number = this.$refs.slides.length;
-  const slideWidth: number = sliderWidth / slidesLength;
-  const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
-  const startingPosition: number = 0;
+  const sliderWidth = items.value.scrollWidth;
+  const sliderWindow = slider.value.offsetWidth;
+  const startingPosition = 0;
+  distance.value = sliderWidth - sliderWindow - (translateX.value - slideWidth.value);
 
-  this.slider.distance = sliderWidth - sliderWindow - (this.slider.positionLeft - slideWidth);
-
-  if (this.slider.distance <= sliderWidth - sliderWindow) {
-    this.slider.counter--;
-    this.slider.positionLeft = slideWidth * this.slider.counter;
+  if (distance.value <= sliderWidth - sliderWindow) {
+    counter.value--;
+    translateX.value = (slideWidth.value + spaceSlides.value) * counter.value;
+    translateXVar.value = `-${translateX.value}px`;
   } else {
-    this.slider.positionLeft = startingPosition;
-    this.slider.distance = sliderWidth - sliderWindow;
-    } */
+    translateX.value = startingPosition;
+    distance.value = sliderWidth - sliderWindow;
+    translateXVar.value = `-${translateX.value}px`;
+  }
 }
 
-
-
-
-
-
-
-
-
-
-/* const sliderNewProd = useSliderCardStore();
-const sliderValues = sliderNewProd.getSliderNewProduct;
-const getLength = sliderNewProd.calcSliderLengthNewProduct;
-const changeCounter = sliderNewProd.changeCounterNewProduct;
-
-const items = ref(null);
-const slider = ref(null);
-
-const widthWindow = ref(0);
-const widthSlide = ref(0);
-const widthGap = ref(0);
-const widthSpace = ref(0);
-const translateX = ref(0);
-
-function resizeCards() {
-  widthGap.value = parseInt(getComputedStyle(items.value).gap);
-  widthWindow.value = slider.value.offsetWidth;
-
-  if(window.innerWidth > 680) {
-    widthSpace.value = widthGap.value * (sliderValues.amountItems - 1)
-    widthSlide.value = (widthWindow.value / sliderValues.amountItems) - widthGap.value + 2 + 'px';
-  } else {
-    widthSpace.value = widthGap.value;
-    widthSlide.value = (widthWindow.value / 2) - widthGap.value + 8 + 'px';
-  }
-
-  translateX.value = 0;
-  changeCounter('null');
+function handleTouchStart(event) {
+  mobileTranslateX.value = event.touches[0].clientX;
 }
 
-function getLengthSlider() {
-  getLength(items.value.children);
-} */
+function handleTouchMove(event) {
+  const positionMove = event.touches[0].clientX;
+  const diff = positionMove - mobileTranslateX.value;
 
-/* watch(sliderValues, (current) => {
-  if(window.innerWidth > 680) {
-    translateX.value =  - ((widthWindow.value + 8) * current.counter) + 'px';
-  } else {
-    translateX.value =  - ((widthWindow.value + 16) * current.counter) + 'px';
-  }
-  
-});
- */
+  if(!mobileTranslateX.value) return false;
+
+  difference.value = diff;
+  difference.value > 0 ? prevSlide() : nextSlide();
+
+  mobileTranslateX.value = null;
+}
+
 onMounted(() => {
-/*   getLengthSlider();
-
-  resizeCards();
-  window.addEventListener('resize', resizeCards); */
-
   getSizeSlide();
   window.addEventListener('resize', getSizeSlide);
+  window.addEventListener("resize", prevSlide);
 });
 
 </script>
@@ -159,7 +127,22 @@ onMounted(() => {
   max-width: 1440px;
   width: 100%;
 
+  padding-bottom: 12px;
+
   overflow: hidden;
+
+  &__title {
+    @include font(25, 35, 700);
+    letter-spacing: 0.02em;
+    color: #363636;
+
+    margin-bottom: 24px;
+
+    @include bigMobile { 
+      @include font(20, 28, 400);
+      text-align: center;
+    }
+  }
 
   &__wrapper {
     @include flex-container(column, flex-start,);
