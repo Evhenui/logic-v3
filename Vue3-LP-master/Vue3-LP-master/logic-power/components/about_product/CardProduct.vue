@@ -92,8 +92,7 @@
 
             <ProductSlider 
               :title="'Просмотренные товары'" 
-              class="slider"
-              :class="{ active: currentNav === ProductNav }"
+              class="slider active"
             />
           </div>
           <CardProductAside :code="card.code" :navHeight="navHeight" />
