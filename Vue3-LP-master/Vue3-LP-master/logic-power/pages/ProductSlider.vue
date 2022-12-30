@@ -1,6 +1,6 @@
 <template>
   <section class="slider" ref="slider">
-    <h1 class="slider__title">{{ title }}</h1>
+    <p class="slider__title">{{ title }}</p>
     <div class="slider__wrapper">
       <PaginationBtnArrow @click="prevSlide" class="slider__prev" :directionRight="false"/>
         <div 
@@ -9,22 +9,12 @@
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
         >
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
-          <CardProduct class="slider__item"/>
+          <CardProduct 
+            class="slider__item"
+            v-for="(item, index) in 10"
+            :key="index"
+          />
+
         </div>
       <PaginationBtnArrow 
           class="slider__next"
@@ -124,7 +114,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .slider {
-  max-width: 1440px;
   width: 100%;
 
   padding-bottom: 12px;

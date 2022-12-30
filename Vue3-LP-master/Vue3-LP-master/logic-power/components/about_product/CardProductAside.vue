@@ -1,15 +1,8 @@
 <template>
-  <aside
-    class="aside-card"
-    :style="{ '--top-aside': navHeight + 'px' }"
-  >
+  <aside class="aside-card" :style="{ '--top-aside': navHeight + 'px' }">
     <div class="aside-card__w">
       <div class="aside-card__img-w">
-        <img
-          class="aside-card__img"
-          src="/img/card-product-aside.png"
-          alt=""
-        />
+        <img class="aside-card__img" src="/img/card-product-aside.png" alt="" />
       </div>
       <div class="aside-card__money" @click="isSale = !isSale">
         <div class="aside-card__money-sale" v-if="isSale">
@@ -29,22 +22,21 @@
 </template>
 
 <script setup>
-import ButtonBuy from '~~/components/card_product/UI/ButtonBuy.vue'
+import ButtonBuy from "~~/components/card_product/UI/ButtonBuy.vue";
 
 defineProps({
-  code: { type: String, required: true},
+  code: { type: String, required: true },
   navHeight: { type: Number, required: true },
 });
 
 const isSale = ref(true);
-
 </script>
 
 <style lang="scss" scoped>
 .aside-card {
   --top-aside: 0;
   position: sticky;
-    top: calc(16px + var(--height-header) + var(--top-aside));
+  top: calc(16px + var(--height-header) + var(--top-aside));
 
   @include bigMobile {
     display: none;

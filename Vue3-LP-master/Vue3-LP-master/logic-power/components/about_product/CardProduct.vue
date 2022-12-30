@@ -48,9 +48,14 @@
         <div class="spec">
           <div class="spec__w">
             
+            <ProductSlider 
+              :title="'С этим товаром покупают'" 
+              class="slider"
+              :class="{ active: currentNav === ProductNav }"
+            />
 
             <CardProductDescription
-              :class="{ active: currentNav === ProductNav }"
+            :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
             >
               <h3 class="spec__title">
                 Описание
@@ -85,10 +90,14 @@
               </h3>
             </CardProductVideo>
 
-            <!-- <ProductSlider :title="'С этим товаром покупают'" /> -->
+            <ProductSlider 
+              :title="'Просмотренные товары'" 
+              class="slider"
+              :class="{ active: currentNav === ProductNav }"
+            />
           </div>
-
           <CardProductAside :code="card.code" :navHeight="navHeight" />
+          
         </div>
         <div class="mobile-price" v-if="isMobile && isVisibility">
           <div class="mobile-price__money-sale">
@@ -123,7 +132,7 @@ const headerSize = header.getHeight;
 const productWrapper = ref(null);
 const aboutSection = ref(null);
 const productNavList = ref(null);
-const navigation = ref(null)
+const navigation = ref(null);
 
 const currentNav = ref(1);
 const isSale = ref(true);
@@ -131,7 +140,9 @@ const isMobile = ref(false);
 const isVisibility = ref(false);
 const navHeight = ref(0);
 const ProductNav = ref(1);
-const heightHeader = ref();
+const heightHeader = ref(0);
+const sliderSize = ref(0);
+const asideWidth = ref(0);
 
 const card = {
     code: "0000001",
@@ -249,6 +260,15 @@ function onResize() {
   calsIsMobile();
   calcBlockPriceVisibility();
   calcNavHeight();
+  getWidthSlider();
+}
+
+function getWidthSlider() {
+  if(window.innerWidth < 1470 ) {
+    sliderSize.value = window.innerWidth - (346 + 16+16+16) + 'px';
+  } else {
+    sliderSize.value = '1076px';
+  }
 }
 
 onMounted(() => {
@@ -451,6 +471,20 @@ onUnmounted(() => {
 
   &__money-regular {
     @include font(24, 28, 500);
+  }
+}
+
+.slider {
+  max-width: v-bind(sliderSize);
+
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  @include bigMobile {
+    max-width: 100%;
   }
 }
 </style>

@@ -80,7 +80,8 @@ const footerValues = {
 <style lang="scss" scoped>
 .card-product {
  /*  --gap: 8px; */
-  flex: 1 0 267px;
+  flex: 0 0 263px;
+  /* width: 263px; */
 
   background-color: white;
 
@@ -88,7 +89,8 @@ const footerValues = {
   border-radius: 8px;
 
   @include bigMobile {
-    max-width: 164px;
+    flex: 0 0 164px;
+     /* width: 164px; */
   }
 
   /*  @include set-item-count-in-row(4); */
