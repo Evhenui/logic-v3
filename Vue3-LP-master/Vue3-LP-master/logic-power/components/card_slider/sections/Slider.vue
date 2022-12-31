@@ -117,14 +117,20 @@ onMounted(() => {
 .slider-main {
   width: 491px;
 
+  position: relative;
+
   overflow: hidden;
 
   &.modal {
     width: 584px;
+
+    @include bigMobile {
+      width: 311px;
+    }
   }
 
   @include mobile {
-    width:311px;
+    width: 311px;
   }
   
   &__wrapper {

@@ -1,5 +1,8 @@
 <template>
-  <div class="paginaion">
+  <div 
+    class="paginaion"
+    :class="{modal: modal}"
+  >
     <div class="paginaion__wrapper">
       <ArrowButton :bottom="false" @click="prevSlide" />
       <div 
@@ -13,6 +16,7 @@
           :img="item.image"
           :class="{ active: index === sliderCounter.counter }"
           :mainSlide="false"
+          :modal="modal"
           @click="activeSlide(index)"
         />
       </div>
@@ -43,6 +47,7 @@ const pagination = ref(null);
 
 defineProps({
   items: { type: Array, required: true },
+  modal: { type: Boolean, required: false },
 });
 
 function getValuesSlider() {
@@ -94,6 +99,21 @@ onMounted(() => {
   
 <style lang="scss" scoped>
 .paginaion {
+
+  &.modal {
+    .paginaion__wrapper {
+      @include flex-container(row, center, center);
+    }
+
+    .paginaion__slides {
+      @include bigMobile {
+        height: auto;
+
+        @include flex-container(row, center, center);
+      }
+    }
+  }
+
   &__wrapper {
     @include flex-container(column, center, center);
   }

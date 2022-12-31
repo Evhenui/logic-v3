@@ -46,6 +46,11 @@ defineProps({
     &.modal {
       width: 584px;
       height: 584px;
+
+      @include bigMobile {
+        width: 311px;
+        height: 311px;
+      }
     }
 
     @include mobile {
@@ -56,6 +61,10 @@ defineProps({
 
   &.preview {
     cursor: pointer;
+
+    &.modal {
+      padding: 2px;
+    }
   }
 
   @include mobile {
@@ -64,6 +73,8 @@ defineProps({
   }
 
   &__image {
+    margin: auto;
+    
     pointer-events: none;
     user-select: none;
   }
