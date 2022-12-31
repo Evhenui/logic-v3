@@ -2,7 +2,7 @@
   <div class="slider-main">
     <div 
       class="slider-main__wrapper"
-      :class="{moving: moving}"
+      :class="[{moving: moving}, {modal: modal}]"
       ref="sliderMain"
       :style="[{ '--translateX': - translateX + 'px' }]"
       @touchstart="handleTouchStart($event)"
@@ -42,6 +42,7 @@ const sliderMain = ref(null);
 
 defineProps({
   items: { type: Array, required: true },
+  modal: { type: Boolean, required: false },
 });
 
 function getSizeSlide() {

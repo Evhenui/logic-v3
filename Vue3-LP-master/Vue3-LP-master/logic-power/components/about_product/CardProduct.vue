@@ -146,6 +146,7 @@ const ProductNav = ref(1);
 const heightHeader = ref(0);
 const sliderSize = ref(0);
 const asideWidth = ref(0);
+const positionAside = ref(0);
 
 const card = {
     code: "0000001",
@@ -264,6 +265,7 @@ function onResize() {
   calcBlockPriceVisibility();
   calcNavHeight();
   getWidthSlider();
+  getTopAside();
 }
 
 function getWidthSlider() {
@@ -279,7 +281,13 @@ function getWidthSlider() {
   }
 }
 
+function getTopAside() {
+  positionAside.value = 
+  navigation.value.getBoundingClientRect().top + navigation.value.getBoundingClientRect().height + 'px';
+}
+
 onMounted(() => {
+  console.log(navigation.value.getBoundingClientRect())
   onResize();
   window.addEventListener("resize", onResize);
   window.addEventListener("scroll", calcBlockPriceVisibility);
@@ -497,9 +505,10 @@ onUnmounted(() => {
 }
 
 .aside {
-  --top-aside: 0;
+  /* --top-aside: 0; */
   position: sticky;
-  top: calc(16px + var(--height-header) + var(--top-aside));
+ /*  top: calc(16px + var(--height-header) + var(--top-aside)); */
+ top: v-bind(positionAside);
 
   @include bigMobile {
     display: none;
