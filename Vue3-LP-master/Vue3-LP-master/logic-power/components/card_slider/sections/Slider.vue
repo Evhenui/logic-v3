@@ -1,8 +1,11 @@
 <template>
-  <div class="slider-main">
+  <div 
+    class="slider-main"
+    :class="{modal: modal}"
+  >
     <div 
       class="slider-main__wrapper"
-      :class="[{moving: moving}, {modal: modal}]"
+      :class="{moving: moving}"
       ref="sliderMain"
       :style="[{ '--translateX': - translateX + 'px' }]"
       @touchstart="handleTouchStart($event)"
@@ -17,6 +20,7 @@
         :key="index"
         :img="item.image"
         :mainSlide="true"
+        :modal="modal"
       />
     </div>
   </div>
@@ -115,8 +119,12 @@ onMounted(() => {
 
   overflow: hidden;
 
+  &.modal {
+    width: 584px;
+  }
+
   @include mobile {
-    width: 272px;
+    width:311px;
   }
   
   &__wrapper {

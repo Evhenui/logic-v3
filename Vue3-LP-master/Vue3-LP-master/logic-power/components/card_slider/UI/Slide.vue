@@ -1,7 +1,11 @@
 <template>
   <div 
     class="slide"
-    :class="[{main: mainSlide}, {preview: !mainSlide}]"
+    :class="[
+      {main: mainSlide},
+      {preview: !mainSlide},
+      {modal: modal}
+    ]"
   >
     <div class="slide__image-wrapper">
       <img 
@@ -16,7 +20,8 @@
 <script setup>
 defineProps({
   img: { type: String, required: false },
-  mainSlide: { type: Boolean, required: false }
+  mainSlide: { type: Boolean, required: false },
+  modal:{ type: Boolean, required: false },
 });
 </script>
 
@@ -38,9 +43,14 @@ defineProps({
 
     user-select: none;
 
+    &.modal {
+      width: 584px;
+      height: 584px;
+    }
+
     @include mobile {
-      width: 272px;
-      height: 272px;
+      width: 311px;
+      height: 311px;
     }
   }
 
