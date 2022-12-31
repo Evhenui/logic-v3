@@ -45,7 +45,7 @@
 
     <div class="card-product__w">
       <div class="card-product__container">
-        <div class="spec">
+        <div class="spec" ref="spec">
           <div class="spec__w">
             
             <ProductSlider 
@@ -95,8 +95,10 @@
               class="slider active"
             />
           </div>
-          <CardProductAside :code="card.code" :navHeight="navHeight" />
-          
+          <div class="aside" :style="{ '--top-aside': navHeight + 'px' }" ref="aside">
+            <CardProductAside :code="card.code" :navHeight="navHeight" />
+          </div>
+        
         </div>
         <div class="mobile-price" v-if="isMobile && isVisibility">
           <div class="mobile-price__money-sale">
@@ -132,6 +134,8 @@ const productWrapper = ref(null);
 const aboutSection = ref(null);
 const productNavList = ref(null);
 const navigation = ref(null);
+const aside = ref(null);
+const spec = ref(null);
 
 const currentNav = ref(1);
 const isSale = ref(true);
@@ -263,8 +267,13 @@ function onResize() {
 }
 
 function getWidthSlider() {
+  const gap = parseInt(getComputedStyle(spec.value, null).getPropertyValue("gap"));
+  const mainPadding = parseInt(getComputedStyle(productWrapper.value, null).getPropertyValue("--local-pad")) * 2;
+  const widthAside = aside.value.offsetWidth;
+  const space = widthAside + mainPadding + gap;
+
   if(window.innerWidth < 1470 ) {
-    sliderSize.value = window.innerWidth - (346 + 16+16+16) + 'px';
+    sliderSize.value = window.innerWidth - space + 'px';
   } else {
     sliderSize.value = '1076px';
   }
@@ -484,6 +493,16 @@ onUnmounted(() => {
 
   @include bigMobile {
     max-width: 100%;
+  }
+}
+
+.aside {
+  --top-aside: 0;
+  position: sticky;
+  top: calc(16px + var(--height-header) + var(--top-aside));
+
+  @include bigMobile {
+    display: none;
   }
 }
 </style>

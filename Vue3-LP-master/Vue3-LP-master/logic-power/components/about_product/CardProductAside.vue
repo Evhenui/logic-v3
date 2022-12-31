@@ -1,5 +1,5 @@
 <template>
-  <aside class="aside-card" :style="{ '--top-aside': navHeight + 'px' }">
+  <aside class="aside-card" >
     <div class="aside-card__w">
       <div class="aside-card__img-w">
         <img class="aside-card__img" src="/img/card-product-aside.png" alt="" />
@@ -34,13 +34,13 @@ const isSale = ref(true);
 
 <style lang="scss" scoped>
 .aside-card {
-  --top-aside: 0;
+/*   --top-aside: 0;
   position: sticky;
   top: calc(16px + var(--height-header) + var(--top-aside));
 
   @include bigMobile {
     display: none;
-  }
+  } */
 
   &__w {
     width: 346px;
