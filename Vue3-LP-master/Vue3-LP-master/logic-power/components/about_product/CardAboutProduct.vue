@@ -1,7 +1,15 @@
 <template>
   <article class="product-about">
     <div class="gallery">
-      <CardSlider class="slider-main" />
+      <div class="slider-main">
+        <IncreaseButton 
+          :name="'Солнечная панель LP-340W (35 профиль. монокристалл)'"
+          class="slider-main__tip"
+          @click="showModal"
+        />
+        <CardSlider/>
+        <ModalSlider  />
+      </div>
       <div class="info__block">
         <div class="advantage">
           <h2 class="info__block-title">Преимущества</h2>
@@ -233,17 +241,24 @@
 import CardSlider from '~~/pages/CardSlider.vue';
 import ButtonBuy from '../common/buttons/ButtonBuy.vue';
 import Availbility from '../common/sections/Availbility.vue';
-import NavButtons from '../common/sections/NavButtons.vue'
+import NavButtons from '../common/sections/NavButtons.vue';
+import IncreaseButton from '~~/components/card_slider/UI/IncreaseButton.vue'
+import ModalSlider from '~~/pages/ModalSlider.vue';
+import { useSliderCardStore } from "~~/store/sliderCard";
+
+const slider = useSliderCardStore();
+const activeModal = slider.activeSliderModal;
+
 const DeliveryLabel = {
   ODESA: 1,
   UKRAINE: 0
 };
 
 const isSale = ref(false);
+const currLabel = ref(1);
 
 const blockPrice = ref(null);
 
-const currLabel = ref(1);
 /* enum DeliveryLabel {
   ODESA = 1,
   UKRAINE
@@ -257,6 +272,11 @@ const currLabel = ref(1);
   declare $refs: {
     blockPrice: HTMLElement;
   }; */
+
+function showModal() {
+  activeModal();
+  document.body.style.overflow = "hidden";
+}
 
 </script>
 
@@ -354,9 +374,19 @@ const currLabel = ref(1);
 }
 
 .slider-main {
+  position: relative;
+
   @include bigMobile {
     align-self: center;
   }
+
+  &__tip {
+    position: absolute;
+    left: 30%;
+    top: 35%;
+    z-index: 101;
+  }
+
 }
 
 .advantage {

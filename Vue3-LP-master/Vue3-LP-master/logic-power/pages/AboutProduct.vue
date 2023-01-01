@@ -25,7 +25,6 @@ import CardProductDescription from '~~/components/about_product/CardProductDescr
 import CardProductInstruction from '~~/components/about_product/CardProductInstruction.vue';
 import CardProductNav from '~~/components/about_product/CardProductNav.vue';
 import CardProductVideo from '~~/components/about_product/CardProductVideo.vue';
-
 import CardProduct from '~~/components/about_product/CardProduct.vue'
 
 </script>

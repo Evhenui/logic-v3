@@ -4,7 +4,11 @@
     :class="{modal: modal}"
   >
     <div class="paginaion__wrapper">
-      <ArrowButton :bottom="false" @click="prevSlide" />
+      <ArrowButton 
+        :bottom="false" 
+        @click="prevSlide" 
+        class="paginaion__button-prev"
+      />
       <div 
         class="paginaion__slides"
         ref="pagination"
@@ -20,7 +24,21 @@
           @click="activeSlide(index)"
         />
       </div>
-      <ArrowButton :bottom="true" @click="nextSlide" />
+
+      <div class="paginaion__modal-nav">
+        <div 
+          class="paginaion__point"
+          v-for="(item, index) in items"
+          :key="index"
+          :class="{ active: index === sliderCounter.counter }"
+          @click="activeSlide(index)"
+        ></div>
+      </div>
+      <ArrowButton 
+        :bottom="true" 
+        @click="nextSlide" 
+        class="paginaion__button-next"
+      />
     </div>
   </div>
 </template>
@@ -101,15 +119,47 @@ onMounted(() => {
 .paginaion {
 
   &.modal {
-    .paginaion__wrapper {
-      @include flex-container(row, center, center);
+    .paginaion__button-prev,
+    .paginaion__button-next {
+      @include bigMobile {
+        display: none;
+      }
     }
 
     .paginaion__slides {
       @include bigMobile {
-        height: auto;
+        display: none;
+      }
+    }
 
+    .paginaion__modal-nav {
+      @include bigMobile {
         @include flex-container(row, center, center);
+
+        gap: 8px;
+      }
+    }
+
+    .paginaion__point {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      
+      &.active {
+        background-color: #F36C21;
+      }
+
+      &:last-child,
+      &:nth-child(1) {
+        width: 4px;
+        height: 4px;
+
+        &.active {
+          width: 8px;
+          height: 8px;
+        }
       }
     }
   }
@@ -136,6 +186,10 @@ onMounted(() => {
 
       gap: 4px;
     }
+  }
+
+  &__modal-nav {
+    display: none;
   }
 }
 </style>

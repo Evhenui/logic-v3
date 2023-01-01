@@ -11,6 +11,9 @@ export const useSliderCardStore = defineStore({
           length: 0,
           amountItems: 4,
           amountItemsMobile: 2,
+        },
+        sliderModal: {
+          activeModal: false
         }
       };
     },
@@ -44,12 +47,17 @@ export const useSliderCardStore = defineStore({
       },
       calcSliderLengthNewProduct(items) {
         this.sliderNewProduct.length =  items.length;
+      },
+      activeSliderModal() {
+        this.sliderModal.activeModal = !this.sliderModal.activeModal;
+        console.log(this.sliderModal.activeModal)
       }
     },
     getters: {
       getCounter: (state) => state.slider,
       getLength: (state) => state.slider,
       getSliderNewProduct: (state) => state.sliderNewProduct,
+      getSliderModal: (state) => state.sliderModal,
     },
   });
   
