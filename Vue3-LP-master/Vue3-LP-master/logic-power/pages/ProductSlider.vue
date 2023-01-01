@@ -12,6 +12,7 @@
         ref="items"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
       >
         <CardProduct
           class="slider__item"
@@ -49,6 +50,7 @@ const translateXVar = ref(0);
 
 const mobileTranslateX = ref(0);
 const difference = ref(0);
+const activeTouches = ref(0);
 
 function getSizeSlide() {
   slideWidth.value = items.value.children[0].offsetWidth;
@@ -93,6 +95,7 @@ function prevSlide() {
 }
 
 function handleTouchStart(event) {
+  activeTouches.value = true;
   mobileTranslateX.value = event.touches[0].clientX;
 }
 
@@ -100,12 +103,18 @@ function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
   const diff = positionMove - mobileTranslateX.value;
 
-  if (!mobileTranslateX.value) return false;
+  if(activeTouches.value) {
+    if (!mobileTranslateX.value) return false;
 
-  difference.value = diff;
-  difference.value > 0 ? prevSlide() : nextSlide();
+    difference.value = diff;
+    difference.value > 0 ? prevSlide() : nextSlide();
 
-  mobileTranslateX.value = null;
+    mobileTranslateX.value = null;
+  }
+}
+
+function handleTouchEnd() {
+  activeTouches.value = false;
 }
 
 onMounted(() => {

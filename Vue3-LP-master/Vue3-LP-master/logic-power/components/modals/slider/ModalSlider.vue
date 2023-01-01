@@ -163,6 +163,10 @@ function nextSlide() {
     padding: 0 16px;
 
     overflow: auto;
+    
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   }
 
   &__content {
