@@ -9,8 +9,8 @@
           </h1>
           <div class="card-title__code">
             <Rating 
-              :large="true" 
-              :amount="12" 
+              :reviews="12" 
+              :points="3"
               class="card-product__rating mobile"
             />
             <div class="card-title__code-wrapper">
@@ -20,8 +20,8 @@
           </div>
         </div>
         <Rating 
-          :large="true" 
-          :amount="12" 
+          :reviews="12" 
+          :points="3"
           class="card-product__rating"
         />
       </div>

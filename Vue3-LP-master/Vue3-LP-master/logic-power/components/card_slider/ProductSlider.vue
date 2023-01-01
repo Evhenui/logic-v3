@@ -2,11 +2,6 @@
   <section class="slider" ref="slider">
     <p class="slider__title">{{ title }}</p>
     <div class="slider__wrapper">
-      <PaginationBtnArrow
-        @click="prevSlide"
-        class="slider__prev"
-        :directionRight="false"
-      />
       <div
         class="slider__items"
         ref="items"
@@ -21,11 +16,19 @@
           :values="item"
         />
       </div>
-      <PaginationBtnArrow
-        class="slider__next"
-        :directionRight="true"
-        @click="nextSlide"
-      />
+      <div class="slider__pagination">
+        <PaginationBtnArrow
+          @click="prevSlide"
+          class="slider__prev"
+          :directionRight="false"
+        />
+
+        <PaginationBtnArrow
+          class="slider__next"
+          :directionRight="true"
+          @click="nextSlide"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -159,20 +162,28 @@ onMounted(() => {
     }
   }
 
-  &__prev,
-  &__next {
+  &__pagination {
+    width: 100%;
+
+    @include flex-container(row, space-between, center);
+
     position: absolute;
     top: 50%;
-    left: 0;
     z-index: 80;
 
     transform: translateY(-50%);
+
+    @include bigMobile {
+      @include flex-container(row, center, center);
+
+      position: static;
+
+      gap: 68px;
+
+      transform: translateY(0);
+    }
   }
 
-  &__next {
-    left: auto;
-    right: 0;
-  }
 
   &__items {
     width: 100%;
@@ -184,7 +195,7 @@ onMounted(() => {
     transition: transform 0.3s ease-in-out;
     transform: translateX(v-bind(translateXVar));
 
-    @include mobile {
+    @include bigMobile {
       gap: 16px;
     }
   }
