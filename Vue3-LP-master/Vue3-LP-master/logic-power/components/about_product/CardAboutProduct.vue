@@ -7,8 +7,8 @@
           class="slider-main__tip"
           @click="showModal"
         />
-        <CardSlider/>
-        <ModalSlider  />
+        <CardSlider :sliderValues="items"/>
+        <ModalSlider :sliderValues="items"/>
       </div>
       <div class="info__block">
         <div class="advantage">
@@ -238,7 +238,7 @@
 </template>
 
 <script setup>
-import CardSlider from '~~/pages/CardSlider.vue';
+import CardSlider from '~~/components/card_slider/CardSlider.vue';
 import ButtonBuy from '../common/buttons/ButtonBuy.vue';
 import Availbility from '../common/sections/Availbility.vue';
 import NavButtons from '../common/sections/NavButtons.vue';
@@ -248,6 +248,10 @@ import { useSliderCardStore } from "~~/store/sliderCard";
 
 const slider = useSliderCardStore();
 const activeModal = slider.activeSliderModal;
+
+defineProps({
+  items: { type: Object, required: true },
+});
 
 const DeliveryLabel = {
   ODESA: 1,
@@ -384,7 +388,7 @@ function showModal() {
     position: absolute;
     left: 30%;
     top: 35%;
-    z-index: 101;
+    z-index: 99;
   }
 
 }

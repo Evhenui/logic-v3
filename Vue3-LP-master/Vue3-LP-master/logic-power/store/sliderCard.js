@@ -50,7 +50,6 @@ export const useSliderCardStore = defineStore({
       },
       activeSliderModal() {
         this.sliderModal.activeModal = !this.sliderModal.activeModal;
-        console.log(this.sliderModal.activeModal)
       }
     },
     getters: {

@@ -34,17 +34,13 @@
 
         <div class="card-slider">
           <div class="card-slider__wrapper">
-            <Suggestions
-              class="card-slider__suggestions"
-              :status="suggestions.topSales"
-            />
             <Pagination
-              :items="items"
+              :items="sliderValues.itemsImage"
               class="card-slider__pagination"
               :modal="true"
             />
             <ButtonNav class="card-slider__modal-prev" @click="prevSlide" />
-            <Slider :items="items" :modal="true" class="card-slider__slider" />
+            <Slider :items="sliderValues.itemsImage" :modal="true" class="card-slider__slider" />
             <ButtonNav
               class="card-slider__modal-next"
               :buttonNext="true"
@@ -54,7 +50,7 @@
         </div>
 
         <div class="modal-slider__footer">
-          <Prices :price="price" />
+          <Prices :price="sliderValues.price" />
           <ButtonBuy class="modal-slider__button-buy" />
         </div>
       </section>
@@ -63,7 +59,6 @@
 </template>
 
 <script setup>
-import Suggestions from "~~/components/card_slider/UI/Suggestions.vue";
 import Pagination from "~~/components/card_slider/sections/Pagination.vue";
 import Slider from "~~/components/card_slider/sections/Slider.vue";
 import Prices from "~~/components/common/sections/Prices.vue";
@@ -78,35 +73,14 @@ const modalState = slider.getSliderModal;
 const changeCounter = slider.changeCounter;
 const activeModal = slider.activeSliderModal;
 
-const items = [
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-  { image: "slider-modal-item" },
-];
+defineProps({
+  sliderValues: { type: Object, required: true },
+});
 
 const suggestions = {
   topSales: "top-sales",
   novelty: "novelty",
   stock: "stock",
-};
-
-const price = {
-  price: "2 625 ₴",
-  discount: "3 500 ₴",
-};
-
-const pages = {
-  actual: "1",
-  maxLength: "12",
 };
 
 const active = ref(false);
@@ -275,10 +249,6 @@ function nextSlide() {
     @include bigMobile {
       margin: 0 auto;
     }
-  }
-
-  &__suggestions {
-    display: none;
   }
 }
 </style>

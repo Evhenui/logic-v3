@@ -1,12 +1,15 @@
 <template>
   <div class="card-slider">
     <div class="card-slider__wrapper">
-      <Suggestions
-        class="card-slider__suggestions"
-        :status="suggestions.topSales"
-      />
-      <Pagination :items="items" />
-      <Slider :items="items" />
+      <div class="card-slider__suggestions">
+        <Suggestions
+          v-for="(item, index) in sliderValues.suggestions"
+          :key="index"
+          :status="item"
+        />
+      </div>
+      <Pagination :items="sliderValues.itemsImage" />
+      <Slider :items="sliderValues.itemsImage" />
     </div>
   </div>
 </template>
@@ -16,26 +19,9 @@ import Suggestions from "~~/components/card_slider/UI/Suggestions.vue";
 import Pagination from "~~/components/card_slider/sections/Pagination.vue";
 import Slider from "~~/components/card_slider/sections/Slider.vue";
 
-const items = [
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-  { image: "slide-item" },
-];
-
-const suggestions = {
-  topSales: "top-sales",
-  novelty: "novelty",
-  stock: "stock",
-};
+defineProps({
+  sliderValues: { type: Object, required: true },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -62,9 +48,14 @@ const suggestions = {
   }
 
   &__suggestions {
+    @include flex-container(column, space-between, flex-start);
+
     position: absolute;
     right: 16px;
     top: 16px;
+    z-index: 100;
+
+    gap: 4px;
   }
 }
 </style>

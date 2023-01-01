@@ -11,11 +11,7 @@
       <NuxtLink to="/warranty">Гарантия</NuxtLink>
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
-      <NuxtLink to="/CardSlider">CardSlider</NuxtLink>
-      <NuxtLink to="/ProductSlider">ProductSlider</NuxtLink>
       <NuxtLink to="/CardProduct">CardProduct</NuxtLink>
-      <NuxtLink to="/AboutProduct">AboutProduct</NuxtLink>
-      <NuxtLink to="/Test">Test</NuxtLink>
     </header>
 
     <div>

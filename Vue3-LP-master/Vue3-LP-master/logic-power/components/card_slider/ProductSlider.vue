@@ -32,7 +32,7 @@
 
 <script setup>
 import PaginationBtnArrow from "~~/components/common/buttons/PaginationBtnArrow.vue";
-import CardProduct from "./CardProduct.vue";
+import CardProduct from "~~/components/card_product/CardProduct.vue";
 
 defineProps({
   cards: { type: Array, required: true },

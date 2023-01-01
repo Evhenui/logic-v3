@@ -1,269 +1,820 @@
 <template>
-  <section 
-    class="card-product"
-    :class="[
-      {'filter': changeView},
-      {'inactive': values.inactive}
-    ]"
-  >
-    <div class="card-product__wrapper">
-        <HeaderNav 
-          class="card-product__header-nav" 
-          :inactive="values.inactive"
-          :status="values.suggestions"
-        />
-        <div class="card-product__section header">
-            <a class="card-product__image-wrapper" href="#">
-              <img class="card-product__image" :src="`/img/${values.image}-catalog.png`" :alt="values.image">
-            </a>
-          <Rating 
-            class="card-product__rating" 
-            :inactive="values.inactive"
-            :reviews="values.rating.reviews"
-            :points="values.rating.points"
-          />
-        </div>
-        <div class="card-product__section footer">
-          <div class="card-product__main-info">
-            <NavAvailability 
-              :status="values.statusValues" 
-              :changeView="changeView"
-              :inactive="values.inactive"
+  <div class="card-product" ref="productWrapper">
+    <div class="card-product__w">
+      <div class="card-product__container">
+        <div class="card-title">
+          <h1 class="card-title__text">
+            <span class="card-title__text-bold">{{ card.name.ru }}</span>
+            <span class="card-title__text-normal"></span> 1.4кВт АКБ mGel 100 Ah
+          </h1>
+          <div class="card-title__code">
+            <Rating 
+              :large="true" 
+              :amount="12" 
+              class="card-product__rating mobile"
             />
-            <div class="card-product__identification">
-              <a href="#" class="card-product__name-product">{{ values.nameProduct }}</a>
-              <p class="card-product__code">Код: {{ values.code }}</p>
+            <div class="card-title__code-wrapper">
+              <span class="card-title__code-text">Код:</span>
+              <span class="card-title__code-number">{{ card.code }}</span>
             </div>
           </div>
-          <CardFooter 
-            :status="values.prices.button" 
-            :price="values.prices.price"
-            :inactive="values.inactive"
-          />
         </div>
+        <Rating 
+          :large="true" 
+          :amount="12" 
+          class="card-product__rating"
+        />
+      </div>
     </div>
-  </section> 
-</template>
-    
-<script setup>
-import HeaderNav from "~~/components/card_product/sections/HeaderNav.vue";
-import Rating from "~~/components/common/sections/Rating.vue";
-import NavAvailability from "~~/components/card_product/sections/NavAvailability.vue";
-import CardFooter from "~~/components/card_product/sections/CardFooter.vue";
 
-defineProps({
-  changeView: { type: Boolean, required: false},
-  values: { type: Object, required: false},
-});
+    <div class="card-product__navigation" ref="navigation">
+      <CardProductNav
+        @navChange="calcCurrNav"
+        :CurrentNav="currentNav"
+        ref="productNavList"
+      />
+    </div>
 
-const inactiveCard = ref(false);
+    <div class="card-product__w">
+      <div class="card-product__container" ref="aboutSection">
+        <CardAboutProduct
+          :class="{ active: currentNav === ProductNav }"
+          :items="sliderValues"
+        />
+      </div>
+    </div>
 
-</script>
-    
-<style lang="scss" scoped>
-.card-product {
- /*  --gap: 8px; */
-  flex: 0 0 263px;
-  /* width: 263px; */
+    <div class="card-product__w">
+      <div class="card-product__container">
+        <div class="spec" ref="spec">
+          <div class="spec__w">
+            
+            <ProductSlider 
+              :title="'С этим товаром покупают'" 
+              class="slider"
+              :class="{ active: currentNav === ProductNav }"
+              :cards="cardItems"
+            />
 
-  background-color: white;
+            <CardProductDescription
+            :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
+            >
+              <h3 class="spec__title">
+                Описание
+                <span class="spec__article">{{ card.name.ru }}</span>
+              </h3>
+            </CardProductDescription>
 
-  border: 1px solid #E9E9E9;
-  border-radius: 8px;
+            <CardProductCharacteristics
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
+            >
+              <h3 class="spec__title">
+                Характеристики
+                <span class="spec__article">{{ card.name.ru }}</span>
+              </h3>
+            </CardProductCharacteristics>
 
-  @include bigMobile {
-    flex: 0 0 164px;
-     /* width: 164px; */
-  }
+            <CardProductInstruction
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 5}]"
+            >
+              <h3 class="spec__title">
+                Загрузки
+                <span class="spec__article">{{ card.name.ru }}</span>
+              </h3>
+            </CardProductInstruction>
 
-  /*  @include set-item-count-in-row(4); */
-/*
-  @include smallestScreen {
-    @include set-item-count-in-row(3);
-  }
-  
-  @include bigMobile { 
-    @include set-item-count-in-row(4);
-  }
-*/
-/*   @include mobile { 
-    @include set-item-count-in-row(2);
-  }  */
+            <CardProductVideo
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 4}]"
+            >
+              <h3 class="spec__title">
+                Видео
+                <span class="spec__article">{{ card.name.ru }}</span>
+              </h3>
+            </CardProductVideo>
 
-  &.inactive {
-    .card-product__image {
-      filter:grayscale(1);
-    }
-  }
-  &.filter {
-    @include bigMobile { 
-      // max-width: 343px;
-      /* @include set-item-count-in-row(2); */
-
-      .card-product__header-nav {
-        left: 0;
-      }
-
-      .card-product__wrapper {
-        @include flex-container(row, flex-start);
-
-        padding: 8px;
-        gap: 8px;
-      }
-
-      .card-product__image {
-        width: 125px;
-        height: 125px;
-      }
-
-      .card-product__section.header {
-        @include flex-container(column, flex-start);
-        flex: 0 0 auto;
-
-        border: none;
-
-        margin: 0;
-        padding-top: 24px;
-      }
-
-      .card-product__section.footer {
-        width: 100%;
-
-        @include flex-container(column, space-between);
-
-        padding: 0;
-      }
-
-      .card-product__rating {
-        @include flex-container(column, flex-start, flex-start);
-
-        gap: 8px;
-        padding: 0;
-      }
-
-      .card-product__main-info {
-        @include flex-container(column-reverse, flex-start, );
-      }
-
-      .card-product__identification {
-        max-width: 140px;
-      }
-
-      .card-product__name-product {
-        display: -webkit-box;
-
-        @include font(14, 18, 400);
-
-        text-overflow: ellipsis;
-        overflow: hidden;
+            <ProductSlider 
+              :title="'Просмотренные товары'" 
+              :cards="cardItems"
+              class="slider active"
+            />
+          </div>
+          <div class="aside" :style="{ '--top-aside': navHeight + 'px' }" ref="aside">
+            <CardProductAside :code="card.code" :navHeight="navHeight" />
+          </div>
         
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
+        </div>
+        <div class="mobile-price" v-if="isMobile && isVisibility">
+          <div class="mobile-price__money-sale">
+            <p class="mobile-price__money-sale-old">3500 грн</p>
+            <p class="mobile-price__money-sale-new">3113 грн</p>
+          </div>
+      <!--     <div class="mobile-price__money-regular">3113 грн</div> -->
+          <ButtonBuy :cardMobile="true" />
+        </div>
+      </div>
+    </div> 
+    
+  </div>
+</template>
+
+<script setup>
+import CardAboutProduct from '~~/components/about_product/CardAboutProduct.vue';
+import CardProductAside from '~~/components/about_product/CardProductAside.vue';
+import CardProductCharacteristics from '~~/components/about_product/CardProductCharacteristics.vue';
+import CardProductDescription from '~~/components/about_product/CardProductDescription.vue';
+import CardProductInstruction from '~~/components/about_product/CardProductInstruction.vue';
+import CardProductNav from '~~/components/about_product/CardProductNav.vue';
+import CardProductVideo from '~~/components/about_product/CardProductVideo.vue';
+import Rating from '~~/components/common/sections/Rating.vue';
+import ButtonBuy from '~~/components/common/buttons/ButtonBuy.vue';
+import ProductSlider from '~~/components/card_slider/ProductSlider.vue';
+import { useHeaderlStore } from "~~/store/headerStore";
+
+const header = useHeaderlStore();
+const headerSize = header.getHeight;
+
+const productWrapper = ref(null);
+const aboutSection = ref(null);
+const productNavList = ref(null);
+const navigation = ref(null);
+const aside = ref(null);
+const spec = ref(null);
+
+const currentNav = ref(1);
+const isSale = ref(true);
+const isMobile = ref(false);
+const isVisibility = ref(false);
+const navHeight = ref(0);
+const ProductNav = ref(1);
+const heightHeader = ref(0);
+const sliderSize = ref(0);
+const asideWidth = ref(0);
+const positionAside = ref(0);
+
+const card = {
+    code: "0000001",
+    slug: {
+      ru: "akkumulyator",
+      uk: "akumulyator",
+    },
+    name: {
+      ru: "Аккумулятор",
+      uk: "Акумулятор",
+    },
+    description: {
+      ru: "<p>Электрический аккумулятор</p>",
+      uk: "<p>Електричний акумулятор</p>",
+    },
+    status: "inStock",
+    labels: ["novelty"],
+    prices: [
+      {
+        type: "current",
+        money: {
+          amount: 33.77,
+          currency: "UAH",
+        },
+      },
+    ],
+    manufacturer: {
+      slug: "logicpower",
+      name: "LogicPower",
+    },
+    specifications: [
+      {
+        id: 1,
+        name: {
+          ru: "Тип корпуса",
+          uk: "Тип корпусу",
+        },
+        option: {
+          id: 2,
+          value: {
+            ru: "цилиндрический",
+            uk: "циліндричний",
+          },
+        },
+      },
+    ],
+    categories: [
+      {
+        name: {
+          ru: "Сетевое оборудование",
+          uk: "Мережеве обладнання",
+        },
+      },
+    ],
+    images: [
+      {
+        locales: ["ru"],
+        url: "https://example.com/image.jpg",
+        thumbnails: [
+          {
+            url: "https://example.com/image_tile.jpg",
+            type: "tile",
+          },
+        ],
+      },
+    ],
+    attachments: [
+      {
+        group: "Инструкция",
+        files: [
+          {
+            locales: ["ru"],
+            name: {
+              ru: "Инструкция пользователя",
+              uk: "Інструкція користувача",
+            },
+            url: "https://logicfox.info/manuals/LP/UPS/2415/2415_2416_4324_4325_(LP_650_850VA-PS-6PS)_manual_ua.pdf",
+            meta: {
+              type: "application/pdf",
+              size: 1846538,
+            },
+          },
+        ],
+      },
+    ],
+};
+
+const cardItems = [
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-    @include mobile { 
-      @include set-item-count-in-row(1);
+  },
+  inactive: true
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &:hover {
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
-  }
-
-  &__wrapper {
-    position: relative;
-
-    padding: 16px 0;
-
-    @include bigMobile {  
-      padding: 8px 0;
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &__header-nav {
-    width: 100%;
-
-    position: absolute;
-    top: 16px;
-
-    z-index: 100;
-
-    @include bigMobile { 
-      top: 8px;
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &__section {
-    &.header {
-      border-bottom: 1px solid #F3F3F3;
-
-      margin-bottom: 16px; 
-
-      @include bigMobile { 
-        margin-bottom: 8px;
-      }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-
-    &.footer {
-      @include flex-container(column, center);
-
-      padding: 0 16px;
-      gap: 34px;
-
-      @include bigMobile { 
-        padding: 0 8px;
-        gap: 28px;
-      }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &__image-wrappe {
-    @include bigMobile { 
-      max-width: 164px;
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &__image {
-    margin: 0 auto;
-  }
-
-  &__rating {
-    margin: 0;
-    padding-bottom: 16px;
-
-    @include bigMobile { 
-      padding: 0 4px 8px 4px;
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
-
-  &__main-info {
-    @include flex-container(column, center);
-
-    gap: 8px;
-  }
-
-  &__identification {
-    @include flex-container(column, center, flex-start);
-
-    gap: 8px;
-  }
-
-  &__name-product {
-    @include font(16, 22, 400);
-    letter-spacing: 0.02em;
-    color: #2B2B2B;
-
-    @include bigMobile { 
-      @include font(12, 16, 400);
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
     }
-  }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+]
 
-  &__code {
-    @include font(12, 16, 400);
-    letter-spacing: 0.02em;
-    color: #8A8A8A;
+const sliderValues = {
+  itemsImage: [
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  ],
+  suggestions: ['top-sales'],
+  price: {
+    price: "2 625 ₴",
+    discount: "3 500 ₴",
   }
 }
 
+function calcCurrNav(idx) {
+  currentNav.value = idx;
+}
+
+function calcNavHeight() {
+  navHeight.value = navigation.value.getBoundingClientRect().height;
+}
+
+function calcBlockPriceVisibility() {
+  const blockPriceRect = aboutSection.value.getBoundingClientRect();
+  const windowHeight = window.innerHeight
+
+  if (blockPriceRect.bottom <= windowHeight &&
+      blockPriceRect.top > 86
+    ) {
+      isVisibility.value = false;
+    } else {
+      isVisibility.value = true;
+    } 
+}
+
+function calsIsMobile() {
+  const mobWidth = getComputedStyle(productWrapper.value).getPropertyValue("--mobile-width");
+  isMobile.value = window.innerWidth <= parseInt(mobWidth);
+}
+
+function onResize() {
+  calsIsMobile();
+  calcBlockPriceVisibility();
+  calcNavHeight();
+  getWidthSlider();
+  getTopAside();
+}
+
+function getWidthSlider() {
+  const gap = parseInt(getComputedStyle(spec.value, null).getPropertyValue("gap"));
+  const mainPadding = parseInt(getComputedStyle(productWrapper.value, null).getPropertyValue("--local-pad")) * 2;
+  const widthAside = aside.value.offsetWidth;
+  const space = widthAside + mainPadding + gap;
+
+  if(window.innerWidth < 1470 ) {
+    sliderSize.value = window.innerWidth - space + 'px';
+  } else {
+    sliderSize.value = '1076px';
+  }
+}
+
+function getTopAside() {
+  positionAside.value = 
+  navigation.value.getBoundingClientRect().top + navigation.value.getBoundingClientRect().height + 'px';
+}
+
+onMounted(() => {
+  onResize();
+  window.addEventListener("resize", onResize);
+  window.addEventListener("scroll", calcBlockPriceVisibility);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", onResize);
+  window.removeEventListener("scroll", calcBlockPriceVisibility);
+});
+
+</script>
+
+<style lang="scss" scoped>
+.card-product {
+  --mobile-width: #{$mobile-big-width};
+  --local-pad: 16px;
+
+  position: relative;
+
+  @include flex-container(column, flex-start);
+  align-items: center;
+  gap: 16px;
+
+  padding-bottom: 80px;
+
+  &__navigation {
+    width: 100%;
+    position: sticky;
+    top: 136px;
+    z-index: 100;
+    background-color: #F7F9FA;
+
+    @include mobile {
+      top: 56px;
+    }
+  }
+
+  &__rating {
+    @include mobile {
+      display: none;
+    }
+
+    &.mobile {
+      display: none;
+
+      @include mobile {
+        display: flex;
+      }
+    }
+  }
+
+  &__w {
+    width: 100%;
+
+    @include flex-container(column, flex-start);
+    align-items: center;
+
+    padding: 0 16px;
+  }
+
+  &__container {
+    @extend %width-main;
+
+    @include flex-container(column, flex-start);
+    gap: 16px;
+  }
+}
+
+.card-title {
+  width: 100%;
+
+  @include flex-container(row, space-between, flex-start);
+  flex-wrap: wrap;
+  gap: 16px;
+
+  padding-top: 16px;
+
+  &__text {
+    @include font(36, 42);
+
+    @include bigMobile {
+      @include font(24, 28);
+    }
+  }
+
+  &__text-bold {
+    font-weight: 500;
+
+    @include bigMobile {
+      display: block;
+    }
+  }
+
+  &__text-normal {
+  }
+
+  &__code {
+    @include mobile {
+      width: 100%;
+
+      @include flex-container(row, space-between, center);
+    }
+  }
+
+  &__code-wrapper {
+    @include flex-container(row, center, center);
+    gap: 8px;
+
+    @include font(36, 47, 600);
+
+    @include bigMobile {
+      @include font(24, 28);
+
+      gap: 4px;
+    }
+  }
+
+  &__code-text {
+    color: #2B2B2B;
+
+    @include mobile {
+      @include font(16, 19, 400);
+      color: #8A8A8A;
+    }
+  }
+
+  &__code-number {
+    @include mobile {
+      @include font(16, 19, 400);
+    }
+  }
+}
+
+.spec {
+  width: 100%;
+
+  @include flex-container(row, space-between, flex-start);
+  gap: 16px;
+
+  &__w {
+    width: 100%;
+
+    @include flex-container(column, flex-start);
+    gap: 16px;
+  }
+
+  &__title {
+    @include font(18, 22, 700);
+
+    @include bigMobile {
+      font-weight: 500;
+    }
+  }
+
+  &__article {
+    font-weight: 400;
+  }
+}
+
+.mobile-price {
+  width: 100%;
+
+  @include flex-container(row, space-between, center);
+  flex-wrap: wrap;
+  gap: 8px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+
+  box-shadow: 0px 3px 11px rgb(0 0 0 / 10%);
+  background-color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+  padding: 16px 8px;
+
+  & .buy {
+    max-width: 160px;
+  }
+
+  &__money-sale {
+    @include flex-container(row-reverse, flex-end, center);
+    gap: 16px;
+  }
+
+  &__money-sale-old {
+    @include font;
+    text-decoration: line-through;
+  }
+
+  &__money-sale-new {
+    @include font(24, 28, 500);
+    color: red;
+  }
+
+  &__money-regular {
+    @include font(24, 28, 500);
+  }
+}
+
+.slider {
+  max-width: v-bind(sliderSize);
+
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  @include bigMobile {
+    max-width: 100%;
+  }
+}
+
+.aside {
+  /* --top-aside: 0; */
+  position: sticky;
+ /*  top: calc(16px + var(--height-header) + var(--top-aside)); */
+ top: v-bind(positionAside);
+
+  @include bigMobile {
+    display: none;
+  }
+}
 </style>
-        
