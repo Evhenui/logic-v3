@@ -10,6 +10,7 @@
       :style="[{ '--translateX': - translateX + 'px' }]"
       @touchstart="handleTouchStart($event)"
       @touchmove="handleTouchMove($event)"
+      @touchend="handleTouchEnd"
       @mousedown="mouseDown($event)"
       @mousemove="mouseMove($event)"
       @mouseup="mouseUp"
@@ -40,6 +41,7 @@ const translateX = ref(0);
 const difference = ref(0);
 const sizeSlide = ref(0);
 const moving = ref(false);
+const activeTouches = ref(false);
 
 const slides = ref(null);
 const sliderMain = ref(null);
@@ -64,10 +66,6 @@ function getStartPosition(position) {
   moving.value = true;
 }
 
-function mouseUp() {
-  moving.value = false;
-}
-
 function getMovePosition(position) {
   const positionMove = position;
   const diff = positionMove - positionLeft.value;
@@ -89,27 +87,45 @@ function getMovePosition(position) {
 }
 
 function handleTouchStart(event) {
+  activeTouches.value = true;
   getStartPosition(event.touches[0].clientX)
 }
 
 function handleTouchMove(event) {
-  getMovePosition(event.touches[0].clientX)
+  if(activeTouches.value) {
+    getMovePosition(event.touches[0].clientX)
+  }
+}
+
+function handleTouchEnd() {
+  activeTouches.value = false;
 }
 
 function mouseDown (event) {
+  activeTouches.value = true;
   getStartPosition(event.pageX)
 }
 
 function mouseMove(event) {
-  getMovePosition(event.pageX)
+  if(activeTouches.value) {
+    getMovePosition(event.pageX);
+  }
+}
+
+function mouseUp() {
+  activeTouches.value = false;
+  moving.value = false;
 }
 
 watch(counterSlider, (current) => translateX.value = sizeSlide.value * current.counter);
 
-
 onMounted(() => {
   getSizeSlide();
   window.addEventListener('resize', resizeSlider);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeSlider);
 });
 </script>
 

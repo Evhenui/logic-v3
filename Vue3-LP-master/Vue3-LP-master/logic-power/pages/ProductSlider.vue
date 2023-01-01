@@ -2,36 +2,39 @@
   <section class="slider" ref="slider">
     <p class="slider__title">{{ title }}</p>
     <div class="slider__wrapper">
-      <PaginationBtnArrow @click="prevSlide" class="slider__prev" :directionRight="false"/>
-        <div 
-          class="slider__items"
-          ref="items"
-          @touchstart="handleTouchStart"
-          @touchmove="handleTouchMove"
-        >
-          <CardProduct 
-            class="slider__item"
-            v-for="(item, index) in 10"
-            :key="index"
-          />
-
-        </div>
-      <PaginationBtnArrow 
-          class="slider__next"
-          :directionRight="true"
-          @click="nextSlide" 
+      <PaginationBtnArrow
+        @click="prevSlide"
+        class="slider__prev"
+        :directionRight="false"
+      />
+      <div
+        class="slider__items"
+        ref="items"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+      >
+        <CardProduct
+          class="slider__item"
+          v-for="(item, index) in 10"
+          :key="index"
+        />
+      </div>
+      <PaginationBtnArrow
+        class="slider__next"
+        :directionRight="true"
+        @click="nextSlide"
       />
     </div>
   </section>
 </template>
 
 <script setup>
-import PaginationBtnArrow from '~~/components/common/buttons/PaginationBtnArrow.vue';
-import CardProduct from './CardProduct.vue';
+import PaginationBtnArrow from "~~/components/common/buttons/PaginationBtnArrow.vue";
+import CardProduct from "./CardProduct.vue";
 
 defineProps({
-  cards: {type: Object, required: false},
-  title: {type: String, required: false},
+  cards: { type: Object, required: false },
+  title: { type: String, required: false },
 });
 
 const items = ref(null);
@@ -57,15 +60,15 @@ function nextSlide() {
   const sliderWindow = slider.value.offsetWidth;
   const slidesLength = items.value.children.length;
   const maxStep = Math.round(slidesLength - sliderWindow / slideWidth.value);
-  distance.value = sliderWidth - sliderWindow - (translateX.value + slideWidth.value);
+  distance.value =
+    sliderWidth - sliderWindow - (translateX.value + slideWidth.value);
 
   if (distance.value >= 0 && counter.value < maxStep - 1) {
     counter.value++;
     translateX.value = (slideWidth.value + spaceSlides.value) * counter.value;
     translateXVar.value = `-${translateX.value}px`;
-
   } else {
-    translateX.value = ( sliderWidth + spaceSlides.value) - sliderWindow;
+    translateX.value = sliderWidth + spaceSlides.value - sliderWindow;
     counter.value = maxStep;
     translateXVar.value = `-${translateX.value}px`;
   }
@@ -75,7 +78,8 @@ function prevSlide() {
   const sliderWidth = items.value.scrollWidth;
   const sliderWindow = slider.value.offsetWidth;
   const startingPosition = 0;
-  distance.value = sliderWidth - sliderWindow - (translateX.value - slideWidth.value);
+  distance.value =
+    sliderWidth - sliderWindow - (translateX.value - slideWidth.value);
 
   if (distance.value <= sliderWidth - sliderWindow) {
     counter.value--;
@@ -96,7 +100,7 @@ function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
   const diff = positionMove - mobileTranslateX.value;
 
-  if(!mobileTranslateX.value) return false;
+  if (!mobileTranslateX.value) return false;
 
   difference.value = diff;
   difference.value > 0 ? prevSlide() : nextSlide();
@@ -106,10 +110,9 @@ function handleTouchMove(event) {
 
 onMounted(() => {
   getSizeSlide();
-  window.addEventListener('resize', getSizeSlide);
+  window.addEventListener("resize", getSizeSlide);
   window.addEventListener("resize", prevSlide);
 });
-
 </script>
 
 <style lang="scss" scoped>
@@ -127,20 +130,20 @@ onMounted(() => {
 
     margin-bottom: 24px;
 
-    @include bigMobile { 
+    @include bigMobile {
       @include font(20, 28, 400);
       text-align: center;
     }
   }
 
   &__wrapper {
-    @include flex-container(column, flex-start,);
+    @include flex-container(column, flex-start);
 
     position: relative;
 
     gap: 48px;
 
-    @include bigMobile { 
+    @include bigMobile {
       gap: 16px;
     }
   }
@@ -163,11 +166,11 @@ onMounted(() => {
   &__items {
     width: 100%;
 
-    @include flex-container(row, flex-start,);
+    @include flex-container(row, flex-start);
 
     gap: 8px;
-    
-    transition: transform .3s ease-in-out;
+
+    transition: transform 0.3s ease-in-out;
     transform: translateX(v-bind(translateXVar));
 
     @include mobile {
@@ -175,7 +178,7 @@ onMounted(() => {
     }
   }
 
-/*   &__item {
+  /*   &__item {
     flex: 1 0 v-bind(widthSlide);
   } */
 }

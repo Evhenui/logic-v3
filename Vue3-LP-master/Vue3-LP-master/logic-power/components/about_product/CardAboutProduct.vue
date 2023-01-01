@@ -243,7 +243,7 @@ import ButtonBuy from '../common/buttons/ButtonBuy.vue';
 import Availbility from '../common/sections/Availbility.vue';
 import NavButtons from '../common/sections/NavButtons.vue';
 import IncreaseButton from '~~/components/card_slider/UI/IncreaseButton.vue'
-import ModalSlider from '~~/pages/ModalSlider.vue';
+import ModalSlider from '~~/components/modals/slider/ModalSlider.vue';
 import { useSliderCardStore } from "~~/store/sliderCard";
 
 const slider = useSliderCardStore();

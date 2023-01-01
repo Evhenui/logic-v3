@@ -1,42 +1,41 @@
 <template>
   <div class="card-slider">
     <div class="card-slider__wrapper">
-        <Suggestions 
-          class="card-slider__suggestions" 
-          :status="suggestions.topSales"
-        />
-        <Pagination :items="items" />
-        <Slider :items="items"/>
+      <Suggestions
+        class="card-slider__suggestions"
+        :status="suggestions.topSales"
+      />
+      <Pagination :items="items" />
+      <Slider :items="items" />
     </div>
   </div>
 </template>
 
 <script setup>
 import Suggestions from "~~/components/card_slider/UI/Suggestions.vue";
-import Pagination from "~~/components/card_slider/sections/Pagination.vue"
+import Pagination from "~~/components/card_slider/sections/Pagination.vue";
 import Slider from "~~/components/card_slider/sections/Slider.vue";
 
 const items = [
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    {image: 'slide-item'},
-    
-]
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+  { image: "slide-item" },
+];
 
 const suggestions = {
-  topSales: 'top-sales',
-  novelty: 'novelty',
-  stock: 'stock'
-}
+  topSales: "top-sales",
+  novelty: "novelty",
+  stock: "stock",
+};
 </script>
 
 <style lang="scss" scoped>

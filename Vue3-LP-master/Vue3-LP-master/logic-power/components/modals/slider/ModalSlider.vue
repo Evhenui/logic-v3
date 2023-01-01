@@ -1,56 +1,60 @@
 <template>
-   <div
+  <div
     class="modal-slider"
     :class="{ active: modalState.activeModal }"
     @click.stop="closeModal"
-   >
+  >
     <div @click.stop class="modal-slider__wrapper">
       <section class="modal-slider__content">
         <div class="modal-slider__header">
           <div class="modal-slider__pages">
-            <span class="modal-slider__page">{{ sliderCounter.counter }}/{{ sliderLength.length }}</span>
+            <span class="modal-slider__page"
+              >{{ sliderCounter.counter }}/{{ sliderLength.length }}</span
+            >
           </div>
 
-          <button 
-            class="modal-slider__close"
-            @click="closeModal"
-          >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.00972 22.9902L15.9999 16M22.9901 9.00981L15.9999 16M15.9999 16L9.00972 9.00981M15.9999 16L22.9901 22.9902" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <button class="modal-slider__close" @click="closeModal">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.00972 22.9902L15.9999 16M22.9901 9.00981L15.9999 16M15.9999 16L9.00972 9.00981M15.9999 16L22.9901 22.9902"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
         </div>
 
         <div class="card-slider">
-            <div class="card-slider__wrapper">
-              <Suggestions 
-                class="card-slider__suggestions" 
-                :status="suggestions.topSales"
-              />
-              <Pagination 
-                :items="items" 
-                class="card-slider__pagination"
-                :modal="true"
-              />
-              <ButtonNav 
-                class="card-slider__modal-prev" 
-                @click="prevSlide"
-              />
-              <Slider 
-                :items="items" 
-                :modal="true" 
-                class="card-slider__slider"
-              />
-              <ButtonNav 
-                class="card-slider__modal-next" 
-                :buttonNext="true"
-                @click="nextSlide"
-              />
-            </div>
+          <div class="card-slider__wrapper">
+            <Suggestions
+              class="card-slider__suggestions"
+              :status="suggestions.topSales"
+            />
+            <Pagination
+              :items="items"
+              class="card-slider__pagination"
+              :modal="true"
+            />
+            <ButtonNav class="card-slider__modal-prev" @click="prevSlide" />
+            <Slider :items="items" :modal="true" class="card-slider__slider" />
+            <ButtonNav
+              class="card-slider__modal-next"
+              :buttonNext="true"
+              @click="nextSlide"
+            />
+          </div>
         </div>
 
         <div class="modal-slider__footer">
-          <Prices :price="price"/>
+          <Prices :price="price" />
           <ButtonBuy class="modal-slider__button-buy" />
         </div>
       </section>
@@ -58,11 +62,11 @@
   </div>
 </template>
 
-<script setup> 
+<script setup>
 import Suggestions from "~~/components/card_slider/UI/Suggestions.vue";
-import Pagination from "~~/components/card_slider/sections/Pagination.vue"
+import Pagination from "~~/components/card_slider/sections/Pagination.vue";
 import Slider from "~~/components/card_slider/sections/Slider.vue";
-import Prices from "~~/components/common/sections/Prices.vue"
+import Prices from "~~/components/common/sections/Prices.vue";
 import ButtonBuy from "~~/components/common/buttons/ButtonBuy.vue";
 import ButtonNav from "~~/components/card_slider/UI/ButtonNav.vue";
 import { useSliderCardStore } from "~~/store/sliderCard";
@@ -75,35 +79,35 @@ const changeCounter = slider.changeCounter;
 const activeModal = slider.activeSliderModal;
 
 const items = [
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-    {image: 'slider-modal-item'},
-]
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+  { image: "slider-modal-item" },
+];
 
 const suggestions = {
-  topSales: 'top-sales',
-  novelty: 'novelty',
-  stock: 'stock'
-}
+  topSales: "top-sales",
+  novelty: "novelty",
+  stock: "stock",
+};
 
 const price = {
-  price : '2 625 ₴',
-  discount: '3 500 ₴'
-}
+  price: "2 625 ₴",
+  discount: "3 500 ₴",
+};
 
 const pages = {
-  actual: '1',
-  maxLength: '12'
-}
+  actual: "1",
+  maxLength: "12",
+};
 
 const active = ref(false);
 
@@ -114,13 +118,13 @@ function closeModal() {
 
 function prevSlide() {
   if (sliderCounter.counter !== 0) {
-    changeCounter('remove');
+    changeCounter("remove");
   }
 }
 
 function nextSlide() {
   if (sliderCounter.counter < sliderLength.length) {
-    changeCounter('add');
+    changeCounter("add");
   }
 }
 </script>
@@ -187,7 +191,7 @@ function nextSlide() {
   &__pages {
     width: max-content;
 
-    background-color: #E9E9E9;
+    background-color: #e9e9e9;
     border-radius: 8px;
 
     padding: 8px 16px;
@@ -200,7 +204,7 @@ function nextSlide() {
   &__page {
     @include font(16, 22, 700);
     letter-spacing: 0.02em;
-    color: #2B2B2B;
+    color: #2b2b2b;
   }
 
   &__close {
@@ -252,7 +256,7 @@ function nextSlide() {
 
     @include bigMobile {
       display: none;
-    } 
+    }
   }
 
   &__pagination {
@@ -264,8 +268,8 @@ function nextSlide() {
       margin-right: 0;
     }
 
-    @include bigMobile { 
-        margin: 0 auto;
+    @include bigMobile {
+      margin: 0 auto;
     }
   }
 
