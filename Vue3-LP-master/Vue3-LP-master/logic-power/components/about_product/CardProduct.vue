@@ -52,6 +52,7 @@
               :title="'С этим товаром покупают'" 
               class="slider"
               :class="{ active: currentNav === ProductNav }"
+              :cards="cardItems"
             />
 
             <CardProductDescription
@@ -92,6 +93,7 @@
 
             <ProductSlider 
               :title="'Просмотренные товары'" 
+              :cards="cardItems"
               class="slider active"
             />
           </div>
@@ -234,6 +236,285 @@ const card = {
     ],
 };
 
+const cardItems = [
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: true
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+  {
+  suggestions: ['novelty'],
+  image: 'product-card',
+  rating: {
+    points: '4',
+    reviews: '125'
+  },
+  statusValues: {
+    buttonStatus: 'in-stock',
+    delivery: true,
+    credit: true,
+  },
+  nameProduct: 'Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)',
+  code: '56983',
+  prices: {
+    button: 'buy',
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
+  },
+  inactive: false
+  },
+]
+
 function calcCurrNav(idx) {
   currentNav.value = idx;
 }
@@ -287,7 +568,6 @@ function getTopAside() {
 }
 
 onMounted(() => {
-  console.log(navigation.value.getBoundingClientRect())
   onResize();
   window.addEventListener("resize", onResize);
   window.addEventListener("scroll", calcBlockPriceVisibility);

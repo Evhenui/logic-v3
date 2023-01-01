@@ -16,8 +16,9 @@
       >
         <CardProduct
           class="slider__item"
-          v-for="(item, index) in 10"
+          v-for="(item, index) in cards"
           :key="index"
+          :values="item"
         />
       </div>
       <PaginationBtnArrow
@@ -34,8 +35,8 @@ import PaginationBtnArrow from "~~/components/common/buttons/PaginationBtnArrow.
 import CardProduct from "./CardProduct.vue";
 
 defineProps({
-  cards: { type: Object, required: false },
-  title: { type: String, required: false },
+  cards: { type: Array, required: true },
+  title: { type: String, required: true },
 });
 
 const items = ref(null);
@@ -51,6 +52,7 @@ const translateXVar = ref(0);
 const mobileTranslateX = ref(0);
 const difference = ref(0);
 const activeTouches = ref(0);
+
 
 function getSizeSlide() {
   slideWidth.value = items.value.children[0].offsetWidth;
@@ -186,9 +188,5 @@ onMounted(() => {
       gap: 16px;
     }
   }
-
-  /*   &__item {
-    flex: 1 0 v-bind(widthSlide);
-  } */
 }
 </style>

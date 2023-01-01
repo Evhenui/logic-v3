@@ -60,8 +60,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .button-status {
-  max-width: 152px;
-  width: 100%;
+  width: max-content;
   min-height: 28px;
 
   @include flex-container(row, center, center);
