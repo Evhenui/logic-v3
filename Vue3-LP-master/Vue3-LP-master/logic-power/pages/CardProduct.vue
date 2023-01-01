@@ -66,7 +66,9 @@
             </CardProductDescription>
 
             <CardProductCharacteristics
+              class="characteristics"
               :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
+              id="characteristics"
             >
               <h3 class="spec__title">
                 Характеристики
@@ -113,7 +115,6 @@
         </div>
       </div>
     </div> 
-    
   </div>
 </template>
 
@@ -684,9 +685,6 @@ onUnmounted(() => {
     }
   }
 
-  &__text-normal {
-  }
-
   &__code {
     @include mobile {
       width: 100%;
@@ -722,6 +720,10 @@ onUnmounted(() => {
       @include font(16, 19, 400);
     }
   }
+}
+
+.characteristics {
+  scroll-margin-top: 200px;
 }
 
 .spec {

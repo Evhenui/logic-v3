@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="read-more">
-        <a class="read-more__link" href="#">
+        <a class="read-more__link" href="#characteristics">
           <p class="read-more__text">Подробнее о товаре</p>
           <svg class="read-more__img" width="20" height="20" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -473,7 +473,7 @@ function showModal() {
   @include flex-container(row, space-between, center);
   gap: 16px;
 
-  @include bigMobile {
+  @include smallestScreen {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -736,7 +736,9 @@ function showModal() {
     }
   }
 
-  &__nav-item {}
+  &__nav-item {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
 
   &__nav-title {
     position: relative;

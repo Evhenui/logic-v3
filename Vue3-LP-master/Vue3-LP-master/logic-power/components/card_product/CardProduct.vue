@@ -217,7 +217,9 @@ const inactiveCard = ref(false);
     }
   }
 
-  &__image-wrappe {
+  &__image-wrapper {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     @include bigMobile { 
       max-width: 164px;
     }
@@ -252,6 +254,8 @@ const inactiveCard = ref(false);
     @include font(16, 22, 400);
     letter-spacing: 0.02em;
     color: #2B2B2B;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     @include bigMobile { 
       @include font(12, 16, 400);
