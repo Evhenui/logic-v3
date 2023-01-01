@@ -152,33 +152,43 @@
           </div>
           <transition name="fade" mode="out-in" appear>
             <div class="delivery__terms-odesa" v-if="currLabel === DeliveryLabel.ODESA">
-              <p class="delivery__terms">
+              <div class="delivery__terms">
                 <span class="delivery__terms-post">Самовывоз</span>
-                отправим завтра
-                <span class="delivery__terms-cost">Бесплатно</span>
-              </p>
-              <p class="delivery__terms">
+                <div class="delivery__terms-wrp">
+                  <span class="delivery__sample">завтра </span>
+                  <span class="delivery__terms-cost">Бесплатно</span>
+                </div>
+              </div>
+              <div class="delivery__terms">
                 <span class="delivery__terms-post">Курьер</span>
-                завтра с 10:00 до 17:00
-                <span class="delivery__terms-cost">Бесплатно</span>
-              </p>
-              <p class="delivery__terms">
-                <span class="delivery__terms-post">Отделение “Новая Почта”</span>
-                отправим завтра
-                <span class="delivery__terms-cost">от 56 грн</span>
-              </p>
+                <div class="delivery__terms-wrp">
+                  <span class="delivery__sample">завтра с 10:00 до 17:00 </span>
+                  <span class="delivery__terms-cost">Бесплатно</span>
+                </div>
+              </div>
+              <div class="delivery__terms">
+                <span class="delivery__terms-post">“Новая Почта”</span>
+                <div class="delivery__terms-wrp">
+                  <span class="delivery__sample">отправим завтра </span>
+                  <span class="delivery__terms-cost">от 56 грн</span>
+                </div>
+              </div>
             </div>
             <div class="delivery__terms-ukraine" v-else-if="currLabel === DeliveryLabel.UKRAINE">
-              <p class="delivery__terms">
-                <span class="delivery__terms-post">Отделение “Новая Почта”</span>
-                отправим завтра
-                <span class="delivery__terms-cost">от 56 грн</span>
-              </p>
-              <p class="delivery__terms">
-                <span class="delivery__terms-post">Отделение “УкрПочта”</span>
-                отправим завтра
-                <span class="delivery__terms-cost">от 56 грн</span>
-              </p>
+              <div class="delivery__terms">
+                <span class="delivery__terms-post">“Новая Почта” </span>
+                <div class="delivery__terms-wrp">
+                  <span class="delivery__sample">отправим завтра </span>
+                  <span class="delivery__terms-cost">от 56 грн</span>
+                </div>
+              </div>
+              <div class="delivery__terms">
+                <span class="delivery__terms-post">“УкрПочта” </span>
+                <div class="delivery__terms-wrp">
+                  <span class="delivery__sample">отправим завтра </span>
+                  <span class="delivery__terms-cost">от 56 грн</span>
+                </div>
+              </div>
             </div>
           </transition>
         </div>
@@ -412,10 +422,6 @@ function showModal() {
       justify-content: center;
     }
   }
-
-  &__img-w {}
-
-  &__img {}
 }
 
 .read-more {
@@ -484,8 +490,6 @@ function showModal() {
   @include bigMobile {
     flex-direction: column;
     align-items: flex-start;
-
-    gap: 8px;
   }
 
   &__info-w {
@@ -521,8 +525,6 @@ function showModal() {
 
     @include bigMobile {
       max-width: none;
-
-      gap: 0;
     }
   }
 
@@ -785,6 +787,10 @@ function showModal() {
   &__terms-odesa {
     @include flex-container(column, flex-start);
     gap: 8px;
+
+    @include bigMobile {
+      width: 100%;
+    }
   }
 
   &__terms {
@@ -797,6 +803,8 @@ function showModal() {
     color: #7A7E80;
 
     @include bigMobile {
+      @include flex-container(row, space-between, center);
+
       @include font(14, 16);
     }
   }
@@ -817,6 +825,12 @@ function showModal() {
   &__terms-ukraine {
     @include flex-container(column, flex-start);
     gap: 8px;
+
+    @include bigMobile {
+      width: 100%;
+
+      @include flex-container(column, space-between);
+    }
   }
 }
 
