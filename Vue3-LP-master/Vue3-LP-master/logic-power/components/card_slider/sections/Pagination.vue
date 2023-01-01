@@ -182,7 +182,7 @@ onMounted(() => {
     }
 
     @include mobile {
-      height: 221px;
+      height: 224px;
 
       gap: 4px;
     }

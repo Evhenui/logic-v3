@@ -58,7 +58,8 @@ const suggestions = {
 
     @include flex-container(row, space-between);
 
-    padding: 16px 4px 16px 16px;
+    padding: 16px 8px;
+    gap: 8px;
   }
 
   &__suggestions {

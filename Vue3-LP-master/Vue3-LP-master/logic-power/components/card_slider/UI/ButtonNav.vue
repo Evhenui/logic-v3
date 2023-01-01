@@ -19,6 +19,7 @@ defineProps({
   font-size: 0;
 
   background-color: #E9E9E9;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   border-radius: 8px;
 

@@ -157,6 +157,8 @@ function nextSlide() {
     width: 100%;
 
     padding: 0 16px;
+
+    overflow: auto;
   }
 
   &__content {

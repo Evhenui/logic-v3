@@ -54,8 +54,8 @@ defineProps({
     }
 
     @include mobile {
-      width: 311px;
-      height: 311px;
+      width: 272px;
+      height: 272px;
     }
   }
 
