@@ -7,7 +7,7 @@
           class="slider-main__tip"
           @click="showModal"
         />
-        <CardSlider :sliderValues="items"/>
+        <PreviewSlider :sliderValues="items"/>
         <ModalSlider :sliderValues="items"/>
       </div>
       <div class="info__block">
@@ -248,7 +248,7 @@
 </template>
 
 <script setup>
-import CardSlider from '~~/components/card_slider/CardSlider.vue';
+import PreviewSlider from '~~/components/card_slider/PreviewSlider.vue';
 import ButtonBuy from '../common/buttons/ButtonBuy.vue';
 import Availbility from '../common/sections/Availbility.vue';
 import NavButtons from '../common/sections/NavButtons.vue';
@@ -272,20 +272,6 @@ const isSale = ref(false);
 const currLabel = ref(1);
 
 const blockPrice = ref(null);
-
-/* enum DeliveryLabel {
-  ODESA = 1,
-  UKRAINE
-} */
-
-/*   isSale: boolean = false;
-
-  DeliveryLabel = DeliveryLabel;
-  currLabel: DeliveryLabel = DeliveryLabel.ODESA;
-
-  declare $refs: {
-    blockPrice: HTMLElement;
-  }; */
 
 function showModal() {
   activeModal();
