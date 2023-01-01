@@ -1,13 +1,19 @@
 <template>
   <nav class="availability">
     <ButtonStatus
-      :status="status.buttonStatus.inStock"
+      :status="status.buttonStatus"
       :changeView="changeView"
       :inactive="inactive"
     />
     <div class="availability__suggestions">
-      <Delivery :inactive="inactive" />
-      <Credit :inactive="inactive" />
+      <Delivery 
+        :inactive="inactive" 
+        :inactiveCard="status.delivery"
+      />
+      <Credit 
+        :inactive="inactive"
+        :inactiveCard="status.credit"
+      />
     </div>
   </nav>
 </template>

@@ -3,39 +3,42 @@
     class="card-product"
     :class="[
       {'filter': changeView},
-      {'inactive': inactiveCard}
+      {'inactive': values.inactive}
     ]"
   >
     <div class="card-product__wrapper">
         <HeaderNav 
           class="card-product__header-nav" 
-          :inactive="inactiveCard"
+          :inactive="values.inactive"
+          :status="values.suggestions"
         />
         <div class="card-product__section header">
             <a class="card-product__image-wrapper" href="#">
-              <img class="card-product__image" src="/img/product-card-catalog.png" alt="product name">
+              <img class="card-product__image" :src="`/img/${values.image}-catalog.png`" :alt="values.image">
             </a>
           <Rating 
             class="card-product__rating" 
-            :inactive="inactiveCard"
+            :inactive="values.inactive"
+            :reviews="values.rating.reviews"
+            :points="values.rating.points"
           />
         </div>
         <div class="card-product__section footer">
           <div class="card-product__main-info">
             <NavAvailability 
-              :status="availabilityState" 
+              :status="values.statusValues" 
               :changeView="changeView"
-              :inactive="inactiveCard"
+              :inactive="values.inactive"
             />
             <div class="card-product__identification">
-              <a href="#" class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</a>
-              <p class="card-product__code">Код: 56983</p>
+              <a href="#" class="card-product__name-product">{{ values.nameProduct }}</a>
+              <p class="card-product__code">Код: {{ values.code }}</p>
             </div>
           </div>
           <CardFooter 
-            :status="footerValues" 
-            :price="footerValues.price"
-            :inactive="inactiveCard"
+            :status="values.prices.button" 
+            :price="values.prices.price"
+            :inactive="values.inactive"
           />
         </div>
     </div>
@@ -48,33 +51,13 @@ import Rating from "~~/components/common/sections/Rating.vue";
 import NavAvailability from "~~/components/card_product/sections/NavAvailability.vue";
 import CardFooter from "~~/components/card_product/sections/CardFooter.vue";
 
-const inactiveCard = ref(false);
-
 defineProps({
   changeView: { type: Boolean, required: false},
+  values: { type: Object, required: false},
 });
 
-const availabilityState = {
-  buttonStatus: {
-    inStock: 'in-stock',
-    notAvailable: 'not-available',
-    ends: 'ends',
-    preOrder: 'pre-order'
-  }
-}
+const inactiveCard = ref(false);
 
-const footerValues = {
-  buttonState: {
-    buy: 'buy',
-    report: 'report',
-    preOrder: 'pre-order'
-  },
-  price: {
-    discount: '',
-    total: '500 ₴'
-  }
-}
- 
 </script>
     
 <style lang="scss" scoped>

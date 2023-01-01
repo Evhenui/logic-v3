@@ -1,8 +1,15 @@
 <template>
-  <header class="card-header">
+  <header 
+    class="card-header"
+    :class="{inactive: inactive}"
+  >
     <div class="card-header__wrapper">
-      <div class="card-header__suggestions">
-        <Suggestions v-if="!inactive" :status="typeAvailability.novelty" />
+      <div v-if="!inactive"  class="card-header__suggestions">
+        <Suggestions 
+          v-for="(item,index) in status"
+          :key="index"
+          :status="item" 
+        />
       </div>
       <HeaderButtons />
     </div>
@@ -15,6 +22,7 @@ import Suggestions from "../UI/Suggestions.vue";
 
 defineProps({
     inactive: { type: Boolean, required: false},
+    status: { type: Array, required: true},
 });
 
 const typeAvailability = {
@@ -27,6 +35,13 @@ const typeAvailability = {
 
 <style lang="scss" scoped>
 .card-header {
+
+  &.inactive {
+    .card-header__wrapper {
+      @include flex-container(row, flex-end, center);
+    }
+  }
+
   &__wrapper {
     @include flex-container(row, space-between, flex-start);
 

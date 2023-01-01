@@ -1,5 +1,5 @@
 <template>
-  <div class="delivery" :class="{ 'not-available': inactive }">
+  <div class="delivery" :class="{ 'not-available': inactive || !inactiveCard}">
     <svg
       class="delivery__image"
       width="30"
@@ -57,6 +57,7 @@
 <script setup>
 defineProps({
   inactive: { type: Boolean, required: true },
+  inactiveCard: { type: Boolean, required: true},
 });
 </script>
 

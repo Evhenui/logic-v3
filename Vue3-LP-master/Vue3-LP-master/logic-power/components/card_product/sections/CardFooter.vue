@@ -1,7 +1,7 @@
 <template>
   <footer class="card-footer">
     <Price :price="price" :inactive="inactive" />
-    <ButtonBuy :state="status.buttonState.buy" :inactive="inactive" />
+    <ButtonBuy :state="status" :inactive="inactive" />
   </footer>
 </template>
 
@@ -10,7 +10,7 @@ import ButtonBuy from "../UI/ButtonBuy.vue";
 import Price from "../UI/Price.vue";
 
 defineProps({
-  status: { type: Object, required: true },
+  status: { type: String, required: true },
   price: { type: Object, required: true },
   inactive: { type: Boolean, required: true },
 });
