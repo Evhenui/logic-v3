@@ -12,7 +12,7 @@
       <NuxtLink to="/">Главная</NuxtLink>
       <NuxtLink to="/Header">Header</NuxtLink>
       <NuxtLink to="/CardProduct">CardProduct</NuxtLink>
-      <NuxtLink to="/Test">Test</NuxtLink>
+      <NuxtLink to="/Comparison">Comparison</NuxtLink>
     </header>
 
     <div>
