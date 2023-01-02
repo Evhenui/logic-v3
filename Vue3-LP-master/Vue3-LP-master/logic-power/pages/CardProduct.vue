@@ -8,22 +8,22 @@
             <span class="card-title__text-normal"></span> 1.4кВт АКБ mGel 100 Ah
           </h1>
           <div class="card-title__code">
-            <Rating 
+   <!--          <Rating 
               :reviews="'12'" 
               :points="'3'"
               class="card-product__rating mobile"
-            />
+            /> -->
             <div class="card-title__code-wrapper">
               <span class="card-title__code-text">Код:</span>
               <span class="card-title__code-number">{{ card.code }}</span>
             </div>
           </div>
         </div>
-        <Rating 
+   <!--      <Rating 
           :reviews="'12'" 
           :points="'3'"
           class="card-product__rating"
-        />
+        /> -->
       </div>
     </div>
 
@@ -36,10 +36,11 @@
     </div>
 
     <div class="card-product__w">
-      <div class="card-product__container" ref="aboutSection">
+      <div class="card-product__container">
         <CardAboutProduct
           :class="{ active: currentNav === ProductNav }"
           :items="sliderValues"
+          @getPriceEl="getPriceEl"
         />
       </div>
     </div>
@@ -57,7 +58,9 @@
             />
 
             <CardProductDescription
-            :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
+              class="description"
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
+              id="description"
             >
               <h3 class="spec__title">
                 Описание
@@ -66,9 +69,7 @@
             </CardProductDescription>
 
             <CardProductCharacteristics
-              class="characteristics"
               :class="[{active: currentNav === ProductNav}, {active: currentNav === 2}]"
-              id="characteristics"
             >
               <h3 class="spec__title">
                 Характеристики
@@ -77,7 +78,7 @@
             </CardProductCharacteristics>
 
             <CardProductInstruction
-              :class="[{active: currentNav === ProductNav}, {active: currentNav === 5}]"
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 4}]"
             >
               <h3 class="spec__title">
                 Загрузки
@@ -86,34 +87,35 @@
             </CardProductInstruction>
 
             <CardProductVideo
-              :class="[{active: currentNav === ProductNav}, {active: currentNav === 4}]"
+              :class="[{active: currentNav === ProductNav}, {active: currentNav === 3}]"
             >
               <h3 class="spec__title">
                 Видео
                 <span class="spec__article">{{ card.name.ru }}</span>
               </h3>
             </CardProductVideo>
-
-            <ProductSlider 
-              :title="'Просмотренные товары'" 
-              :cards="cardItems"
-              class="slider active"
-            />
           </div>
           <div class="aside" :style="{ '--top-aside': navHeight + 'px' }" ref="aside">
             <CardProductAside :code="card.code" :navHeight="navHeight" />
           </div>
         
         </div>
-        <div class="mobile-price" v-if="isMobile && isVisibility">
+        <Transition name="price-fade">
+          <div class="mobile-price" v-if="isVisibility">
           <div class="mobile-price__money-sale">
             <p class="mobile-price__money-sale-old">3500 грн</p>
             <p class="mobile-price__money-sale-new">3113 грн</p>
           </div>
-      <!--     <div class="mobile-price__money-regular">3113 грн</div> -->
           <ButtonBuy :cardMobile="true" />
         </div>
+        </Transition>
+     
       </div>
+      <ProductSlider 
+        class="slider long"
+        :title="'Просмотренные товары'" 
+        :cards="cardItems"
+      />
     </div> 
   </div>
 </template>
@@ -135,21 +137,18 @@ const header = useHeaderlStore();
 const headerSize = header.getHeight;
 
 const productWrapper = ref(null);
-const aboutSection = ref(null);
 const productNavList = ref(null);
 const navigation = ref(null);
 const aside = ref(null);
 const spec = ref(null);
+const priceSection = ref(null);
 
 const currentNav = ref(1);
-const isSale = ref(true);
 const isMobile = ref(false);
 const isVisibility = ref(false);
 const navHeight = ref(0);
 const ProductNav = ref(1);
-const heightHeader = ref(0);
 const sliderSize = ref(0);
-const asideWidth = ref(0);
 const positionAside = ref(0);
 
 const card = {
@@ -547,17 +546,21 @@ function calcNavHeight() {
   navHeight.value = navigation.value.getBoundingClientRect().height;
 }
 
-function calcBlockPriceVisibility() {
-  const blockPriceRect = aboutSection.value.getBoundingClientRect();
-  const windowHeight = window.innerHeight
+function getPriceEl(el) {
+  priceSection.value = el;
+}
 
-  if (blockPriceRect.bottom <= windowHeight &&
-      blockPriceRect.top > 86
-    ) {
+function calcBlockPriceVisibility() {
+  const callback = function(entries) {
+    if(entries[0].isIntersecting) {
       isVisibility.value = false;
     } else {
       isVisibility.value = true;
-    } 
+    }
+  };
+
+  const observer = new IntersectionObserver(callback);
+  observer.observe(priceSection.value);
 }
 
 function calsIsMobile() {
@@ -570,7 +573,6 @@ function onResize() {
   calcBlockPriceVisibility();
   calcNavHeight();
   getWidthSlider();
-  getTopAside();
 }
 
 function getWidthSlider() {
@@ -587,14 +589,19 @@ function getWidthSlider() {
 }
 
 function getTopAside() {
-  positionAside.value = 
-  navigation.value.getBoundingClientRect().top + navigation.value.getBoundingClientRect().height + 'px';
+  const space = 8;
+  if(window.innerWidth > 1024) {
+    positionAside.value = 
+    navigation.value.getBoundingClientRect().top + navigation.value.getBoundingClientRect().height + space + 'px';
+  }
 }
 
 onMounted(() => {
+  getTopAside();
   onResize();
   window.addEventListener("resize", onResize);
   window.addEventListener("scroll", calcBlockPriceVisibility);
+
 });
 
 onUnmounted(() => {
@@ -620,7 +627,7 @@ onUnmounted(() => {
   &__navigation {
     width: 100%;
     position: sticky;
-    top: 136px;
+    top: 100px;
     z-index: 100;
     background-color: #F7F9FA;
 
@@ -630,6 +637,11 @@ onUnmounted(() => {
   }
 
   &__rating {
+    @include flex-container(row, flex-start);
+
+    padding: 0;
+    gap: 8px;
+
     @include mobile {
       display: none;
     }
@@ -657,6 +669,8 @@ onUnmounted(() => {
 
     @include flex-container(column, flex-start);
     gap: 16px;
+
+    margin-bottom: 16px;
   }
 }
 
@@ -722,8 +736,8 @@ onUnmounted(() => {
   }
 }
 
-.characteristics {
-  scroll-margin-top: 200px;
+.description {
+  scroll-margin-top: 160px;
 }
 
 .spec {
@@ -755,7 +769,7 @@ onUnmounted(() => {
 .mobile-price {
   width: 100%;
 
-  @include flex-container(row, space-between, center);
+  display: none;
   flex-wrap: wrap;
   gap: 8px;
 
@@ -770,6 +784,10 @@ onUnmounted(() => {
   border-top-right-radius: 8px;
 
   padding: 16px 8px;
+
+  @include bigMobile {
+    @include flex-container(row, space-between, center);
+  }
 
   & .buy {
     max-width: 160px;
@@ -800,6 +818,12 @@ onUnmounted(() => {
 
   display: none;
 
+  &.long {
+    max-width: 1440px;
+
+    display: block;
+  }
+
   &.active {
     display: block;
   }
@@ -818,5 +842,15 @@ onUnmounted(() => {
   @include bigMobile {
     display: none;
   }
+}
+
+.price-fade-enter-active,
+.price-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.price-fade-enter-from,
+.price-fade-leave-to {
+  opacity: 0;
 }
 </style>

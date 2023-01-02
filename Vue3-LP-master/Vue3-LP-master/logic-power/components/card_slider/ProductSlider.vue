@@ -1,5 +1,8 @@
 <template>
-  <section class="slider" ref="slider">
+  <section 
+    class="slider" 
+    ref="slider"
+  >
     <p class="slider__title">{{ title }}</p>
     <div class="slider__wrapper">
       <div
@@ -21,12 +24,14 @@
           @click="prevSlide"
           class="slider__prev"
           :directionRight="false"
+          :disabled="counter === 0? true: false"
         />
 
         <PaginationBtnArrow
           class="slider__next"
           :directionRight="true"
           @click="nextSlide"
+          :disabled="buttonDisabled"
         />
       </div>
     </div>
@@ -39,7 +44,7 @@ import CardProduct from "~~/components/card_product/CardProduct.vue";
 
 defineProps({
   cards: { type: Array, required: true },
-  title: { type: String, required: true },
+  title: { type: String, required: true }
 });
 
 const items = ref(null);
@@ -51,6 +56,7 @@ const distance = ref(0);
 const translateX = ref(0);
 const counter = ref(0);
 const translateXVar = ref(0);
+const buttonDisabled = ref(false);
 
 const mobileTranslateX = ref(0);
 const difference = ref(0);
@@ -67,8 +73,7 @@ function nextSlide() {
   const sliderWindow = slider.value.offsetWidth;
   const slidesLength = items.value.children.length;
   const maxStep = Math.round(slidesLength - sliderWindow / slideWidth.value);
-  distance.value =
-    sliderWidth - sliderWindow - (translateX.value + slideWidth.value);
+  distance.value = sliderWidth - sliderWindow - (translateX.value + slideWidth.value);
 
   if (distance.value >= 0 && counter.value < maxStep - 1) {
     counter.value++;
@@ -79,14 +84,17 @@ function nextSlide() {
     counter.value = maxStep;
     translateXVar.value = `-${translateX.value}px`;
   }
+
+  buttonDisabled.value = counter.value < maxStep? false: true;
 }
 
 function prevSlide() {
   const sliderWidth = items.value.scrollWidth;
   const sliderWindow = slider.value.offsetWidth;
   const startingPosition = 0;
-  distance.value =
-    sliderWidth - sliderWindow - (translateX.value - slideWidth.value);
+  const slidesLength = items.value.children.length;
+  const maxStep = Math.round(slidesLength - sliderWindow / slideWidth.value);
+  distance.value = sliderWidth - sliderWindow - (translateX.value - slideWidth.value);
 
   if (distance.value <= sliderWidth - sliderWindow) {
     counter.value--;
@@ -97,6 +105,8 @@ function prevSlide() {
     distance.value = sliderWidth - sliderWindow;
     translateXVar.value = `-${translateX.value}px`;
   }
+
+  buttonDisabled.value = counter.value < maxStep? false: true;
 }
 
 function handleTouchStart(event) {

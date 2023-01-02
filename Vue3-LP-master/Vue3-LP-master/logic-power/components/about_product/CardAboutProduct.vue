@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="read-more">
-        <a class="read-more__link" href="#characteristics">
+        <a class="read-more__link" href="#description">
           <p class="read-more__text">Подробнее о товаре</p>
           <svg class="read-more__img" width="20" height="20" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="info">
-      <div class="info__block" v-if="isSale">
+      <div class="info__block">
         <div class="sale">
           <div class="sale__info-w">
             <div class="sale__logo">Акция!</div>
@@ -67,12 +67,12 @@
       </div>
       <div class="info__block" ref="blockPrice">
         <div class="price">
-          <div class="price__money" @click="isSale = !isSale">
-            <div class="price__money-sale" v-if="isSale">
+          <div class="price__money">
+            <div class="price__money-sale">
               <p class="price__money-sale-old">1 625 ₴</p>
               <p class="price__money-sale-new">2 625 ₴</p>
             </div>
-            <div class="price__money-regular" v-else>3113 грн</div>
+         <!--    <div class="price__money-regular" v-else>3113 грн</div> -->
             <div class="price__money-btn-w">
               <ButtonBuy class="price__btn-buy" />
               <button class="buy__credit">
@@ -259,6 +259,8 @@ import { useSliderCardStore } from "~~/store/sliderCard";
 const slider = useSliderCardStore();
 const activeModal = slider.activeSliderModal;
 
+const emits = defineEmits(["getPriceEl"]);
+
 defineProps({
   items: { type: Object, required: true },
 });
@@ -278,6 +280,13 @@ function showModal() {
   document.body.style.overflow = "hidden";
 }
 
+function sendEmits() {
+  emits("getPriceEl", blockPrice.value);
+}
+
+onMounted(() => {
+  sendEmits();
+})
 </script>
 
 <style lang="scss" scoped>

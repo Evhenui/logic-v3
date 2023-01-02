@@ -16,12 +16,12 @@
             <a class="card-product__image-wrapper" href="#">
               <img class="card-product__image" :src="`/img/${values.image}-catalog.png`" :alt="values.image">
             </a>
-          <Rating 
+<!--           <Rating 
             class="card-product__rating" 
             :inactive="values.inactive"
             :reviews="values.rating.reviews"
             :points="values.rating.points"
-          />
+          /> -->
         </div>
         <div class="card-product__section footer">
           <div class="card-product__main-info">

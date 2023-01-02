@@ -53,7 +53,7 @@ defineProps({
     position: absolute;
     right: 16px;
     top: 16px;
-    z-index: 100;
+    z-index: 90;
 
     gap: 4px;
   }
