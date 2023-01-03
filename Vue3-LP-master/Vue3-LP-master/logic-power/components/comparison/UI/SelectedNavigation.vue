@@ -1,5 +1,8 @@
 <template>
-  <section class="nav-item">
+  <section 
+    class="nav-item"
+    :class="{active : active}"
+  >
     <span class="nav-item__title">{{ itemName }}</span>
     <div class="nav-item__amount-selected">
       <div class="nav-item__number-wrapper">
@@ -50,6 +53,7 @@
 defineProps({
   itemName: { type: String, required: true },
   itemAmount: { type: String, required: true },
+  active: { type: Boolean, required: false },
 });
 </script>
 

@@ -1,9 +1,10 @@
 <template>
   <div @click="active = !active" class="dropdown" :class="{ active: active }">
-    <div class="dropdown__input">
-      <span class="dropdown__selected-item" :class="{ active: activeSelect }">
-        {{ selectItem }}
-      </span>
+    <div 
+      class="dropdown__input"
+      ref="dropdown"
+    >
+      <span class="dropdown__selected-item" :class="{ active: activeSelect }">Списки сравнения</span>
       <svg
         class="dropdown__arrow"
         width="24"
@@ -25,12 +26,12 @@
       <div class="dropdown__list-wrapper">
         <ul class="dropdown__menu">
           <li
-            v-for="(item, index) in listSelect"
+            v-for="(item, index) in comparisonLists"
             :key="index"
             @click="getItem"
             class="dropdown__item"
           >
-            {{ item.itemName }}
+            {{ item }}
           </li>
         </ul>
       </div>
@@ -39,21 +40,34 @@
 </template>
   
 <script setup>
+defineProps({
+  comparisonLists: { type: Array, required: true }
+});
+
+const dropdown = ref(null);
+
 const active = ref(false);
 const activeSelect = ref(false);
-const selectItem = ref("Списки сравнения");
-
-const listSelect = [
-    { itemName: "Комплект резервного питания" },
-    { itemName: "Комплект питания" },
-    { itemName: "Комплект резервного питания" },
-    { itemName: "Комплект питания" },
-];
+const positionList = ref(0);
+const spaceTopList = ref(4);
 
 function getItem(event) {
   selectItem.value = event.target.innerText;
   activeSelect.value = true;
 }
+
+function getPositionList() {
+  positionList.value = `${dropdown.value.offsetHeight + spaceTopList.value}px`;
+}
+
+onMounted(() => {
+  getPositionList()
+  window.addEventListener('resize', getPositionList)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', getPositionList)
+})
 </script>
    
 <style lang="scss" scoped>
@@ -70,13 +84,13 @@ function getItem(event) {
       transform: rotateZ(180deg);
     }
     .dropdown__input {
-      border-color: red;
+     /*  border-color:  #4724FB; */
     }
     .dropdown__label {
-      color: red;
+    /*   color:  #4724FB; */
     }
     .dropdown__input {
-      border-color: red;
+   /*    border-color:  #4724FB; */
     }
   }
 
@@ -94,7 +108,7 @@ function getItem(event) {
     padding: 17px 14px;
 
     &.is-invalid {
-      border-color: red;
+    /*   border-color:  #4724FB; */
     }
   }
 
@@ -118,8 +132,11 @@ function getItem(event) {
     width: 100%;
 
     position: absolute;
-    top: 48px;
+    top: v-bind(positionList);
     z-index: -100;
+
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
 
     box-shadow: 0px 4px 22px -8px rgba(0, 0, 0, 0.15);
     background-color: white;
@@ -132,23 +149,30 @@ function getItem(event) {
 
   &__menu {
     @include flex-container(column, space-between, left);
-    gap: 8px;
   }
 
   &__item {
     position: relative;
 
-    @include font(16, 22, 400);
-    color: rgba(0, 0, 0, 0.6);
+    @include font(16, 16, 400);
+    color: #0E0F0F;
     letter-spacing: 0.02em;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    padding: 13px 14px;
+    padding: 16px;
 
     cursor: pointer;
 
     transition: all 0.1s ease-in-out;
+
+/*     &:hover {
+      background-color: #FFE4D6;
+    }
+
+    &:active {
+      background-color: #FFE4D6;
+    } */
   }
 }
 </style>

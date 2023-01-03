@@ -7,19 +7,22 @@
         <ul class="header-nav__list">
           <li
             class="header-nav__list-item"
-            v-for="(item, id) in listSelected"
+            v-for="(item, id) in navValues.categoryItems"
             :key="id"
           >
             <SelectedNavigation 
-              ref="selectItems"
-              @click="addSelect"
+              @click="addSelect(id)"
               :itemName="item.name"
               :itemAmount="item.amount"
+              :active="id === index? true : false"
             >
             </SelectedNavigation>
           </li>
         </ul>
-       <!--  <DropdownMenu class="header-nav__dropdown"></DropdownMenu> -->
+        <DropdownMenu 
+          class="header-nav__dropdown" 
+          :comparisonLists="navValues.comparisonLists"
+        />
       </nav>
     </div>
   </section>
@@ -29,28 +32,15 @@
 import SelectedNavigation from "../UI/SelectedNavigation.vue";
 import DropdownMenu from "../UI/DropdownMenu.vue"
 
-const listSelected = [
-  { name: "Комплект резервного питания", amount: '12' },
-  { name: "Комплект питания", amount: '2' },
-  { name: "Комплект питания", amount: '2' },
-  { name: "Комплект резервного питания", amount: '12' },
-  { name: "Комплект резервного питания", amount: '12' },
-  { name: "Комплект питания", amount: '2' },
-];
+defineProps({
+  navValues: { type: Object, required: true },
+});
 
-const selectItems = ref(null);
-
-function delActiv(param) {
-  param.forEach((el) => {
-    el.$el.classList.remove('active');
-  })
-}
+const index = ref('');
 
 function addSelect(event) {
-  delActiv(selectItems.value);
-  event.currentTarget.classList.add('active');
+  index.value = event;
 }
-
 </script>
  
 <style lang="scss" scoped>
