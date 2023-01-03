@@ -1,13 +1,10 @@
 <template>
-  <div 
-    class="slider-main"
-    :class="{modal: modal}"
-  >
-    <div 
+  <div class="slider-main" :class="{ modal: modal }">
+    <div
       class="slider-main__wrapper"
-      :class="{moving: moving}"
+      :class="{ moving: moving }"
       ref="sliderMain"
-      :style="[{ '--translateX': - translateX + 'px' }]"
+      :style="[{ '--translateX': -translateX + 'px' }]"
       @touchstart="handleTouchStart($event)"
       @touchmove="handleTouchMove($event)"
       @touchend="handleTouchEnd"
@@ -31,6 +28,13 @@
 import Slide from "~~/components/card_slider/UI/Slide.vue";
 import { useSliderCardStore } from "~~/store/sliderCard";
 
+defineProps({
+  items: { type: Array, required: true },
+  modal: { type: Boolean, required: false },
+});
+
+const emits = defineEmits(["showModal"]);
+
 const slider = useSliderCardStore();
 const counterSlider = slider.getCounter;
 const sliderLength = slider.getLength;
@@ -42,23 +46,19 @@ const difference = ref(0);
 const sizeSlide = ref(0);
 const moving = ref(false);
 const activeTouches = ref(false);
+const startPosition = ref(0);
 
 const slides = ref(null);
 const sliderMain = ref(null);
-
-defineProps({
-  items: { type: Array, required: true },
-  modal: { type: Boolean, required: false },
-});
 
 function getSizeSlide() {
   sizeSlide.value = sliderMain.value.children[0].offsetHeight;
 }
 
 function resizeSlider() {
-  getSizeSlide()
+  getSizeSlide();
   translateX.value = 0;
-  changeCounter('null');
+  changeCounter("null");
 }
 
 function getStartPosition(position) {
@@ -69,31 +69,40 @@ function getStartPosition(position) {
 function getMovePosition(position) {
   const positionMove = position;
   const diff = positionMove - positionLeft.value;
+  const fingerSpace = 30;
 
-  if(!positionLeft.value) return false;
-
-  difference.value = diff;
-
-  if(difference.value > 0) {
-    if(counterSlider.counter !== 0) {
-      changeCounter('remove');
-    }
+  if (
+    startPosition.value - position < fingerSpace &&
+    startPosition.value - position > -fingerSpace
+  ) {
+    return false;
   } else {
-    if(counterSlider.counter !== sliderLength.length) {
-      changeCounter('add');
+    if (!positionLeft.value) return false;
+
+    difference.value = diff;
+
+    if (difference.value > 0) {
+      if (counterSlider.counter !== 0) {
+        changeCounter("remove");
+      }
+    } else {
+      if (counterSlider.counter !== sliderLength.length) {
+        changeCounter("add");
+      }
     }
-  } 
-  positionLeft.value = null;
+    positionLeft.value = null;
+  }
 }
 
 function handleTouchStart(event) {
   activeTouches.value = true;
-  getStartPosition(event.touches[0].clientX)
+  getStartPosition(event.touches[0].clientX);
+  startPosition.value = event.touches[0].clientX;
 }
 
 function handleTouchMove(event) {
-  if(activeTouches.value) {
-    getMovePosition(event.touches[0].clientX)
+  if (activeTouches.value) {
+    getMovePosition(event.touches[0].clientX);
   }
 }
 
@@ -101,31 +110,38 @@ function handleTouchEnd() {
   activeTouches.value = false;
 }
 
-function mouseDown (event) {
+function mouseDown(event) {
   activeTouches.value = true;
-  getStartPosition(event.pageX)
+  getStartPosition(event.pageX);
+  startPosition.value = event.pageX;
 }
 
 function mouseMove(event) {
-  if(activeTouches.value) {
+  if (activeTouches.value) {
     getMovePosition(event.pageX);
   }
 }
 
-function mouseUp() {
+function mouseUp(event) {
   activeTouches.value = false;
   moving.value = false;
+  if (event.pageX - startPosition.value === 0) {
+    emits("showModal", true);
+  }
 }
 
-watch(counterSlider, (current) => translateX.value = sizeSlide.value * current.counter);
+watch(
+  counterSlider,
+  (current) => (translateX.value = sizeSlide.value * current.counter)
+);
 
 onMounted(() => {
   getSizeSlide();
-  window.addEventListener('resize', resizeSlider);
+  window.addEventListener("resize", resizeSlider);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', resizeSlider);
+  window.removeEventListener("resize", resizeSlider);
 });
 </script>
 
@@ -146,17 +162,17 @@ onUnmounted(() => {
   }
 
   @include mobile {
-    width: 311px;
+    width: 272px;
   }
-  
+
   &__wrapper {
     width: max-content;
-    
+
     @include flex-container(row, flex-start, center);
 
     overflow: hidden;
 
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 
     --translateX: 0;
     transform: translateX(var(--translateX));
@@ -168,5 +184,4 @@ onUnmounted(() => {
     }
   }
 }
-
 </style>

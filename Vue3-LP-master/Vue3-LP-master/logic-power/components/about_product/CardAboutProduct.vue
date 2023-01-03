@@ -2,12 +2,12 @@
   <article class="product-about">
     <div class="gallery">
       <div class="slider-main">
-        <IncreaseButton 
+<!--         <IncreaseButton 
           :name="'Солнечная панель LP-340W (35 профиль. монокристалл)'"
           class="slider-main__tip"
           @click="showModal"
-        />
-        <PreviewSlider :sliderValues="items"/>
+        /> -->
+        <PreviewSlider :sliderValues="items" @showModal="showModal"/>
         <ModalSlider :sliderValues="items"/>
       </div>
       <div class="info__block">
@@ -275,9 +275,11 @@ const currLabel = ref(1);
 
 const blockPrice = ref(null);
 
-function showModal() {
-  activeModal();
-  document.body.style.overflow = "hidden";
+function showModal(state) {
+  if(state) {
+    activeModal();
+    document.body.style.overflow = "hidden";
+  }
 }
 
 function sendEmits() {
@@ -380,22 +382,6 @@ onMounted(() => {
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
   }
-}
-
-.slider-main {
-  position: relative;
-
-  @include bigMobile {
-    align-self: center;
-  }
-
-  &__tip {
-    position: absolute;
-    left: 30%;
-    top: 35%;
-    z-index: 99;
-  }
-
 }
 
 .advantage {

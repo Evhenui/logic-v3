@@ -6,6 +6,7 @@
         class="header__main-info"
         :class="{ active: activeScroll }"
         @getPosition="getPosition"
+        @getSize="getSize"
         :heightHeader="heightHeader"
       />
       <ModalMenu />
@@ -22,7 +23,8 @@ import { useHeaderlStore } from "~~/store/headerStore";
 
 const headerSection = useHeaderlStore();
 const headerSize = headerSection.getHeight;
-const getSizeHeader = headerSection.getSize;
+
+const emits = defineEmits(["getSizeHeader"]);
 
 const headerPosition = ref(0);
 const heightHeader = ref(0);
@@ -36,7 +38,10 @@ function getPosition(position) {
 
 function getHeightHeader() {
   heightHeader.value = header.value.offsetHeight;
-  getSizeHeader(header.value.offsetHeight);
+}
+
+function getSize(size) {
+  emits("getSizeHeader", size);
 }
 
 function stateHeader() {
@@ -52,7 +57,6 @@ onMounted(() => {
 
   getHeightHeader();
   window.addEventListener("resize", getHeightHeader);
-  window.addEventListener("scroll", getHeightHeader);
 });
 
 onUnmounted(() => {

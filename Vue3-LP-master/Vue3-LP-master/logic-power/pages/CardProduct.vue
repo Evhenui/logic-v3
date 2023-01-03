@@ -1,4 +1,5 @@
 <template>
+  <Header @getSizeHeader="getSizeHeader"/>
   <div class="card-product" ref="productWrapper">
     <div class="card-product__w">
       <div class="card-product__container">
@@ -87,7 +88,7 @@
             </CardProductInstruction>
 
             <CardProductVideo
-              :class="[{active: currentNav === ProductNav}, {active: currentNav === 3}]"
+              :class="{active: currentNav === 3}"
             >
               <h3 class="spec__title">
                 Видео
@@ -95,7 +96,7 @@
               </h3>
             </CardProductVideo>
           </div>
-          <div class="aside" :style="{ '--top-aside': navHeight + 'px' }" ref="aside">
+          <div class="aside" ref="aside">
             <CardProductAside :code="card.code" :navHeight="navHeight" />
           </div>
         
@@ -121,6 +122,7 @@
 </template>
 
 <script setup>
+import Header from '~~/pages/Header.vue'
 import CardAboutProduct from '~~/components/about_product/CardAboutProduct.vue';
 import CardProductAside from '~~/components/about_product/CardProductAside.vue';
 import CardProductCharacteristics from '~~/components/about_product/CardProductCharacteristics.vue';
@@ -150,6 +152,7 @@ const navHeight = ref(0);
 const ProductNav = ref(1);
 const sliderSize = ref(0);
 const positionAside = ref(0);
+const headerHeight = ref('');
 
 const card = {
     code: "0000001",
@@ -591,9 +594,12 @@ function getWidthSlider() {
 function getTopAside() {
   const space = 8;
   if(window.innerWidth > 1024) {
-    positionAside.value = 
-    navigation.value.getBoundingClientRect().top + navigation.value.getBoundingClientRect().height + space + 'px';
+    positionAside.value = parseInt(headerHeight.value) + navigation.value.getBoundingClientRect().height + space + 'px';
   }
+}
+
+function getSizeHeader(size) {
+  headerHeight.value = `${size}px`;
 }
 
 onMounted(() => {
@@ -627,7 +633,7 @@ onUnmounted(() => {
   &__navigation {
     width: 100%;
     position: sticky;
-    top: 100px;
+    top: v-bind(headerHeight);
     z-index: 100;
     background-color: #F7F9FA;
 

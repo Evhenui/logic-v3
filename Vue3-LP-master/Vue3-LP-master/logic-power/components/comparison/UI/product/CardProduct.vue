@@ -20,7 +20,7 @@
       <section class="card-product__body">
         <div class="card-product__body-wrapper">
           <div class="card-product__image-wrapper">
-            <img class="card-product__image" :src="image" alt="product name" />
+            <img class="card-product__image" src="@/public/img/comparison-card.png" alt="product name" />
           </div>
           <section class="card-product__description">
             <Rating class="card-product__rating" :state="state" />

@@ -28,7 +28,6 @@ defineProps({
 <style lang="scss" scoped>
 .slide {
   width: 65px;
-  height: 65px;
 
   border-radius: 8px;
   border: 1px solid #c4c4c4;
@@ -36,7 +35,6 @@ defineProps({
 
   &.main {
     width: 491px;
-    height: 491px;
 
     border: none;
     border-radius: 0;
@@ -45,17 +43,14 @@ defineProps({
 
     &.modal {
       width: 584px;
-      height: 584px;
 
       @include bigMobile {
         width: 311px;
-        height: 311px;
       }
     }
 
     @include mobile {
       width: 272px;
-      height: 272px;
     }
   }
 
@@ -69,10 +64,11 @@ defineProps({
 
   @include mobile {
     width: 41px;
-    height: 41px;
   }
 
   &__image {
+    width: 100%;
+    
     margin: auto;
     
     pointer-events: none;

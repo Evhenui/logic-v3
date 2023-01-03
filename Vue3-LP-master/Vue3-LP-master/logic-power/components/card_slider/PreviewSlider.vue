@@ -9,7 +9,10 @@
         />
       </div>
       <Pagination :items="sliderValues.itemsImage" />
-      <Slider :items="sliderValues.itemsImage" />
+      <Slider 
+        :items="sliderValues.itemsImage" 
+        @showModal="showModal"
+      />
     </div>
   </div>
 </template>
@@ -22,6 +25,12 @@ import Slider from "~~/components/card_slider/sections/Slider.vue";
 defineProps({
   sliderValues: { type: Object, required: true },
 });
+
+const emits = defineEmits(["showModal"]);
+
+function showModal(state) {
+  emits('showModal', state)
+} 
 </script>
 
 <style lang="scss" scoped>
@@ -34,8 +43,9 @@ defineProps({
   box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 
-  @include mobile {
-    max-width: 343px;
+  @include bigMobile {
+    /* max-width: 343px; */
+    max-width: 100%;
   }
 
   &__wrapper {
@@ -45,6 +55,10 @@ defineProps({
 
     padding: 16px 8px;
     gap: 8px;
+
+    @include bigMobile {
+      @include flex-container(row, center);
+    }
   }
 
   &__suggestions {

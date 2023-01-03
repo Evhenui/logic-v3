@@ -44,7 +44,7 @@ const heightCatalog = ref(0);
 const bottomValue = ref(0);
 const catalogState = ref(false);
 
-const emits = defineEmits(["getPosition"]);
+const emits = defineEmits(["getPosition", "getSize"]);
 
 const props = defineProps({
   heightHeader: { type: Number, required: false },
@@ -52,6 +52,7 @@ const props = defineProps({
 
 function getPosition() {
   emits("getPosition", mainInfo.value.getBoundingClientRect().top);
+  emits("getSize", mainInfo.value.offsetHeight);
   getPositionButton();
 }
 
@@ -98,10 +99,16 @@ onMounted(() => {
     startStateCatalog(event);
   });
 });
+
+onUnmounted(() => {
+  window.removeEventListener("resize", getPosition);
+})
 </script>
 
 <style lang="scss" scoped>
 .main-info {
+  min-height: 56px;
+  
   background-color: #393d38;
 
   &__wrapper {

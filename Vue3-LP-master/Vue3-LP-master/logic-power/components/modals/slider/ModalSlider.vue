@@ -39,13 +39,15 @@
               class="card-slider__pagination"
               :modal="true"
             />
-            <ButtonNav class="card-slider__modal-prev" @click="prevSlide" />
-            <Slider :items="sliderValues.itemsImage" :modal="true" class="card-slider__slider" />
-            <ButtonNav
-              class="card-slider__modal-next"
-              :buttonNext="true"
-              @click="nextSlide"
-            />
+            <div class="card-slider__wrapper-main">
+              <ButtonNav class="card-slider__modal-prev" @click="prevSlide" />
+              <Slider :items="sliderValues.itemsImage" :modal="true" class="card-slider__slider" />
+              <ButtonNav
+                class="card-slider__modal-next"
+                :buttonNext="true"
+                @click="nextSlide"
+              />
+            </div>
           </div>
         </div>
 
@@ -134,9 +136,13 @@ function nextSlide() {
     max-width: 1240px;
     width: 100%;
 
-    padding: 0 16px;
+    padding: 32px 16px;
 
     overflow: auto;
+
+    @include bigMobile {
+      padding: 16px;
+    }
     
     &::-webkit-scrollbar {
       width: 0;
@@ -144,12 +150,17 @@ function nextSlide() {
   }
 
   &__content {
+    position: relative;
+
+    @include flex-container(column, space-between, center);
+
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 
     padding: 24px;
+    gap: 16px;
 
     @include bigMobile {
       padding: 16px;
@@ -157,12 +168,23 @@ function nextSlide() {
   }
 
   &__header {
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 511;
+
     @include flex-container(row, space-between, center);
 
+    padding: 24px 24px 0 24px;
+
     @include bigMobile {
+      position: static;
+
       @include flex-container(row, flex-end, center);
 
-      margin-bottom: 58px;
+      padding: 0;
     }
   }
 
@@ -206,25 +228,35 @@ function nextSlide() {
     }
   }
 }
-
 .card-slider {
   width: 100%;
 
   margin-bottom: 32px;
-
-  @include bigMobile {
-    margin-bottom: 62px;
-  }
 
   &__wrapper {
     position: relative;
 
     @include flex-container(row, flex-start);
 
-    gap: 72px;
+    gap: 119px;
 
     @include bigMobile {
-      @include flex-container(column-reverse, center, center);
+      @include flex-container(column-reverse, space-between, center);
+
+      gap: 32px;
+    }
+  }
+
+  &__wrapper-main {
+    max-width: 825px;
+    width: 100%;
+
+    @include flex-container(row, space-between, center);
+
+    gap: 16px;
+
+    @include bigMobile {
+      justify-content: center;
     }
   }
 
@@ -239,12 +271,6 @@ function nextSlide() {
 
   &__pagination {
     align-self: flex-end;
-
-    margin-right: 47px;
-
-    @include smallestScreen {
-      margin-right: 0;
-    }
 
     @include bigMobile {
       margin: 0 auto;

@@ -3,14 +3,11 @@
     class="menu-bar"
     :class="{active: activeScroll}"
   >
-    <div 
-      class="menu-bar__wrapper"
-      :style="{height: resizeHeight}"
-    >
+    <div class="menu-bar__wrapper">
       <div class="menu-bar__section-wrapper">
         <h3 class="menu-bar__title">Характеристики:</h3>
         <div class="menu-bar__inputs">
-          <!-- <InputSwitch v-model="switchState" /> -->
+          <InputSwitch v-model="switchState"/>
           <span class="menu-bar__switch-title">Только отличия</span>
         </div>
       </div>
@@ -18,11 +15,8 @@
         <ButtonWhite 
           :state="state" 
           :scrollState="activeScroll"
-        >Добавить товар</ButtonWhite>
-<!--         <ButtonWhite 
-          :buttonType="buttonClear" 
-          :state="state" 
-          :scrollState="activeScroll">Очистить список</ButtonWhite> -->
+        >Добавить товар
+        </ButtonWhite>
       </section>
     </div>
   </section>
@@ -43,9 +37,9 @@ const buttonClear = ref(true);
 const switchState = ref(false);
 const state = ref(false);
 const resizeHeight = ref('');
+const test = ref(false);
 
 /* watch(heightCard, (current) => resizeHeight.value = window.innerWidth > mobileSize.value? current: 'auto'); */
-
 </script>
  
 <style lang="scss" scoped>
@@ -63,11 +57,9 @@ const resizeHeight = ref('');
   }
 
   &__wrapper {
-    --height: auto;
-
     max-width: 274px;
     width: 100%;
-    height: var(--height);
+    height: v-bind(resizeHeight);
 
     @include flex-container(column, space-between, left);
 

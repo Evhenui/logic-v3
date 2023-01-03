@@ -2,8 +2,8 @@
   <div class="switch">
     <label class="switch__wrapper">
       <input
-        :checked="value"
-        @change="updateSwitchState"
+        :value="modelValue"
+        @change="changeSwitch"
         class="switch__input"
         type="checkbox"
       />
@@ -14,15 +14,14 @@
 
 <script setup>
 defineProps({
-  value: { type: Boolean, required: true },
+  modelValue: { type: Boolean, required: true },
 });
 
-const emits = defineEmits(["input"]);
+const emits = defineEmits(["input", "update:modelValue"]);
 
-function updateSwitchState(event) {
-  emits("input", event.target.checked);
+function changeSwitch(event) {
+  emits("update:modelValue", event.target.checked);
 }
-
 </script>
   
 <style lang="scss" scoped>

@@ -7504,10 +7504,12 @@ const cartItems = [
 ]
 
 function resizeElements() {
-  const observer = new ResizeObserver((entries) => {
+/*   const observer = new ResizeObserver((entries) => {
     cardSize.value = entries[0].borderBoxSize[0].blockSize + "px";
+    console.log(cardSize.value)
   });
-  observer.observe(slides.value);
+  observer.observe(slides.value); */
+  console.log(slides.value)
 }
 
 /* function scrollState() {
@@ -7629,21 +7631,21 @@ function handleTouchEnd() {
 
 watch(sliderTranslate, (current) => slider.positionLeft = current); */
 
-/* onMounted(() => {
+onMounted(() => {
   resizeElements();
-  getWidthSlider();
+/*   getWidthSlider();
   scrollState();
   window.addEventListener("scroll", scrollState);
   window.addEventListener("resize", scrollState);
   window.addEventListener("resize", prevSlide);
-  window.addEventListener("resize", getWidthSlider);
+  window.addEventListener("resize", getWidthSlider); */
 })
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", scrollState);
+/*   window.removeEventListener("scroll", scrollState);
   window.removeEventListener("resize", scrollState);
-  window.addEventListener("resize", prevSlide);
-}) */
+  window.addEventListener("resize", prevSlide); */
+})
 
 </script>
  

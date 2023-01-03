@@ -8,7 +8,7 @@
       <h1 class="empty__title">Сравнение товаров</h1>
       <div class="empty__select-product">
         <div class="empty__image-wrapper">
-          <img src="@/assets/img/emptyComparison.png" alt="empty page" />
+          <img src="@/icons/empty-comparison.svg" alt="empty page" />
         </div>
         <h2 class="empty__subtitle">Выберите товары для сравнения</h2>
         <ButtonSimple>Перейти в каталог</ButtonSimple>
