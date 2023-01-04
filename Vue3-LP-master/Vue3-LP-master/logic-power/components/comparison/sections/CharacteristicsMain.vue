@@ -56,7 +56,10 @@ const changePosition = sliderStore.changePosition;
 
 const props = defineProps({
   mobileSize: { type: Number, required: false },
+  counterValue: { type: Number, required: false },
+  positionValue: { type: Number, required: false },
 });
+
 
 const menuCategory = ref(null);
 const sliderDescription = ref(null);
@@ -464,8 +467,9 @@ function resizeCharacteristics() {
   } else sectionHeight.value = 'auto';
 }
 
+
 watch(sliderValues, (current) => {
-  positionLeftVar.value = `-${sliderValues.postionSlider}px`;
+  positionLeftVar.value = `-${current.postionSlider}px`;
 });
 
 onMounted(() => {

@@ -1,8 +1,8 @@
 <template>
   <section>
     <HeaderNavigation :navValues="navValues"/>
-    <CharacteristicsHeader :mobileSize="mobileSize"/>
-    <CharacteristicsMain :mobileSize="mobileSize"/>
+      <CharacteristicsHeader :mobileSize="mobileSize"/>
+      <CharacteristicsMain :mobileSize="mobileSize"/>
   </section>
 </template>
   
@@ -10,6 +10,7 @@
 import HeaderNavigation from "~~/components/comparison/sections/HeaderNavigation.vue";
 import CharacteristicsHeader from "~~/components/comparison/sections/CharacteristicsHeader.vue";
 import CharacteristicsMain from "~~/components/comparison/sections/CharacteristicsMain.vue";
+import consolaGlobalInstance from "consola";
 
 const mobileSize = ref(1024);
 
@@ -29,6 +30,7 @@ const navValues = {
     "Комплект питания"
   ]
 }
+
 </script>
   
 

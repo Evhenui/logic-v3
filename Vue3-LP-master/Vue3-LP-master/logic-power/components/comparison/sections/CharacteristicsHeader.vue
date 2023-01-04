@@ -7210,7 +7210,7 @@ function onResize() {
 }
 
 watch(sliderValues, (current) => {
-  positionLeftVar.value = `-${sliderValues.postionSlider}px`;
+  positionLeftVar.value = `-${current.postionSlider}px`;
 });
 
 onMounted(() => {
