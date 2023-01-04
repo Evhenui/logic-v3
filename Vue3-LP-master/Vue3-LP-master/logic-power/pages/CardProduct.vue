@@ -607,7 +607,6 @@ onMounted(() => {
   onResize();
   window.addEventListener("resize", onResize);
   window.addEventListener("scroll", calcBlockPriceVisibility);
-
 });
 
 onUnmounted(() => {

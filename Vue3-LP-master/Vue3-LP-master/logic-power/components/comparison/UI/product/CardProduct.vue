@@ -19,20 +19,20 @@
 
       <section class="card-product__body">
         <div class="card-product__body-wrapper">
-          <div class="card-product__image-wrapper">
-            <img class="card-product__image" src="@/public/img/comparison-card.png" alt="product name" />
-          </div>
+          <a href="#" class="card-product__image-wrapper">
+            <img class="card-product__image" src="~~/public/img/comparison-card.png" alt="product name" />
+          </a>
           <section class="card-product__description">
-            <Rating class="card-product__rating" :state="state" />
+          <!--   <Rating class="card-product__rating" :state="state" /> -->
 
             <Availability
               class="card-product__availability"
               :status="status"
               :state="!state"
             ></Availability>
-            <p class="card-product__subtitle">
+            <a href="#" class="card-product__subtitle">
               <slot name="nameProduct"></slot>
-            </p>
+            </a>
           </section>
         </div>
         <section class="card-product__footer">
@@ -58,7 +58,7 @@ import Rating from "./Rating.vue";
 import ButtonOrange from "~~/components/comparison/UI/ButtonOrange.vue";
 import Availability from "./Availability.vue";
 
-defineProps({
+const props = defineProps({
   scrollState: { type: Boolean, required: false, default: false },
   scrollStateMobile: { type: Boolean, required: false, default: false },
   mobileSize: { type: Number, required: false },
@@ -66,17 +66,14 @@ defineProps({
   image: { type: String, required: true },
 });
 
-const emits = defineEmits(["getPin"]);
+const emits = defineEmits(["getPin", "getCardHeight"]);
 
 const cardProduct = ref(null);
 
 const state = ref(false);
 const activePin = ref(false);
-
-const isActiveScroll = {
-  desktop: false,
-  mobile: false,
-};
+const scrollDesktop = ref(false);
+const scrollMobile = ref(false);
 
 function changeSize(size) {
   state.value = window.innerWidth <= size ? true : false;
@@ -84,9 +81,9 @@ function changeSize(size) {
 
 function getState() {
   if (state.value) {
-    isActiveScroll.value.mobile = true;
+    scrollMobile.value = true;
   } else {
-    isActiveScroll.value.desktop = true;
+    scrollDesktop.value = true;
   }
 }
 
@@ -94,21 +91,27 @@ function getPin(status) {
   /* activePin.value = status;
   emits("getPin", cardProduct.value); */
 }
-/* 
+
+function emitHeight() {
+  emits("getCardHeight", cardProduct.value.offsetHeight);
+}
+
 onMounted(() => {
   getState();
-  changeSize(mobileSize);
+  emitHeight();
+  changeSize(props.mobileSize);
 
   window.addEventListener("resize", () => {
-    changeSize(mobileSize);
+    changeSize(props.mobileSize);
+    emitHeight();
   });
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", () => {
-    changeSize(mobileSize);
+    changeSize(props.mobileSize);
   });
-}); */
+});
 </script>
  
 <style lang="scss" scoped>
@@ -293,6 +296,8 @@ onUnmounted(() => {
   }
 
   &__subtitle {
+    display: block;
+
     @include font(16, 22, 400);
     letter-spacing: 0.02em;
     word-break: break-all;

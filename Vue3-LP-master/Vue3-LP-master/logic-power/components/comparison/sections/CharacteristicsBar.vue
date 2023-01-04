@@ -27,23 +27,25 @@ import ButtonWhite from "../UI/ButtonWhite.vue";
 import InputRadio from "../UI/InputRadio.vue";
 import InputSwitch from "~~/components/common/inputs/InputSwitch.vue";
 
-defineProps({
+const props = defineProps({
   heightCard: { type: String, required: false },
   activeScroll: { type: Boolean, required: false },
   mobileSize: { type: Number, required: false },
 });
 
-const buttonClear = ref(true);
 const switchState = ref(false);
 const state = ref(false);
 const resizeHeight = ref('');
-const test = ref(false);
 
-/* watch(heightCard, (current) => resizeHeight.value = window.innerWidth > mobileSize.value? current: 'auto'); */
+watch(props, (current) => {
+  resizeHeight.value =  window.innerWidth > props.mobileSize? current.heightCard: 'auto';
+});
 </script>
  
 <style lang="scss" scoped>
 .menu-bar {
+  height: 100%;
+  
   transition: all .2s ease-in-out;
 
   &.active {
@@ -59,7 +61,7 @@ const test = ref(false);
   &__wrapper {
     max-width: 274px;
     width: 100%;
-    height: v-bind(resizeHeight);
+    height: 100%;
 
     @include flex-container(column, space-between, left);
 

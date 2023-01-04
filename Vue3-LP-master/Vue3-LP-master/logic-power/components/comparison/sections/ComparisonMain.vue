@@ -6,8 +6,8 @@
     <CharacteristicsHeader
       @sliderPosition="sliderPosition"
       :mobileSize="mobileSize"
-      :sliderCounter="slider.counter"
-      :sliderTranslate="slider.translate"
+      :sliderCounter="sliderCounter"
+      :sliderTranslate="sliderTranslate"
     />
 <!--     <CharacteristicsMain
       @sliderPosition="sliderPosition"
@@ -19,16 +19,14 @@
 </template>
   
 <script setup>
-import HeaderNavigation from "./HeaderNavigation.vue";
-import CharacteristicsHeader from "./CharacteristicsHeader.vue";
-import CharacteristicsMain from "./CharacteristicsMain.vue";
+import HeaderNavigation from "~~/components/comparison/sections/HeaderNavigation.vue";
+import CharacteristicsHeader from "~~/components/comparison/sections/CharacteristicsHeader.vue";
+import CharacteristicsMain from "~~/components/comparison/sections/CharacteristicsMain.vue";
 
 const mobileSize = ref(1024);
+const sliderCounter = ref(0);
+const sliderTranslate = ref(0);
 
-const slider = {
-  translate: 0,
-  counter: 0,
-};
 const navValues = {
   categoryItems: [
     { name: "Комплект резервного питания", amount: '12' },
@@ -47,8 +45,8 @@ const navValues = {
 }
 
 function sliderPosition(translate, counter) {
-  slider.translate = translate;
-  slider.counter = counter;
+  sliderTranslate.value = translate;
+  sliderCounter.value = counter;
 }
 
 </script>

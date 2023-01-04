@@ -5,8 +5,8 @@
   >
     <div
       class="navigation__pin"
-      :class="{ active: stateActive.pin }"
-      @click="activePin"
+      :class="{ active: activePin }"
+      @click="activePin = !activePin"
     >
       <svg
         class="navigation__pin-image"
@@ -28,8 +28,8 @@
     </div>
     <div
       class="navigation__like"
-      :class="{ active: stateActive.like }"
-      @click="stateActive.like = !stateActive.like"
+      :class="{ active: activeLike }"
+      @click="activeLike = !activeLike"
     >
       <svg
         class="navigation__like-image"
@@ -101,10 +101,8 @@ defineProps({
 
 const emits = defineEmits(["getPin"]);
 
-const stateActive = {
-  pin: false,
-  like: false,
-};
+const activePin = ref(false);
+const activeLike = ref(false);
 
 /* function activePin(event) {
   stateActive.pin = !stateActive.pin;

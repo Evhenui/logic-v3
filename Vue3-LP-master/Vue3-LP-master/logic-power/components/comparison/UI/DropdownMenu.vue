@@ -4,7 +4,7 @@
       class="dropdown__input"
       ref="dropdown"
     >
-      <span class="dropdown__selected-item" :class="{ active: activeSelect }">Списки сравнения</span>
+      <span class="dropdown__selected-item" :class="{ active: activeSelect }">{{ selectItem }}</span>
       <svg
         class="dropdown__arrow"
         width="24"
@@ -50,6 +50,7 @@ const active = ref(false);
 const activeSelect = ref(false);
 const positionList = ref(0);
 const spaceTopList = ref(4);
+const selectItem = ref("Списки сравнения");
 
 function getItem(event) {
   selectItem.value = event.target.innerText;

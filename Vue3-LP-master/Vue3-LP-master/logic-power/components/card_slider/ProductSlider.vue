@@ -61,7 +61,7 @@ const buttonDisabled = ref(false);
 const mobileTranslateX = ref(0);
 const difference = ref(0);
 const activeTouches = ref(0);
-
+const startPosition = ref(0);
 
 function getSizeSlide() {
   slideWidth.value = items.value.children[0].offsetWidth;
@@ -112,19 +112,26 @@ function prevSlide() {
 function handleTouchStart(event) {
   activeTouches.value = true;
   mobileTranslateX.value = event.touches[0].clientX;
+  startPosition.value = event.touches[0].clientX;
 }
 
 function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
   const diff = positionMove - mobileTranslateX.value;
+  const fingerSpace = 30;
 
-  if(activeTouches.value) {
+  if (startPosition.value - positionMove < fingerSpace &&
+      startPosition.value - positionMove > - fingerSpace) {
+    return false;
+  } else {
+    if(activeTouches.value) {
     if (!mobileTranslateX.value) return false;
 
     difference.value = diff;
     difference.value > 0 ? prevSlide() : nextSlide();
 
     mobileTranslateX.value = null;
+  }
   }
 }
 

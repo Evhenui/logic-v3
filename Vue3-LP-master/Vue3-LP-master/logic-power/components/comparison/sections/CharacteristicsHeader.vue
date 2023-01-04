@@ -22,14 +22,13 @@
         <ButtonArrow
           class="characteristics-header__button left"
           moveSlide="left"
-          :isDisabled="slider.counter === 0? true: false"
+          :isDisabled="sliderCounter === 0? true: false"
           @click="prevSlide"
         />
 
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="[{ '--left': -slider.positionLeft + 'px' }, {'--width': widthSlider}]"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -43,6 +42,7 @@
             :scrollStateMobile="isActiveScrollMobile"
             :mobileSize="mobileSize"
             :image="item.images[0].url"
+            @getCardHeight="getCardHeight"
             class="characteristics-header__item"
           > 
           <template v-slot:nameProduct>{{item.name.ru}}</template>
@@ -109,11 +109,14 @@ const sliderDistance = ref(0);
 const sliderPositionLeft = ref(0);
 const sliderCounter = ref(0);
 const sliderButtonState = ref(0);
+const positionLeftVar = ref(0);
 
 const sliderInitialPosition = ref(0);
-const sliderMoving = ref(true);
+const sliderMoving = ref(false);
 const sliderTransform = ref(0);
-const sliderMobilePositionLeft = ref(0);
+const sliderMobilePositionLeft = ref(null);
+const sliderDiff = ref(0);
+const startPosition = ref(0);
 
 const sliderMobile = {
   positionLeft: null,
@@ -7503,13 +7506,15 @@ const cartItems = [
     },
 ]
 
+function getCardHeight(size) {
+  cardSize.value = `${size}px`;
+}
+
 function resizeElements() {
-/*   const observer = new ResizeObserver((entries) => {
+  const observer = new ResizeObserver((entries) => {
     cardSize.value = entries[0].borderBoxSize[0].blockSize + "px";
-    console.log(cardSize.value)
   });
-  observer.observe(slides.value); */
-  console.log(slides.value)
+  observer.observe(sliderWidth.value);
 }
 
 /* function scrollState() {
@@ -7548,84 +7553,80 @@ function resizeElements() {
   widthSlider.value = sliderWidth + 'px';
 } */
 
-/* function getPin(el) {
-    const sliderWidth = sliderWidth.value.scrollWidth;
-    const slidesLength = slides.value.length;
-    const slideWidth = sliderWidth / slidesLength;
-
-    if(!el.classList.contains('active-pin')) {
-      window.getComputedStyle(el).getPropertyValue('--translateX');
-      el.style.setProperty('--left', this.testLeft + 'px');
-      testLeft.value += slideWidth;
-    } else {
-      testLeft.value -= slideWidth;
-    }
-} */
-//-----slider------
 
 function nextSlide() {
-  const sliderWidth = sliderWidth.value.scrollWidth;
-  const sliderWindow = sliderWindow.value.offsetWidth;
-  const slidesLength = slides.value.length;
-  const slideWidth = sliderWidth / slidesLength;
-  const maxStep = Math.round(slidesLength - sliderWindow / slideWidth);
-  slider.distance = sliderWidth - sliderWindow - (slider.positionLeft + slideWidth);
+  const width = sliderWidth.value.scrollWidth;
+  const window = sliderWindow.value.offsetWidth;
+  const length = slides.value.length;
+  const slideWidth = width / length;
+  const maxStep = Math.round(length - window / slideWidth);
+  sliderDistance.value = width - window - (sliderPositionLeft.value + slideWidth);
 
-  if (slider.distance >= 0 && slider.counter < maxStep - 1) {
-    slider.counter++;
-    slider.positionLeft = slideWidth * slider.counter;
-    
+  if (sliderDistance.value >= 0 && sliderCounter.value < maxStep - 1) {
+    sliderCounter.value++;
+    sliderPositionLeft.value = slideWidth * sliderCounter.value;
+    positionLeftVar.value = `-${sliderPositionLeft.value}px`;
   } else {
-    slider.positionLeft = sliderWidth - sliderWindow;
-    slider.counter = maxStep;
+    sliderPositionLeft.value = width - window;
+    sliderCounter.value = maxStep;
+    positionLeftVar.value = `-${sliderPositionLeft.value}px`;
   }
 
-  slider.buttonState = slider.counter < maxStep? false: true;
-
-  emits("sliderPosition", slider.positionLeft, slider.counter);
+  sliderButtonState.value = sliderCounter.value < maxStep? false: true;
 }
 
 function prevSlide() {
-    const sliderWidth = sliderWidth.value.scrollWidth;
-    const sliderWindow = sliderWindow.value.offsetWidth;
-    const slidesLength = slides.value.length;
-    const slideWidth = sliderWidth / slidesLength;
-    const maxStep = Math.round(slidesLength - sliderWindow / slideWidth);
-    const startingPosition = 0;
+  const width = sliderWidth.value.scrollWidth;
+  const window = sliderWindow.value.offsetWidth;
+  const length = slides.value.length;
+  const slideWidth = width / length;
+  const maxStep = Math.round(length - window / slideWidth);
+  const startingPosition = 0;
 
-    slider.distance = sliderWidth - sliderWindow - (slider.positionLeft - slideWidth);
+  sliderDistance.value = width - window - (sliderPositionLeft.value - slideWidth);
 
-    if (slider.distance <= sliderWidth - sliderWindow) {
-      slider.counter--;
-      slider.positionLeft = slideWidth * slider.counter;
-    } else {
-      slider.positionLeft = startingPosition;
-      slider.distance = sliderWidth - sliderWindow;
-    }
-
-    slider.buttonState = slider.counter < maxStep? false: true;
-
-    emits("sliderPosition", slider.positionLeft, slider.counter);
+if (sliderDistance.value <= width - window) {
+  sliderCounter.value--;
+  sliderPositionLeft.value = slideWidth * sliderCounter.value;
+  positionLeftVar.value = `-${sliderPositionLeft.value}px`;
+} else {
+  sliderPositionLeft.value = startingPosition;
+  sliderDistance.value = width - window;
+  positionLeftVar.value = `-${sliderPositionLeft.value}px`;
 }
 
-/* function handleTouchStart(event) {
-  sliderMobile.positionLeft = event.touches[0].clientX;
+  sliderButtonState.value = sliderCounter.value < maxStep? false: true;
+}
+
+function handleTouchStart(event) {
+  sliderMoving.value = true;
+  sliderMobilePositionLeft.value = event.touches[0].clientX;
+  startPosition.value = event.touches[0].clientX;
 }
 
 function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
-  const diff = positionMove - sliderMobile.positionLeft;
+  const diff = positionMove - sliderMobilePositionLeft.value;
+  const fingerSpace = 30;
 
-  if(!sliderMobile.positionLeft) return false;
+  if (startPosition.value - positionMove < fingerSpace &&
+      startPosition.value - positionMove > - fingerSpace) {
+    return false;
+  } else {
+    if(sliderMoving.value) {
+    if(!sliderMobilePositionLeft.value) return false;
 
-  sliderMobile.diff = diff;
-  sliderMobile.diff > 0 ? prevSlide() : nextSlide();
+    sliderDiff.value = diff;
+    sliderDiff.value > 0 ? prevSlide() : nextSlide();
 
-  sliderMobile.positionLeft = null;
+    sliderMobilePositionLeft.value = null;
+  }
+  }
 }
 
 function handleTouchEnd() {
-} */
+  sliderMoving.value = false;
+} 
 
 /* watch(sliderCounter, (current) => slider.positionLeft = current);
 
@@ -7728,12 +7729,10 @@ onUnmounted(() => {
   }
 
   &__items-wrapper {
-    --width: auto;
-    width: var(--width);
+    width: v-bind(widthSlider);
 
     position: relative;
-    --left: 0;
-    left: var(--left);
+    left: v-bind(positionLeftVar);
 
     @include flex-container(row, left, center);
 
