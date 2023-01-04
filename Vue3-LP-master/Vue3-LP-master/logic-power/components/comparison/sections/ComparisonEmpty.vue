@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import ButtonSimple from "../UI/ButtonSimple.vue";
-import BreadCrumbs from "../UI/BreadCrumbs.vue";
+import ButtonSimple from "~~/components/comparison/UI/ButtonSimple.vue";
+import BreadCrumbs from "~~/components/comparison/UI/BreadCrumbs.vue";
 
 const crambsItem = ['Главная', 'Продукция', 'Акция'];
 

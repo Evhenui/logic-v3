@@ -11,8 +11,8 @@
 </template>
 
 <script setup>
-import Availability from "./Availability.vue";
-import NavigationButtons from "./NavigationButtons.vue";
+import Availability from "~~/components/comparison/UI/product/Availability.vue";
+import NavigationButtons from "~~/components/comparison/UI/product/NavigationButtons.vue";
 
 defineProps({
   status: { type: String, required: false},

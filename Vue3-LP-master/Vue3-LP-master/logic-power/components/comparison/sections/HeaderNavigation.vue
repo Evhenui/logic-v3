@@ -29,8 +29,8 @@
 </template>
 
 <script setup>
-import SelectedNavigation from "../UI/SelectedNavigation.vue";
-import DropdownMenu from "../UI/DropdownMenu.vue"
+import SelectedNavigation from "~~/components/comparison/UI/SelectedNavigation.vue";
+import DropdownMenu from "~~/components/comparison/UI/DropdownMenu.vue"
 
 defineProps({
   navValues: { type: Object, required: true },

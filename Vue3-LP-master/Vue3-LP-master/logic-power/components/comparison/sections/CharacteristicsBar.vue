@@ -23,8 +23,8 @@
 </template>
 
 <script setup>
-import ButtonWhite from "../UI/ButtonWhite.vue";
-import InputRadio from "../UI/InputRadio.vue";
+import ButtonWhite from "~~/components/comparison/UI/ButtonWhite.vue";
+import InputRadio from "~~/components/comparison/UI/InputRadio.vue";
 import InputSwitch from "~~/components/common/inputs/InputSwitch.vue";
 
 const props = defineProps({

@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import ButtonBuy from "../UI/ButtonBuy.vue";
-import Price from "../UI/Price.vue";
+import ButtonBuy from "~~/components/card_product/UI/ButtonBuy.vue";
+import Price from "~~/components/card_product/UI/Price.vue";
 
 defineProps({
   status: { type: String, required: true },

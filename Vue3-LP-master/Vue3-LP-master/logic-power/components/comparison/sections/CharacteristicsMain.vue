@@ -1,5 +1,8 @@
 <template>
-  <section class="characteristic">
+  <section 
+    class="characteristic"
+    ref="characteristic"
+  >
     <div class="characteristic__header">
       <h1 class="characteristic__header-title">Характеристики</h1>
     </div>
@@ -60,12 +63,14 @@ const props = defineProps({
   positionValue: { type: Number, required: false },
 });
 
+const emits = defineEmits(["getMainWidth"]);
 
 const menuCategory = ref(null);
 const sliderDescription = ref(null);
 const slideCategory = ref(null);
 const sliderWindow = ref(null);
 const sliderWidth = ref(null);
+const characteristic = ref(null);
 
 const sliderDistance = ref(0);
 const sliderPositionLeft = ref(0);
@@ -467,6 +472,9 @@ function resizeCharacteristics() {
   } else sectionHeight.value = 'auto';
 }
 
+function getMainWidth() {
+  emits('getMainWidth', characteristic.value.offsetWidth);
+}
 
 watch(sliderValues, (current) => {
   positionLeftVar.value = `-${current.postionSlider}px`;
@@ -475,6 +483,9 @@ watch(sliderValues, (current) => {
 onMounted(() => {
   resizeCharacteristics();
   window.addEventListener("resize", resizeCharacteristics);
+  
+  getMainWidth()
+  window.addEventListener("resize", getMainWidth);
 })
 
 onUnmounted(() => {
@@ -587,15 +598,13 @@ onUnmounted(() => {
 
   &__items {
     height: v-bind(sectionHeight);
-
-    position: relative;
-    left: v-bind(positionLeftVar);
-
+    
     @include flex-container(row, left);
 
     background-color: white;
 
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    transform: translateX(v-bind(positionLeftVar));
 
     &:nth-of-type(2n) {
       background-color: #e9e9e9;

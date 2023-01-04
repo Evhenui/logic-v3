@@ -28,6 +28,7 @@
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
+          :style="{ '--height-header': isActiveScroll ? cardSize : 'auto' }"
         >
           <CardProduct
             v-for="(item, index) in cartItems"
@@ -60,9 +61,9 @@
 </template>
 
 <script setup>
-import CharacteristicsBar from "./CharacteristicsBar.vue";
-import CardProduct from "../UI/product/CardProduct.vue";
-import ButtonArrow from "../UI/ButtonArrow.vue";
+import CharacteristicsBar from "~~/components/comparison/sections/CharacteristicsBar.vue";
+import CardProduct from "~~/components/comparison/UI/product/CardProduct.vue";
+import ButtonArrow from "~~/components/comparison/UI/ButtonArrow.vue";
 import { useSliderCardStore } from "~~/store/sliderCard";
 
 const sliderStore = useSliderCardStore();
@@ -73,6 +74,7 @@ const changePosition = sliderStore.changePosition;
 const props = defineProps({
   active: { type: String, required: false },
   mobileSize: { type: Number, required: false },
+  characteristicsWidth: { type: Number, required: false },
 });
 
 const characteristics = ref(null);
@@ -98,6 +100,8 @@ const sliderTransform = ref(0);
 const sliderMobilePositionLeft = ref(null);
 const sliderDiff = ref(0);
 const startPosition = ref(0);
+
+const scrollWidth = ref(0);
 
 const cartItems = [
   {
@@ -7213,6 +7217,12 @@ watch(sliderValues, (current) => {
   positionLeftVar.value = `-${current.postionSlider}px`;
 });
 
+watch(props, (current) => {
+  if(window.innerWidth > props.mobileSize) {
+    scrollWidth.value = `${current.characteristicsWidth}px`;
+  } 
+});
+
 onMounted(() => {
   onResize();
   window.addEventListener("scroll", scrollState);
@@ -7225,6 +7235,7 @@ onUnmounted(() => {
   window.removeEventListener("resize", scrollState);
   window.addEventListener("resize", prevSlide);
 });
+
 </script>
  
 <style lang="scss" scoped>
@@ -7236,8 +7247,7 @@ onUnmounted(() => {
     margin-bottom: 0;
 
     .characteristics-header__wrapper {
-      max-width: 1410px;
-      width: 97.5%;
+      width: v-bind(scrollWidth);
 
       position: fixed;
       top: 0px;
@@ -7305,18 +7315,13 @@ onUnmounted(() => {
   }
 
   &__items-wrapper {
-    position: relative;
-    left: v-bind(positionLeftVar);
-
     @include flex-container(row, left, center);
 
-    transition: left 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    transform:translateX(v-bind(positionLeftVar)) ;
   }
 
   &__item {
-    --left: 0;
-    left: var(--left);
-
     border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
     border-right: 1px solid #e9e9e9;

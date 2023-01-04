@@ -112,7 +112,7 @@
 </template>
 
 <script setup>
-import ButtonSearch from "./ButtonSearch.vue";
+import ButtonSearch from "~~/components/header/UI/ButtonSearch.vue";
 import { useHeaderlStore } from "~~/store/headerStore";
 
 defineProps(["value"]);

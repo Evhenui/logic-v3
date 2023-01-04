@@ -71,10 +71,10 @@
 <script setup>
 import { useHeaderlStore } from "~~/store/headerStore";
 
-const additional = ref(null);
-
 const header = useHeaderlStore();
 const menuItems = header.getMenuItems;
+
+const additional = ref(null);
 </script>
 
 <style lang="scss" scoped>

@@ -53,10 +53,10 @@
 </template>
 
 <script setup>
-import Navigation from "./Navigation.vue";
-import Rating from "./Rating.vue";
+import Navigation from "~~/components/comparison/UI/product/Navigation.vue";
+import Rating from "~~/components/comparison/UI/product/Rating.vue";
 import ButtonOrange from "~~/components/comparison/UI/ButtonOrange.vue";
-import Availability from "./Availability.vue";
+import Availability from "~~/components/comparison/UI/product/Availability.vue";
 
 const props = defineProps({
   scrollState: { type: Boolean, required: false, default: false },

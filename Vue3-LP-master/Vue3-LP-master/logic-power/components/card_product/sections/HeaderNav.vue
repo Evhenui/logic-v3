@@ -17,8 +17,8 @@
 </template>
 
 <script setup>
-import HeaderButtons from "./HeaderButtons.vue";
-import Suggestions from "../UI/Suggestions.vue";
+import HeaderButtons from "~~/components/card_product/sections/HeaderButtons.vue";
+import Suggestions from "~~/components/card_product/UI/Suggestions.vue";
 
 defineProps({
     inactive: { type: Boolean, required: false},

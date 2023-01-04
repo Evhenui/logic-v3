@@ -25,13 +25,13 @@
 
 <script setup>
 import { useHeaderlStore } from "~~/store/headerStore";
-import ButtonBurger from "../UI/ButtonBurger.vue";
-import ButtonCatalog from "../UI/ButtonCatalog.vue";
-import Logo from "../UI/Logo.vue";
-import SearchProduct from "../UI/SearchProduct.vue";
-import ChangeLanguage from "../UI/ChangeLanguage.vue";
-import NavigationMenu from "./NavigationMenu.vue";
-import ModalCatalog from "./ModalCatalog.vue";
+import ButtonBurger from "~~/components/header/UI/ButtonBurger.vue";
+import ButtonCatalog from "~~/components/header/UI/ButtonCatalog.vue";
+import Logo from "~~/components/header/UI/Logo.vue";
+import SearchProduct from "~~/components/header/UI/SearchProduct.vue";
+import ChangeLanguage from "~~/components/header/UI/ChangeLanguage.vue";
+import NavigationMenu from "~~/components/header/sections/NavigationMenu.vue";
+import ModalCatalog from "~~/components/header/sections/ModalCatalog.vue";
 
 const header = useHeaderlStore();
 const activeCatalog = header.activeCatalog;

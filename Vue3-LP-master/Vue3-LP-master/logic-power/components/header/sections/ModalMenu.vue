@@ -892,9 +892,9 @@
 </template>
 
 <script setup>
-import ButtonLanguage from "../UI/ButtonLanguage.vue";
-import ModalMenuItem from "../UI/ModalMenuItem.vue";
-import CatalogItem from "../UI/CatalogItem.vue";
+import ButtonLanguage from "~~/components/header/UI/ButtonLanguage.vue";
+import ModalMenuItem from "~~/components/header/UI/ModalMenuItem.vue";
+import CatalogItem from "~~/components/header/UI/CatalogItem.vue";
 import { useHeaderlStore } from "~~/store/headerStore";
 
 const dropdownAboutCompany = ref(false);

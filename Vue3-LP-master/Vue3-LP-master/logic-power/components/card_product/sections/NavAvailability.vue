@@ -19,9 +19,9 @@
 </template>
 
 <script setup>
-import Credit from "../UI/Credit.vue";
-import Delivery from "../UI/Delivery.vue";
-import ButtonStatus from "../UI/ButtonStatus.vue";
+import Credit from "~~/components/card_product/UI/Credit.vue";
+import Delivery from "~~/components/card_product/UI/Delivery.vue";
+import ButtonStatus from "~~/components/card_product/UI/ButtonStatus.vue";
 
 defineProps({
   status: { type: Object, status: true },
