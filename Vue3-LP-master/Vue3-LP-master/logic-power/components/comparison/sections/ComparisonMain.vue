@@ -1,20 +1,8 @@
 <template>
   <section>
-    <HeaderNavigation 
-      :navValues="navValues"
-    />
-    <CharacteristicsHeader
-      @sliderPosition="sliderPosition"
-      :mobileSize="mobileSize"
-      :sliderCounter="sliderCounter"
-      :sliderTranslate="sliderTranslate"
-    />
-<!--     <CharacteristicsMain
-      @sliderPosition="sliderPosition"
-      :mobileSize="mobileSize"
-      :sliderCounter="slider.counter"
-      :sliderTranslate="slider.translate"
-    /> -->
+    <HeaderNavigation :navValues="navValues"/>
+    <CharacteristicsHeader :mobileSize="mobileSize"/>
+    <CharacteristicsMain :mobileSize="mobileSize"/>
   </section>
 </template>
   
@@ -24,8 +12,6 @@ import CharacteristicsHeader from "~~/components/comparison/sections/Characteris
 import CharacteristicsMain from "~~/components/comparison/sections/CharacteristicsMain.vue";
 
 const mobileSize = ref(1024);
-const sliderCounter = ref(0);
-const sliderTranslate = ref(0);
 
 const navValues = {
   categoryItems: [
@@ -43,12 +29,6 @@ const navValues = {
     "Комплект питания"
   ]
 }
-
-function sliderPosition(translate, counter) {
-  sliderTranslate.value = translate;
-  sliderCounter.value = counter;
-}
-
 </script>
   
 

@@ -10,7 +10,6 @@
           v-for="(item, index) in characteristics"
           :key="index"
           class="characteristic__category-item"
-          :style="{ '--height': sectionHeight}"
         >
           <p class="characteristic__item-name">{{ item.title }}</p>
         </div>
@@ -22,6 +21,7 @@
           ref="sliderWidth"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
         >
           <template v-for="element in characteristics">
             <div class="characteristic__item-title">
@@ -30,10 +30,6 @@
             <section
               class="characteristic__items"
               ref="sliderDescription"
-              :style="[
-                { '--left': -slider.positionLeft + 'px' },
-                { '--height': sectionHeight }
-              ]"
             >
               <div
                 v-for="(option, i) in element.option"
@@ -51,19 +47,28 @@
 </template>
 
 <script setup>
-/* defineProps({
-  mobileSize: { type: Number, required: false },
-  sliderCounter: { type: Number, required: false },
-  sliderTranslate: { type: Number, required: false }
-});
+import { useSliderCardStore } from "~~/store/sliderCard";
 
-const emits = defineEmits(["sliderPosition"]);
+const sliderStore = useSliderCardStore();
+const sliderValues = sliderStore.getSliderComparison;
+const changeCounter = sliderStore.changeCounterComparison;
+const changePosition = sliderStore.changePosition;
+
+const props = defineProps({
+  mobileSize: { type: Number, required: false },
+});
 
 const menuCategory = ref(null);
 const sliderDescription = ref(null);
 const slideCategory = ref(null);
 const sliderWindow = ref(null);
 const sliderWidth = ref(null);
+
+const sliderDistance = ref(0);
+const sliderPositionLeft = ref(0);
+const positionLeftVar = ref(0);
+const startPosition = ref(0);
+const sliderMoving = ref(false);
 
 const characteristics = [
     {
@@ -381,80 +386,87 @@ const sliderMobile = {
 
 const sectionHeight = ref('auto');
 
-function nextSlide() {
-  const sliderWidth = sliderWidth.value.scrollWidth;
-  const sliderWindow = sliderWindow.value.offsetWidth;
-  const slidesLength = characteristics[0].option.length;
-  const slideWidth = sliderWidth / characteristics[0].option.length;
-  const maxStep = Math.round(slidesLength - sliderWindow / slideWidth);
-  slider.distance = sliderWidth - sliderWindow - (slider.positionLeft + slideWidth);
+ function nextSlide() {
+  const width = sliderWidth.value.scrollWidth;
+  const window = sliderWindow.value.offsetWidth;
+  const length = characteristics[0].option.length;
+  const slideWidth = width / characteristics[0].option.length;
+  const maxStep = Math.round(length - window / slideWidth);
+  sliderDistance.value = width - window - (sliderValues.postionSlider + slideWidth);
 
-  if (slider.distance >= 0 && slider.counter < maxStep - 1) {
-    slider.counter++;
-    slider.positionLeft = slideWidth * slider.counter;
+  if (sliderDistance.value >= 0 && sliderValues.counter < maxStep - 1) {
+    changeCounter("add");
+    changePosition(slideWidth * sliderValues.counter)
   } else {
-    slider.positionLeft = sliderWidth - sliderWindow;
-    slider.counter = maxStep;
-  }
-
-  emits("sliderPosition", slider.positionLeft, slider.counter);
+    changePosition(width - window);
+    changeCounter(maxStep);
+  } 
 }
 
 function prevSlide() {
-    const sliderWidth = sliderWidth.value.scrollWidth;
-    const sliderWindow = sliderWindow.value.offsetWidth;
-    const slidesLength = characteristics[0].option.length;
-    const slideWidth = sliderWidth / characteristics[0].option.length;
-    const maxStep = Math.round(slidesLength - sliderWindow / slideWidth);
-    const startingPosition = 0;
+  const width = sliderWidth.value.scrollWidth;
+  const window = sliderWindow.value.offsetWidth;
+  const length = characteristics[0].option.length;
+  const slideWidth = width / characteristics[0].option.length;
+  const maxStep = Math.round(length - window / slideWidth);
+  const startingPosition = 0;
+  sliderDistance.value = width - window - (sliderValues.postionSlider - slideWidth);
 
-    slider.distance = sliderWidth - sliderWindow - (slider.positionLeft - slideWidth);
-
-    if (slider.distance <= sliderWidth - sliderWindow) {
-      slider.counter--;
-      slider.positionLeft = slideWidth * slider.counter;
-    } else {
-      slider.positionLeft = startingPosition;
-      slider.distance = sliderWidth - sliderWindow;
-    }
-
-    emits("sliderPosition", slider.positionLeft, slider.counter);
+  if (sliderDistance.value <= width - window) {
+    changeCounter("remove");
+    changePosition(slideWidth * sliderValues.counter);
+  } else {
+    changePosition(startingPosition);
+    sliderDistance.value = width - window;
+  }
 }
 
 function handleTouchStart(event) {
+  sliderMoving.value = true;
   sliderMobile.positionX = event.touches[0].clientX;
+  startPosition.value = event.touches[0].clientX;
 }
 
 function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
   const diff = positionMove - sliderMobile.positionX;
+  const fingerSpace = 30;
 
-  if(!sliderMobile.positionX) return false;
+  if (startPosition.value - positionMove < fingerSpace &&
+      startPosition.value - positionMove > -fingerSpace) {
+    return false;
+  } else {
+    if(!sliderMobile.positionX) return false;
 
-  sliderMobile.diff = diff;
-  sliderMobile.diff > 0 ? prevSlide() : nextSlide();
+    sliderMobile.diff = diff;
+    sliderMobile.diff > 0 ? prevSlide() : nextSlide();
 
-  sliderMobile.positionX = null;
+    sliderMobile.positionX = null;
+  }
+
+  
+}
+
+function handleTouchEnd() {
+  sliderMoving.value = false;
 }
 
 function resizeCharacteristics() {
   const slideCategory = sliderDescription.value;
-  const menuCategory = menuCategory.value;
+  const menu = menuCategory.value;
 
-  if(window.innerWidth > mobileSize) {
-    menuCategory.forEach((element, index) => {
-
+  if(window.innerWidth > props.mobileSize) {
+    menu.forEach((element, index) => {
       element.clientHeight > slideCategory[index].clientHeight?
       sectionHeight.value = `${element.clientHeight}px`:
       sectionHeight.value = `${slideCategory[index].clientHeight}px`;
-
     })
   } else sectionHeight.value = 'auto';
 }
 
-watch(sliderCounter, (current) => slider.counter = current);
-
-watch(sliderTranslate, (current) => slider.positionLeft = current);
+watch(sliderValues, (current) => {
+  positionLeftVar.value = `-${sliderValues.postionSlider}px`;
+});
 
 onMounted(() => {
   resizeCharacteristics();
@@ -464,7 +476,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resizeCharacteristics);
 })
- */
 </script>
  
 <style lang="scss" scoped>
@@ -509,8 +520,7 @@ onUnmounted(() => {
   }
 
   &__category-item {
-    --height: auto;
-    height: var(--height);
+    height: v-bind(sectionHeight);
 
     @include flex-container(column, center);
 
@@ -572,12 +582,10 @@ onUnmounted(() => {
   }
 
   &__items {
-    --height: auto;
-    height: var(--height);
+    height: v-bind(sectionHeight);
 
     position: relative;
-    --left: 0;
-    left: var(--left);
+    left: v-bind(positionLeftVar);
 
     @include flex-container(row, left);
 

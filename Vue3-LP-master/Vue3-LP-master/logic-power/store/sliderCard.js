@@ -14,6 +14,10 @@ export const useSliderCardStore = defineStore({
         },
         sliderModal: {
           activeModal: false
+        },
+        sliderComparison: {
+          counter: 0,
+          postionSlider: 0,
         }
       };
     },
@@ -50,6 +54,20 @@ export const useSliderCardStore = defineStore({
       },
       activeSliderModal() {
         this.sliderModal.activeModal = !this.sliderModal.activeModal;
+      },
+      changeCounterComparison(operand) {
+        if(operand === 'remove') {
+          this.sliderComparison.counter--;
+        } else if (operand === 'add') {
+          this.sliderComparison.counter++;
+        } else if(operand === 'null') {
+          this.sliderComparison.counter = 0;
+        } else {
+          this.sliderComparison.counter = operand;
+        }
+      },
+      changePosition(value) {
+        this.sliderComparison.postionSlider = value;
       }
     },
     getters: {
@@ -57,6 +75,7 @@ export const useSliderCardStore = defineStore({
       getLength: (state) => state.slider,
       getSliderNewProduct: (state) => state.sliderNewProduct,
       getSliderModal: (state) => state.sliderModal,
+      getSliderComparison: (state) => state.sliderComparison,
     },
   });
   
