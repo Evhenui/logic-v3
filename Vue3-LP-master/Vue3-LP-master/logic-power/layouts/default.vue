@@ -16,6 +16,7 @@
     </header>
 
     <div>
+      <BreadCrumbs :crumbsItem="crambs" class="crumbs"/>
       <slot />
     </div>
   </div>
@@ -23,10 +24,11 @@
 
 <script setup>
 import { useLanguageFilterStore } from '~~/store/languageFilterStore';
+import BreadCrumbs from '~~/components/common/sections/BreadCrumbs.vue';
 const lang = useLanguageFilterStore();
 
 const languageList = lang.getFiltersList;
-
+const crambs = ['Главная', 'Продукция', 'Акция'];
 const toggleLanguage = (item) => {
   lang.setLanguage(item);
 };

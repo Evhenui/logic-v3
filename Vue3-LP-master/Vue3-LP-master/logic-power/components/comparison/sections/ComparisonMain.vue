@@ -34,7 +34,6 @@ const navValues = {
 function getWidthCharacteristics(width) {
   characteristicsWidth.value = width;
 }
-
 </script>
   
 

@@ -3,7 +3,7 @@
     class="navigation"
     :class="{active: state}"
   >
-    <div
+<!--     <div
       class="navigation__pin"
       :class="{ active: activePin }"
       @click="activePin = !activePin"
@@ -25,7 +25,7 @@
           stroke-linejoin="round"
         />
       </svg>
-    </div>
+    </div> -->
     <div
       class="navigation__like"
       :class="{ active: activeLike }"

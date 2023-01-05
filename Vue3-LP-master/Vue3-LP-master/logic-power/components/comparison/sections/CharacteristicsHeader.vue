@@ -17,7 +17,6 @@
       <section class="characteristics-header__items" ref="sliderWindow">
         <ButtonArrow
           class="characteristics-header__button left"
-          moveSlide="left"
           :isDisabled="sliderValues.counter === 0 ? true : false"
           @click="prevSlide"
         />
@@ -39,7 +38,6 @@
             :scrollStateMobile="isActiveScrollMobile"
             :mobileSize="mobileSize"
             :image="item.images[0].url"
-            @getCardHeight="getCardHeight"
             class="characteristics-header__item"
           >
             <template v-slot:nameProduct>{{ item.name.ru }}</template>
@@ -53,7 +51,6 @@
           :direction="buttonRight"
           :isDisabled="sliderButtonState"
           @click="nextSlide"
-          moveSlide="right"
         />
       </section>
     </div>
@@ -89,14 +86,10 @@ const isActiveScrollMobile = ref(false);
 const cardSize = ref("");
 
 const sliderDistance = ref(0);
-const sliderPositionLeft = ref(0);
-const sliderCounter = ref(0);
 const sliderButtonState = ref(false);
-const positionLeftVar = ref(0);
+const translateX = ref(0);
 
-const sliderInitialPosition = ref(0);
 const sliderMoving = ref(false);
-const sliderTransform = ref(0);
 const sliderMobilePositionLeft = ref(null);
 const sliderDiff = ref(0);
 const startPosition = ref(0);
@@ -7096,10 +7089,6 @@ const cartItems = [
   },
 ];
 
-function getCardHeight(size) {
-  cardSize.value = `${size}px`;
-}
-
 function resizeElements() {
   const observer = new ResizeObserver((entries) => {
     cardSize.value = entries[0].borderBoxSize[0].blockSize + "px";
@@ -7144,11 +7133,12 @@ function nextSlide() {
   const length = slides.value.length;
   const slideWidth = width / length;
   const maxStep = Math.round(length - window / slideWidth);
-  sliderDistance.value = width - window - (sliderValues.postionSlider + slideWidth);
+  sliderDistance.value =
+    width - window - (sliderValues.postionSlider + slideWidth);
 
   if (sliderDistance.value >= 0 && sliderValues.counter < maxStep - 1) {
     changeCounter("add");
-    changePosition(slideWidth * sliderValues.counter)
+    changePosition(slideWidth * sliderValues.counter);
   } else {
     changePosition(width - window);
     changeCounter(maxStep);
@@ -7165,7 +7155,8 @@ function prevSlide() {
   const maxStep = Math.round(length - window / slideWidth);
   const startingPosition = 0;
 
-  sliderDistance.value = width - window - (sliderValues.postionSlider - slideWidth);
+  sliderDistance.value =
+    width - window - (sliderValues.postionSlider - slideWidth);
 
   if (sliderDistance.value <= width - window) {
     changeCounter("remove");
@@ -7189,8 +7180,10 @@ function handleTouchMove(event) {
   const diff = positionMove - sliderMobilePositionLeft.value;
   const fingerSpace = 30;
 
-  if (startPosition.value - positionMove < fingerSpace &&
-      startPosition.value - positionMove > -fingerSpace) {
+  if (
+    startPosition.value - positionMove < fingerSpace &&
+    startPosition.value - positionMove > -fingerSpace
+  ) {
     return false;
   } else {
     if (sliderMoving.value) {
@@ -7214,13 +7207,13 @@ function onResize() {
 }
 
 watch(sliderValues, (current) => {
-  positionLeftVar.value = `-${current.postionSlider}px`;
+  translateX.value = `-${current.postionSlider}px`;
 });
 
 watch(props, (current) => {
-  if(window.innerWidth > props.mobileSize) {
+  if (window.innerWidth > props.mobileSize) {
     scrollWidth.value = `${current.characteristicsWidth}px`;
-  } 
+  }
 });
 
 onMounted(() => {
@@ -7233,9 +7226,8 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", scrollState);
   window.removeEventListener("resize", scrollState);
-  window.addEventListener("resize", prevSlide);
+  window.removeEventListener("resize", prevSlide);
 });
-
 </script>
  
 <style lang="scss" scoped>
@@ -7318,7 +7310,7 @@ onUnmounted(() => {
     @include flex-container(row, left, center);
 
     transition: transform 0.2s ease-in-out;
-    transform:translateX(v-bind(positionLeftVar)) ;
+    transform: translateX(v-bind(translateX));
   }
 
   &__item {

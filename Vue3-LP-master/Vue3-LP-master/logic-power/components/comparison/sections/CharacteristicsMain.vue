@@ -58,9 +58,7 @@ const changeCounter = sliderStore.changeCounterComparison;
 const changePosition = sliderStore.changePosition;
 
 const props = defineProps({
-  mobileSize: { type: Number, required: false },
-  counterValue: { type: Number, required: false },
-  positionValue: { type: Number, required: false },
+  mobileSize: { type: Number, required: false }
 });
 
 const emits = defineEmits(["getMainWidth"]);
@@ -73,10 +71,14 @@ const sliderWidth = ref(null);
 const characteristic = ref(null);
 
 const sliderDistance = ref(0);
-const sliderPositionLeft = ref(0);
-const positionLeftVar = ref(0);
+const translateX = ref(0);
 const startPosition = ref(0);
 const sliderMoving = ref(false);
+const sliderDiff = ref(0);
+
+const sliderMobilePositionLeft = ref(0);
+
+const sectionHeight = ref('auto');
 
 const characteristics = [
     {
@@ -381,19 +383,6 @@ const characteristics = [
     },
 ];
 
-const slider = {
-  distance: 0,
-  positionLeft: 0,
-  counter: 0,
-};
-
-const sliderMobile = {
-  positionX: null,
-  diff: 0
-}
-
-const sectionHeight = ref('auto');
-
  function nextSlide() {
   const width = sliderWidth.value.scrollWidth;
   const window = sliderWindow.value.offsetWidth;
@@ -431,28 +420,26 @@ function prevSlide() {
 
 function handleTouchStart(event) {
   sliderMoving.value = true;
-  sliderMobile.positionX = event.touches[0].clientX;
+  sliderMobilePositionLeft.value = event.touches[0].clientX;
   startPosition.value = event.touches[0].clientX;
 }
 
 function handleTouchMove(event) {
   const positionMove = event.touches[0].clientX;
-  const diff = positionMove - sliderMobile.positionX;
+  const diff = positionMove - sliderMobilePositionLeft.value;
   const fingerSpace = 30;
 
   if (startPosition.value - positionMove < fingerSpace &&
-      startPosition.value - positionMove > -fingerSpace) {
+      startPosition.value - positionMove > - fingerSpace) {
     return false;
   } else {
-    if(!sliderMobile.positionX) return false;
+    if(!sliderMobilePositionLeft.value) return false;
 
-    sliderMobile.diff = diff;
-    sliderMobile.diff > 0 ? prevSlide() : nextSlide();
+    sliderDiff.value = diff;
+    sliderDiff.value > 0 ? prevSlide() : nextSlide();
 
-    sliderMobile.positionX = null;
+    sliderMobilePositionLeft.value = null;
   }
-
-  
 }
 
 function handleTouchEnd() {
@@ -477,7 +464,7 @@ function getMainWidth() {
 }
 
 watch(sliderValues, (current) => {
-  positionLeftVar.value = `-${current.postionSlider}px`;
+  translateX.value = `-${current.postionSlider}px`;
 });
 
 onMounted(() => {
@@ -486,10 +473,13 @@ onMounted(() => {
   
   getMainWidth()
   window.addEventListener("resize", getMainWidth);
+  window.addEventListener("scroll", getMainWidth);
 })
 
 onUnmounted(() => {
   window.removeEventListener("resize", resizeCharacteristics);
+  window.removeEventListener("resize", getMainWidth);
+  window.removeEventListener("scroll", getMainWidth);
 })
 </script>
  
@@ -604,7 +594,7 @@ onUnmounted(() => {
     background-color: white;
 
     transition: transform 0.2s ease-in-out;
-    transform: translateX(v-bind(positionLeftVar));
+    transform: translateX(v-bind(translateX));
 
     &:nth-of-type(2n) {
       background-color: #e9e9e9;
